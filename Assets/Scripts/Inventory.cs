@@ -22,10 +22,17 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            SelectSlot();
+            if (currentItem != null)
+            {
+                Debug.Log(currentItem.item.itemName);
+                currentItem.UseItem();
+            }
         }
+        else if (Input.anyKeyDown)SelectSlot();
+
+        //아이템 소모 테스트
         
     }
 
@@ -78,8 +85,10 @@ public class Inventory : MonoBehaviour
         {
             DeselectSlot();
         }
+        Debug.Log(currentSlot);
         currentSlot = GetCurrentSlot();
-        if(currentSlot != null)
+        Debug.Log(currentSlot);
+        if (currentSlot != null)
         {
             ChangeSlotImage();
         }
@@ -87,7 +96,10 @@ public class Inventory : MonoBehaviour
 
     SlotItem GetCurrentItem()
     {
-        if (currentSlot == null) return null;
+        if (currentSlot == null)
+        {
+            return null;
+        }
         currentItem = currentSlot.GetComponentInChildren<SlotItem>();
         if(currentItem != null)
         {
