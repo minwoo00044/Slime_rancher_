@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerFire : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class PlayerFire : MonoBehaviour
     }
     private void Update()
     {
- 
+
         if (Input.GetMouseButtonDown(1))
         {
             BulletCheck(bulletState);
@@ -120,57 +121,45 @@ public class PlayerFire : MonoBehaviour
             if (Vector3.Distance(objectToPull.transform.position, targetPosition) < addDistance && objectToPull.activeInHierarchy)
             {
                 isPulling = false;
-                
+
 
                 if (bulletSlot.ContainsKey(bulletState))
                 {
                     BulletState currentState = bulletState;
+
                     List<GameObject> currentPool = bulletSlot[currentState];
-                    int count = 1;
-                    bool isAddble = true;
-
-                    //임시
+                    List<GameObject> outPool;
+                    //int count = 1;
+                    //bool isAddble = true;
                     int targetID = objectToPull.GetComponent<ID>().objectID;
-                    foreach (var item in bulletSlot.Values) 
-                    {
-                        if (item.Count == 0)
-                            continue;
-                        int originID = item[0].GetComponent<ID>().objectID;
-                        if (targetID == originID && objectToPull.activeInHierarchy)
-                        {
-                            isAddble = false;
-                            AddPool(item, objectToPull);
-                            break;
-                        }
-                    }
-                    while (currentPool.Count != 0 || !isAddble)
-                    {
-                        if (count == bulletSlot.Count)
-                        {
-                            isAddble = false;
-                            break;
-                        }   
 
-                        // Change the currentState if the current pool is empty
-                        if (currentState == BulletState.Slot03)
-                        {
-                            currentState = BulletState.Slot01;
-                        }
-                        else
-                        {
-                            int currentValueAsInt = (int)currentState;
-                            int nextValueAsInt = currentValueAsInt + 1;
-                            currentState = (BulletState)nextValueAsInt;
-                        }
-                        
-                        currentPool = bulletSlot[currentState];
-                        count++;
+                    
+
+                    //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
+                    if(isThereSameSlot(targetID, out outPool))
+                    {
+                        AddPool(outPool, objectToPull);
                     }
-                    if (isAddble)
+                    //지금 슬롯이 비었다면 저장
+                    else if (currentPool.Count == 0)
                     {
                         AddPool(currentPool, objectToPull);
                     }
-                    isPulling = true;
+                    //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
+                    else
+                    {
+                        foreach (var item in bulletSlot.Values)
+                        {
+                            if (item.Count == 0)
+                            {
+                                AddPool(item, objectToPull);
+                                break;
+                            }
+
+                        }
+                    }
+
+
                 }
 
             }
@@ -181,6 +170,23 @@ public class PlayerFire : MonoBehaviour
     {
         targetPool.Add(targetObject);
         targetObject.SetActive(false);
+    }
+
+    private bool isThereSameSlot(int targetID, out List<GameObject>sameSlot)
+    {
+        foreach (var item in bulletSlot.Values)
+        {
+            if (item.Count == 0)
+                continue;
+            int originID = item[0].GetComponent<ID>().objectID;
+            if (targetID == originID && objectToPull.activeInHierarchy)
+            {
+                sameSlot = item;
+                return true;
+            }
+        }
+        sameSlot = null;
+        return false;
     }
 
 }

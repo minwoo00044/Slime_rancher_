@@ -629,7 +629,7 @@ MonoBehaviour:
   pullEff: {fileID: 1795799918}
   bulletForce: 10
   addDistance: 0.5
-  bulletState: 1
+  bulletState: 2
 --- !u!1 &932060449
 GameObject:
   m_ObjectHideFlags: 0
