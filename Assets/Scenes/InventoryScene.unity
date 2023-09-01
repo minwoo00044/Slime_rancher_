@@ -373,6 +373,7 @@ MonoBehaviour:
   - {fileID: 478477610}
   - {fileID: 1066072028}
   currentSlot: {fileID: 0}
+  currentItem: {fileID: 0}
   itemTest:
   - {fileID: 1279919773}
   - {fileID: 141756821}

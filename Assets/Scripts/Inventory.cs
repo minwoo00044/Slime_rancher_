@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour
     public Image[] inventorySlots;
     [SerializeField]
     Image currentSlot;
+    [SerializeField]
     SlotItem currentItem;
 
     public Item[] itemTest = new Item[4];
@@ -24,16 +25,15 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentItem != null)
+            if( currentItem.item != null)
             {
-                Debug.Log(currentItem.item.itemName);
                 currentItem.UseItem();
             }
         }
-        else if (Input.anyKeyDown)SelectSlot();
-
-        //아이템 소모 테스트
-        
+        else if (Input.anyKeyDown)
+        {
+            SelectSlot();
+        }
     }
 
     KeyCode GetLastPressedKeyCode()
@@ -70,7 +70,6 @@ public class Inventory : MonoBehaviour
     {
         currentSlot.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
         
-        
         currentSlot = null;
     }
 
@@ -85,9 +84,8 @@ public class Inventory : MonoBehaviour
         {
             DeselectSlot();
         }
-        Debug.Log(currentSlot);
         currentSlot = GetCurrentSlot();
-        Debug.Log(currentSlot);
+        currentItem = GetCurrentItem();
         if (currentSlot != null)
         {
             ChangeSlotImage();
