@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
 
     public Item[] itemTest = new Item[4];
 
+    int currentIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (MenuManager.instance.isPaused) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if( currentItem.item != null)
@@ -33,6 +35,11 @@ public class Inventory : MonoBehaviour
         else if (Input.anyKeyDown)
         {
             SelectSlot();
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        {
+            Debug.Log("Mouse Wheel Scrolled");
         }
     }
 
@@ -56,10 +63,13 @@ public class Inventory : MonoBehaviour
         int index = (int)key - (int)KeyCode.Alpha1;
         if (index >= 0 && index < inventorySlots.Length)
         {
+            currentIndex = index;
             return inventorySlots[index];
         }
         return null;
     }
+
+
 
     void ChangeSlotImage()
     {
