@@ -13,12 +13,20 @@ public class PlayerMove : MonoBehaviour
     float gravity = -20f;
     float yVelocity = 0;
     public bool isJumping = false;
-    public int hp = 10;
-    int maxHp = 10;
-    public float stamina = 100;
-    float maxStamina = 100;
-    public GameObject hitImage;
-    float currentTime;
+    [SerializeField]
+    private int _hp = 10;
+    public int hp
+    {
+        get { return _hp; }
+        set 
+        { 
+            _hp = value; 
+        }
+    }
+    private int maxHp = 10;
+    [SerializeField]
+    private float stamina = 100;
+    private float maxStamina = 100;
 
     //필요 속성: 모델링 오브젝트의 애니메이터
     //Animator animator;
@@ -26,17 +34,14 @@ public class PlayerMove : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         //animator = gameObject.GetComponentInChildren<Animator>();
-        maxHp = hp;
+        maxHp = _hp;
         maxStamina= stamina;
         runSpeed = speed * runMultiple;
     }
     // Update is called once per frame
     void Update()
     {
-
-        //입력
-        //if (GameManager.Instance.gameState != GameManager.GameState.Start)
-        //    return;
+        print(maxHp);
         if(Input.GetKey(KeyCode.LeftShift))
         {
             speed = runSpeed;

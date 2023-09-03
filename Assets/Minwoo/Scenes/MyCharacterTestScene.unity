@@ -615,11 +615,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc872e6cf50c1034ebcc429f0998d721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimePool0: []
-  slimePool1: []
-  slimePool2: []
-  slimePool3: []
-  slime: {fileID: 2237954880392861988, guid: c07d8d16511ea4a4a8b35a0ba0e4bc76, type: 3}
+  itemPool0: []
+  itemPool1: []
+  itemPool2: []
+  itemPool3: []
   maxDistance: 30
   pullSpeed: 5
   pullableObjectsLayer:
@@ -2220,6 +2219,10 @@ PrefabInstance:
     - target: {fileID: 141367188042723790, guid: 161f9e4b4a5d6d54980a784d6c4cded0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483474523946210341, guid: 161f9e4b4a5d6d54980a784d6c4cded0, type: 3}
+      propertyPath: _hp
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1483474523946210341, guid: 161f9e4b4a5d6d54980a784d6c4cded0, type: 3}
       propertyPath: speed

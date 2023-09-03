@@ -6,15 +6,19 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerFire : MonoBehaviour
 {
     [HideInInspector]
-    public List<GameObject> slimePool0 = new List<GameObject>();
+    public List<GameObject> itemPool0 = new List<GameObject>();
     [HideInInspector]
-    public List<GameObject> slimePool1 = new List<GameObject>();
+    public List<GameObject> itemPool1 = new List<GameObject>();
     [HideInInspector]
-    public List<GameObject> slimePool2 = new List<GameObject>();
+    public List<GameObject> itemPool2 = new List<GameObject>();
     [HideInInspector]
-    public List<GameObject> slimePool3 = new List<GameObject>();
+    public List<GameObject> itemPool3 = new List<GameObject>();
 
-    public GameObject slime;
+    //public List<GameObject> slimePool0 = new List<GameObject>();
+    //public List<GameObject> slimePool1 = new List<GameObject>();
+    //public List<GameObject> slimePool2 = new List<GameObject>();
+    //public List<GameObject> slimePool3 = new List<GameObject>();
+
     public float maxDistance = 5f;
     public float pullSpeed = 5f;
     public LayerMask pullableObjectsLayer;
@@ -28,22 +32,21 @@ public class PlayerFire : MonoBehaviour
 
     public enum BulletState
     {
-        None,
         Slot0,
         Slot01,
         Slot02,
         Slot03
     }
-    public BulletState bulletState = BulletState.None;
+    public BulletState bulletState = BulletState.Slot0;
 
     public Dictionary<BulletState, List<GameObject>> bulletSlot = new Dictionary<BulletState, List<GameObject>>();
 
     private void Awake()
     {
-        bulletSlot.Add(BulletState.Slot0, slimePool0);
-        bulletSlot.Add(BulletState.Slot01, slimePool1);
-        bulletSlot.Add(BulletState.Slot02, slimePool2);
-        bulletSlot.Add(BulletState.Slot03, slimePool3);
+        bulletSlot.Add(BulletState.Slot0, itemPool0);
+        bulletSlot.Add(BulletState.Slot01, itemPool1);
+        bulletSlot.Add(BulletState.Slot02, itemPool2);
+        bulletSlot.Add(BulletState.Slot03, itemPool3);
     }
     private void Update()
     {
@@ -61,29 +64,18 @@ public class PlayerFire : MonoBehaviour
         {
             pullEff.SetActive(false);
         }
-        //임시
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            bulletState = BulletState.Slot0;
-            GameObject instance = Instantiate(slime);
-            instance.SetActive(false);
-            slimePool0.Add(instance);
-        }
     }
     private void BulletCheck(BulletState currentState)
     {
-        switch (currentState)
+        if(bulletSlot.ContainsKey(currentState)) 
         {
-            case BulletState.None:
-                print("없다");
-                break;
-            case BulletState.Slot0:
-                if (slimePool0.Count > 0)
-                {
-                    Fire(slimePool0[slimePool0.Count - 1]);
-                    slimePool0.Remove(slimePool0[slimePool0.Count - 1]);
-                }
-                break;
+            List<GameObject> currenntPool = bulletSlot[currentState];
+
+            if(currenntPool.Count > 0)
+            {
+                Fire(currenntPool[currenntPool.Count - 1]);
+                currenntPool.Remove(currenntPool[currenntPool.Count - 1]);
+            }
         }
     }
 
@@ -129,8 +121,6 @@ public class PlayerFire : MonoBehaviour
 
                     List<GameObject> currentPool = bulletSlot[currentState];
                     List<GameObject> outPool;
-                    //int count = 1;
-                    //bool isAddble = true;
                     int targetID = objectToPull.GetComponent<ID>().objectID;
 
                     
