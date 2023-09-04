@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Minwoo/Scenes/MyCharacterTestScene.unity.meta
 guid: 855be7d162de84d49a3e7d164315d9ad
+========
+guid: 5a8edc010b2ec5546a1de98cbda98cea
+folderAsset: yes
+>>>>>>>> Art:Assets/SkyBox.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

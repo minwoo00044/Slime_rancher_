@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/InventoryScene.unity.meta
 guid: f56c2f503328c864fb1360fbeb3a466d
+========
+guid: bd54fbca1f0ff384f831270887a8afa5
+folderAsset: yes
+>>>>>>>> Art:Assets/Models.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
