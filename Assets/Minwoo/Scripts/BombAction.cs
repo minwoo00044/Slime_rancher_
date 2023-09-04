@@ -7,6 +7,7 @@ public class BombAction : MonoBehaviour
     public GameObject bombEffect;
     public float explosionRadius = 5f;
     public float power = 5;
+    public float additionalUpwardForce = 3f;
     public float staminaReduce;
     public GameObject gunPos;
 
@@ -24,12 +25,25 @@ public class BombAction : MonoBehaviour
     }
     private void Action()
     {
-        Vector3 pushDirection = gunPos.transform.up;
         Collider[] cols = Physics.OverlapSphere(gunPos.transform.position, explosionRadius, 1 << 6);
-        for (int i = 0; i < cols.Length; i++)
+
+        foreach (Collider col in cols)
         {
-            Rigidbody rigidbody = cols[i].GetComponent<Rigidbody>();
-            rigidbody.AddForce(pushDirection * power, ForceMode.Impulse);
+            Rigidbody rigidbody = col.GetComponent<Rigidbody>();
+
+            if (rigidbody != null)
+            {
+                // 물체와 폭발 중심 간의 상대 위치를 계산
+                Vector3 pushDirection = col.transform.position - gunPos.transform.position;
+
+                // 살짝 위로 튕기도록 상승 힘을 추가
+                Vector3 upwardForce = Vector3.up * additionalUpwardForce;
+
+                // 물체를 밀어내는 힘을 적용
+                rigidbody.AddForce((pushDirection.normalized * power) + upwardForce, ForceMode.Impulse);
+            }
         }
     }
+
+
 }

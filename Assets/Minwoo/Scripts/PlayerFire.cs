@@ -22,6 +22,7 @@ public class PlayerFire : MonoBehaviour
     //public List<GameObject> itemPool3 = new List<GameObject>();
 
     public float maxDistance = 5f;
+    public float radius = 2.0f;
     public float pullSpeed = 5f;
     public LayerMask pullableObjectsLayer;
     public Transform gunPos;
@@ -105,13 +106,15 @@ public class PlayerFire : MonoBehaviour
     private void PullObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Ray from the center of the camera view
+        Vector3 center = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // 화면 중심을 월드 좌표로 변환
+         // Spherecast의 반지름 설정
 
-        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, pullableObjectsLayer))
+        if (Physics.SphereCast(center, radius, ray.direction, out RaycastHit hit, maxDistance, pullableObjectsLayer))
         {
             objectToPull = hit.collider.gameObject;
-
             isPulling = true;
         }
+
 
         if (isPulling && objectToPull != null)
         {
