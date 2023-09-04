@@ -28,6 +28,7 @@ public class ItemData : ScriptableObject
             itemQuantity--;
         }
         soldQuantity++;
+        StatusUIManager.instance.gold += itemPrice;
         Debug.Log("판매성공");
     }
 

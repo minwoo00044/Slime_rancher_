@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pot
   itemImage: {fileID: 21300000, guid: a1159ed9b89dbe04ba0056251e64e58a, type: 3}
-  itemGold: 10
-  itemAmount: 40
+  itemPrice: 10
+  itemQuantity: 0
