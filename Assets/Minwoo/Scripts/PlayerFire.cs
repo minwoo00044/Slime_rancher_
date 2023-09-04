@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +15,10 @@ public class PlayerFire : MonoBehaviour
     [HideInInspector]
     public List<GameObject> itemPool3 = new List<GameObject>();
 
-    //public List<GameObject> slimePool0 = new List<GameObject>();
-    //public List<GameObject> slimePool1 = new List<GameObject>();
-    //public List<GameObject> slimePool2 = new List<GameObject>();
-    //public List<GameObject> slimePool3 = new List<GameObject>();
+    //public List<GameObject> itemPool0 = new List<GameObject>();
+    //public List<GameObject> itemPool1 = new List<GameObject>();
+    //public List<GameObject> itemPool2 = new List<GameObject>();
+    //public List<GameObject> itemPool3 = new List<GameObject>();
 
     public float maxDistance = 5f;
     public float pullSpeed = 5f;
@@ -73,6 +74,8 @@ public class PlayerFire : MonoBehaviour
 
             if(currenntPool.Count > 0)
             {
+                if (currenntPool[currenntPool.Count - 1 ] == null)
+                    return;
                 Fire(currenntPool[currenntPool.Count - 1]);
                 currenntPool.Remove(currenntPool[currenntPool.Count - 1]);
             }
@@ -81,7 +84,8 @@ public class PlayerFire : MonoBehaviour
 
     private void Fire(GameObject bullet)
     {
-
+        if (bullet == null)
+            return;
         Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
 
         if (bulletRigidbody != null)
@@ -90,7 +94,11 @@ public class PlayerFire : MonoBehaviour
             bullet.transform.position = gunPos.transform.position;
             bullet.transform.rotation = gunPos.transform.rotation;
             Vector3 forceDirection = transform.forward;
-            bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
+            if(bullet != null)
+            {
+                bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
+            }
+
         }
     }
 
@@ -138,14 +146,20 @@ public class PlayerFire : MonoBehaviour
                     //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
                     else
                     {
-                        foreach (var item in bulletSlot.Values)
-                        {
-                            if (item.Count == 0)
-                            {
-                                AddPool(item, objectToPull);
-                                break;
-                            }
+                        BulletState[] enumValues = (BulletState[])Enum.GetValues(typeof(BulletState));
 
+                        for (int i = 0; i < enumValues.Length; i++)
+                        {
+                            BulletState key = enumValues[i];
+                            if (bulletSlot.ContainsKey(key))
+                            {
+                                List<GameObject> item = bulletSlot[key];
+                                if (item.Count == 0)
+                                {
+                                    AddPool(item, objectToPull);
+                                    break;
+                                }
+                            }
                         }
                     }
 
