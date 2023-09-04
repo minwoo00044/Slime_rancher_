@@ -16,8 +16,8 @@ public class SlotItem : MonoBehaviour
         {
             if (item.name == newItem.name)
             {
-                item.itemAmount++;
-                itemAmountText.text = "x " + item.itemAmount;
+                item.itemQuantity++;
+                itemAmountText.text = "x " + item.itemQuantity;
                 return true;
             }
             else
@@ -28,8 +28,8 @@ public class SlotItem : MonoBehaviour
         else
         {
             item = newItem;
-            item.itemAmount++;
-            itemAmountText.text = "x " + item.itemAmount;
+            item.itemQuantity++;
+            itemAmountText.text = "x " + item.itemQuantity;
             itemImage.enabled = true;
             itemImage.sprite = item.itemImage;
             return true;
@@ -38,15 +38,15 @@ public class SlotItem : MonoBehaviour
 
     public void UseItem()
     {
-        item.itemAmount--;
-        itemAmountText.text = "x " + item.itemAmount;
-        Debug.Log(item.itemName + ": " + item.itemAmount);
+        item.itemQuantity--;
+        itemAmountText.text = "x " + item.itemQuantity;
+        Debug.Log(item.itemName + ": " + item.itemQuantity);
         useAllItems();
     }
 
     void useAllItems()
     {
-        if(item.itemAmount <= 0)
+        if(item.itemQuantity <= 0)
         {
             item = null;
             itemImage.sprite = null;
@@ -64,9 +64,9 @@ public class SlotItem : MonoBehaviour
     {
         //이하는 전부 테스트용 코드
         if (item == null) return;
-        if(currentAmount != item.itemAmount)
+        if(currentAmount != item.itemQuantity)
         {
-            currentAmount = item.itemAmount;
+            currentAmount = item.itemQuantity;
             //Debug.Log(item.itemName + ": " + item.itemAmount);
         }
     }
