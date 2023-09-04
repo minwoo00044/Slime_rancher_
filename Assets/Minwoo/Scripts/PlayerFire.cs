@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +5,19 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PlayerFire : MonoBehaviour
 {
-    //[HideInInspector]
-    //public List<GameObject> itemPool0 = new List<GameObject>();
-    //[HideInInspector]
-    //public List<GameObject> itemPool1 = new List<GameObject>();
-    //[HideInInspector]
-    //public List<GameObject> itemPool2 = new List<GameObject>();
-    //[HideInInspector]
-    //public List<GameObject> itemPool3 = new List<GameObject>();
-
+    [HideInInspector]
     public List<GameObject> itemPool0 = new List<GameObject>();
+    [HideInInspector]
     public List<GameObject> itemPool1 = new List<GameObject>();
+    [HideInInspector]
     public List<GameObject> itemPool2 = new List<GameObject>();
+    [HideInInspector]
     public List<GameObject> itemPool3 = new List<GameObject>();
+
+    //public List<GameObject> slimePool0 = new List<GameObject>();
+    //public List<GameObject> slimePool1 = new List<GameObject>();
+    //public List<GameObject> slimePool2 = new List<GameObject>();
+    //public List<GameObject> slimePool3 = new List<GameObject>();
 
     public float maxDistance = 5f;
     public float pullSpeed = 5f;
@@ -124,10 +123,10 @@ public class PlayerFire : MonoBehaviour
                     List<GameObject> outPool;
                     int targetID = objectToPull.GetComponent<ID>().objectID;
 
-
+                    
 
                     //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
-                    if (isThereSameSlot(targetID, out outPool))
+                    if(isThereSameSlot(targetID, out outPool))
                     {
                         AddPool(outPool, objectToPull);
                     }
@@ -139,32 +138,16 @@ public class PlayerFire : MonoBehaviour
                     //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
                     else
                     {
-                        BulletState[] enumValues = (BulletState[])Enum.GetValues(typeof(BulletState));
-
-                        for (int i = 0; i < enumValues.Length; i++)
+                        foreach (var item in bulletSlot.Values)
                         {
-                            BulletState key = enumValues[i];
-                            if (bulletSlot.ContainsKey(key))
+                            if (item.Count == 0)
                             {
-                                List<GameObject> item = bulletSlot[key];
-                                if (item.Count == 0)
-                                {
-                                    AddPool(item, objectToPull);
-                                    break;
-                                }
+                                AddPool(item, objectToPull);
+                                break;
                             }
+
                         }
                     }
-                    //    foreach (var item in bulletSlot.Values)
-                    //    {
-                    //        if (item.Count == 0)
-                    //        {
-                    //            AddPool(item, objectToPull);
-                    //            break;
-                    //        }
-
-                    //    }
-                    //}
 
 
                 }
