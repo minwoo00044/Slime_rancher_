@@ -1,5 +1,7 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -7,64 +9,72 @@ public class PlayerMove : MonoBehaviour
     public float speed = 10f;
     public float runMultiple;
     float runSpeed;
-    
+
     public float jumpPower = 10;
     CharacterController characterController;
     float gravity = -20f;
     float yVelocity = 0;
     public bool isJumping = false;
-    [SerializeField]
-    private int _hp = 10;
-    public int hp
-    {
-        get { return _hp; }
-        set 
-        { 
-            _hp = value; 
-        }
-    }
-    private int maxHp = 10;
-    [SerializeField]
-    private float stamina = 100;
-    private float maxStamina = 100;
 
+    public bool isStaminaReduce = false;
+    public float staminaReduce;
+
+    public bool isEquipJumpPack = false;
+    public float jumpPackPower;
+    public float flyLimit;
     //필요 속성: 모델링 오브젝트의 애니메이터
     //Animator animator;
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         //animator = gameObject.GetComponentInChildren<Animator>();
-        maxHp = _hp;
-        maxStamina= stamina;
+
         runSpeed = speed * runMultiple;
     }
     // Update is called once per frame
     void Update()
     {
-        print(maxHp);
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = runSpeed;
-            stamina -= 1 * Time.deltaTime;
+            Player.Instance.stamina -= staminaReduce * Time.deltaTime;
+            isStaminaReduce = true;
         }
-        else if(Input.GetKeyUp(KeyCode.LeftShift))
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             speed = speed / runMultiple;
+            isStaminaReduce = false;
         }
         if (isJumping && characterController.collisionFlags == CollisionFlags.Below)
         {
             isJumping = false;
-
         }
         //바닥에 닿아있을때 수직 속도 초기화
         else if (characterController.collisionFlags == CollisionFlags.Below)
         {
             yVelocity = 0;
         }
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        //일반 점프
+        if (Input.GetButtonDown("Jump") && !isJumping && !isEquipJumpPack)
         {
             yVelocity = jumpPower;
             isJumping = true;
+        }
+        else if (Input.GetButton("Jump") && isEquipJumpPack)
+        {
+            isStaminaReduce = true;
+            Player.Instance.stamina -= staminaReduce * Time.deltaTime;
+            if (transform.position.y < flyLimit)
+            {
+
+                yVelocity = jumpPower;
+                yVelocity += jumpPackPower * Time.deltaTime;
+
+            }
+        }
+        else if (Input.GetButtonUp("Jump"))
+        {
+            isStaminaReduce = false;
         }
 
         float h = Input.GetAxis("Horizontal");

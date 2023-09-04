@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -30,7 +31,7 @@ public class PlayerFire : MonoBehaviour
 
     private bool isPulling = false;
     private GameObject objectToPull;
-
+ 
     public enum BulletState
     {
         Slot0,
@@ -39,9 +40,7 @@ public class PlayerFire : MonoBehaviour
         Slot03
     }
     public BulletState bulletState = BulletState.Slot0;
-
     public Dictionary<BulletState, List<GameObject>> bulletSlot = new Dictionary<BulletState, List<GameObject>>();
-
     private void Awake()
     {
         bulletSlot.Add(BulletState.Slot0, itemPool0);
@@ -65,7 +64,10 @@ public class PlayerFire : MonoBehaviour
         {
             pullEff.SetActive(false);
         }
+
+
     }
+
     private void BulletCheck(BulletState currentState)
     {
         if(bulletSlot.ContainsKey(currentState)) 
@@ -98,10 +100,8 @@ public class PlayerFire : MonoBehaviour
             {
                 bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
             }
-
         }
     }
-
     private void PullObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Ray from the center of the camera view
@@ -121,8 +121,6 @@ public class PlayerFire : MonoBehaviour
             if (Vector3.Distance(objectToPull.transform.position, targetPosition) < addDistance && objectToPull.activeInHierarchy)
             {
                 isPulling = false;
-
-
                 if (bulletSlot.ContainsKey(bulletState))
                 {
                     BulletState currentState = bulletState;
@@ -130,9 +128,6 @@ public class PlayerFire : MonoBehaviour
                     List<GameObject> currentPool = bulletSlot[currentState];
                     List<GameObject> outPool;
                     int targetID = objectToPull.GetComponent<ID>().objectID;
-
-                    
-
                     //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
                     if(isThereSameSlot(targetID, out outPool))
                     {
@@ -162,20 +157,15 @@ public class PlayerFire : MonoBehaviour
                             }
                         }
                     }
-
-
                 }
-
             }
         }
     }
-
     private void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
         targetPool.Add(targetObject);
         targetObject.SetActive(false);
     }
-
     private bool isThereSameSlot(int targetID, out List<GameObject>sameSlot)
     {
         foreach (var item in bulletSlot.Values)
