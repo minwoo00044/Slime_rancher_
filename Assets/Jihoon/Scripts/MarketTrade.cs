@@ -20,7 +20,6 @@ public class MarketTrade : MonoBehaviour
                 if (collision.gameObject.GetComponent<Item>().itemData.CompareData(sellingItems[i].item))
                 {
                     sellingItems[i].item.SellItem();
-                    
                     Destroy(collision.gameObject);
                 }
             }
