@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2876837845496064889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7704453986362145982}
@@ -115,7 +115,8 @@ MonoBehaviour:
   itemPool1: []
   itemPool2: []
   itemPool3: []
-  maxDistance: 30
+  maxDistance: 10
+  radius: 2
   pullSpeed: 5
   pullableObjectsLayer:
     serializedVersion: 2
@@ -123,7 +124,7 @@ MonoBehaviour:
   gunPos: {fileID: 5745143307380517098}
   pullEff: {fileID: 612858720403790851}
   bulletForce: 10
-  addDistance: 0.5
+  addDistance: 0.2
   bulletState: 2
 --- !u!114 &6191161058266728738
 MonoBehaviour:
@@ -154,8 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombEffect: {fileID: 0}
-  explosionRadius: 2
+  explosionRadius: 1.5
   power: 10
+  additionalUpwardForce: 10
   staminaReduce: 33
   gunPos: {fileID: 7049920579599484771}
 --- !u!1 &2909245949475247721
