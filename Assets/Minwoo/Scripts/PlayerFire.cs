@@ -32,7 +32,12 @@ public class PlayerFire : MonoBehaviour
 
     private bool isPulling = false;
     private GameObject objectToPull;
- 
+
+    public GameObject bingle;
+    public int angle = 50;
+
+    public Renderer[] render;
+    public float intensity;
     public enum BulletState
     {
         Slot0,
@@ -52,8 +57,9 @@ public class PlayerFire : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
+            EmissionChange(Color.green, angle, 1);
             BulletCheck(bulletState);
         }
         if (Input.GetMouseButton(0))
@@ -65,8 +71,6 @@ public class PlayerFire : MonoBehaviour
         {
             pullEff.SetActive(false);
         }
-
-
     }
 
     private void BulletCheck(BulletState currentState)
@@ -103,12 +107,21 @@ public class PlayerFire : MonoBehaviour
             }
         }
     }
+    private void EmissionChange(Color color, float angle, int dir)
+    {
+        bingle.transform.Rotate(0, 0, dir * angle);
+        for (int i = 0; i < render.Length; i++)
+        {
+            render[i].material.SetColor("_EmissionColor", color * intensity);
+            print(render[i].material.GetColor("_EmissionColor"));
+        }
+    }
     private void PullObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Ray from the center of the camera view
         Vector3 center = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // 화면 중심을 월드 좌표로 변환
-         // Spherecast의 반지름 설정
-
+                                                                                                              // Spherecast의 반지름 설정
+        EmissionChange(new Color(0, 1, 1), angle, -1);
         if (Physics.SphereCast(center, radius, ray.direction, out RaycastHit hit, maxDistance, pullableObjectsLayer))
         {
             objectToPull = hit.collider.gameObject;
