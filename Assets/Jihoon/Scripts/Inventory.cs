@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public static Inventory Instance;
+
     public Image[] inventorySlots;
     [SerializeField]
     Image currentSlot;
-    [SerializeField]
-    SlotItem currentItem;
+    [HideInInspector]
+    public SlotItem currentItem;
 
     public Item[] itemTest = new Item[4];
 
@@ -18,6 +20,14 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         StartCoroutine(InventoryTest());
     }
 
