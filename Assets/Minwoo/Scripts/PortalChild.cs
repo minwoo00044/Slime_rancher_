@@ -62,6 +62,10 @@ public class PortalChild : MonoBehaviour
             {
                 print("둘 중 한 곳은 입구여야 합니다.");
             }
+            else if (isEnter && otherOneScript.isEnter)
+            {
+                print("둘 중 한 곳은 출구여야 합니다.");
+            }
         }
 
         yield return new WaitForSeconds(timer);
