@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlimeMove : MonoBehaviour
@@ -30,7 +31,7 @@ public class SlimeMove : MonoBehaviour
     public GameObject gem;
     public GameObject gemSpawnPos;
 
-
+    int slimeSize = 0;
     void Start()
     {
         
@@ -46,12 +47,9 @@ public class SlimeMove : MonoBehaviour
         for (int i = 0; i < cols.Length; i++)
         {
             findObject = cols[i].gameObject;
-            if(findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name)
+            if(findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
             {
-                if(findObject.transform.GetChild(0).name != transform.GetChild(0).name)
-                {
                     lookObject = findObject;
-                }
             }
             if (findObject.tag == "Food" && hunger == 0)
             {
@@ -177,7 +175,7 @@ public class SlimeMove : MonoBehaviour
         {
             Destroy(collision.gameObject);
             lookObject = null;
-            
+            slimeSize++;
         }
     }
 }
