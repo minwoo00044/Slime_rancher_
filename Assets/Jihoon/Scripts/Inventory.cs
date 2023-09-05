@@ -6,31 +6,40 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public static Inventory Instance;
+
     public Image[] inventorySlots;
     [SerializeField]
     Image currentSlot;
-    [SerializeField]
-    SlotItem currentItem;
-
+    [HideInInspector]
+    public SlotItem currentItem;
+    int currentIndex;
     public Item[] itemTest = new Item[4];
-
-    int currentIndex = 0;
+    private PlayerFire playerFire;
     // Start is called before the first frame update
     void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         //StartCoroutine(InventoryTest());
+        playerFire = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFire>();
     }
-
     // Update is called once per frame
     void Update()
     {
         if (MenuManager.instance.isPaused) return;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(1))
         {
-            if( currentItem.item != null)
-            {
-                currentItem.UseItem();
-            }
+            //if (currentItem.item != null)
+            //{
+            //    currentItem.UseItem();
+            //}
         }
         else if (Input.anyKeyDown)
         {
@@ -45,7 +54,7 @@ public class Inventory : MonoBehaviour
 
     KeyCode GetLastPressedKeyCode()
     {
-        foreach(KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
+        foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
         {
             if (Input.GetKeyDown(key))
             {
@@ -61,6 +70,21 @@ public class Inventory : MonoBehaviour
     {
         KeyCode key = GetLastPressedKeyCode();
         int index = (int)key - (int)KeyCode.Alpha1;
+        switch (index)
+        {
+            case 0:
+                playerFire.bulletState = PlayerFire.BulletState.Slot0;
+                break;
+            case 1:
+                playerFire.bulletState = PlayerFire.BulletState.Slot01;
+                break;
+            case 2:
+                playerFire.bulletState = PlayerFire.BulletState.Slot02;
+                break;
+            case 3:
+                playerFire.bulletState = PlayerFire.BulletState.Slot03;
+                break;
+        }
         if (index >= 0 && index < inventorySlots.Length)
         {
             currentIndex = index;
@@ -79,7 +103,7 @@ public class Inventory : MonoBehaviour
     void DeselectSlot()
     {
         currentSlot.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
-        
+
         currentSlot = null;
     }
 
@@ -109,7 +133,7 @@ public class Inventory : MonoBehaviour
             return null;
         }
         currentItem = currentSlot.GetComponentInChildren<SlotItem>();
-        if(currentItem != null)
+        if (currentItem != null)
         {
             return currentItem;
         }
@@ -119,25 +143,25 @@ public class Inventory : MonoBehaviour
     public void AddItemToInventory(ItemData newItem)
     {
         SlotItem[] slotItems = GetComponentsInChildren<SlotItem>();
-        foreach(ItemData data in DataManager.instance.itemData)
+        foreach (ItemData data in DataManager.instance.itemData)
         {
-            if(newItem.itemName == data.itemName)
+            if (newItem.itemName == data.itemName)
             {
-                for(int i = 0; i< inventorySlots.Length; i++)
+                for (int i = 0; i < inventorySlots.Length; i++)
                 {
                     if (slotItems[i].SetItem(newItem))
                         return;
                 }
-                
+
             }
         }
     }
     IEnumerator InventoryTest()
     {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(1.5f);
-            ItemData newItem = itemTest[Random.Range(0,4)].itemData;
+            ItemData newItem = itemTest[Random.Range(0, 4)].itemData;
             AddItemToInventory(newItem);
         }
     }

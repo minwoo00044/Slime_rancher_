@@ -74,7 +74,6 @@ public class PlayerFire : MonoBehaviour
         if(bulletSlot.ContainsKey(currentState)) 
         {
             List<GameObject> currenntPool = bulletSlot[currentState];
-
             if(currenntPool.Count > 0)
             {
                 if (currenntPool[currenntPool.Count - 1 ] == null)
@@ -100,6 +99,7 @@ public class PlayerFire : MonoBehaviour
             if(bullet != null)
             {
                 bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
+                Inventory.Instance.currentItem.UseItem();
             }
         }
     }
@@ -130,9 +130,9 @@ public class PlayerFire : MonoBehaviour
 
                     List<GameObject> currentPool = bulletSlot[currentState];
                     List<GameObject> outPool;
-                    int targetID = objectToPull.GetComponent<ID>().objectID;
+                    string targetName = objectToPull.GetComponent<Item>().itemData.itemName;
                     //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
-                    if(isThereSameSlot(targetID, out outPool))
+                    if(isThereSameSlot(targetName, out outPool))
                     {
                         AddPool(outPool, objectToPull);
                     }
@@ -166,17 +166,23 @@ public class PlayerFire : MonoBehaviour
     }
     private void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
+
         targetPool.Add(targetObject);
         targetObject.SetActive(false);
+        for (int i = 0; i < targetPool.Count; i++)
+        {
+            print(targetPool[i]);
+        }
+        Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
     }
-    private bool isThereSameSlot(int targetID, out List<GameObject>sameSlot)
+    private bool isThereSameSlot(string _targetName, out List<GameObject>sameSlot)
     {
         foreach (var item in bulletSlot.Values)
         {
             if (item.Count == 0)
                 continue;
-            int originID = item[0].GetComponent<ID>().objectID;
-            if (targetID == originID && objectToPull.activeInHierarchy)
+            string originName = item[0].GetComponent<Item>().itemData.itemName;
+            if (_targetName == originName && objectToPull.activeInHierarchy)
             {
                 sameSlot = item;
                 return true;
