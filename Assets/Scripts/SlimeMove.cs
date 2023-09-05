@@ -25,8 +25,15 @@ public class SlimeMove : MonoBehaviour
     public float findRange = 5f;
     public GameObject lookObject;
     GameObject findObject;
+
+    float hunger = 0;
+    public GameObject gem;
+    public GameObject gemSpawnPos;
+
+
     void Start()
     {
+        
     }
 
     void Update()
@@ -34,10 +41,19 @@ public class SlimeMove : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
 
+        
+
         for (int i = 0; i < cols.Length; i++)
         {
             findObject = cols[i].gameObject;
-            if (findObject.tag == "Food" || findObject.tag == "Item")
+            if(findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name)
+            {
+                if(findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+                {
+                    lookObject = findObject;
+                }
+            }
+            if (findObject.tag == "Food" && hunger == 0)
             {
                 if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
                 {
@@ -52,9 +68,12 @@ public class SlimeMove : MonoBehaviour
         {
             Vector3 relativePos = lookObject.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            if (rotation.y > transform.rotation.y +0.05f) transform.Rotate(Vector3.up);
-            else if (rotation.y < transform.rotation.y -0.05f) transform.Rotate(Vector3.down);
-            
+            if (rotation.y > transform.rotation.y +0.01f) transform.Rotate(Vector3.up);
+            else if (rotation.y < transform.rotation.y -0.01f) transform.Rotate(Vector3.down);
+
+            print(rotation.y);
+            print(transform.rotation.y);
+              
             Move();
         }
 
@@ -109,6 +128,18 @@ public class SlimeMove : MonoBehaviour
             }
         }
 
+        if (hunger > 0)
+        {
+            if (hunger >= 100)
+            {
+                GameObject gemGO = Instantiate(gem);
+                gemGO.transform.position = gemSpawnPos.transform.position;
+                Rigidbody rigidbody = gemGO.GetComponent<Rigidbody>();
+                rigidbody.AddForce(Vector3.up*5, ForceMode.Impulse);
+            }
+            hunger -= Time.deltaTime;
+        }
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -135,10 +166,18 @@ public class SlimeMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Food")
+        if(collision.gameObject.tag == "Food" && hunger == 0)
         {
             Destroy(collision.gameObject);
             lookObject = null;
+
+            hunger = 100;
+        }
+        if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+        {
+            Destroy(collision.gameObject);
+            lookObject = null;
+            
         }
     }
 }
