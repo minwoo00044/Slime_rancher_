@@ -27,13 +27,12 @@ public class PlayerMove : MonoBehaviour
     public Transform originTf;
     public Transform runGunTf;
 
-    private Camera cam;
-    private Vector3 originalPosition;
+    private Vector3 gunOriginalPosition;
     //필요 속성: 모델링 오브젝트의 애니메이터
     //Animator animator;
     private void Start()
     {
-        cam = Camera.main;
+        gunOriginalPosition = gun.transform.localPosition;
         characterController = GetComponent<CharacterController>();
         //animator = gameObject.GetComponentInChildren<Animator>();
         runSpeed = speed * runMultiple;
@@ -43,8 +42,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            gun.transform.position = runGunTf.position;
-            gun.transform.rotation = runGunTf.rotation;
+            gun.transform.localPosition = runGunTf.localPosition;
+            gun.transform.localRotation = runGunTf.localRotation;
             speed = runSpeed;
             Player.Instance.stamina -= staminaReduce * Time.deltaTime;
             isStaminaReduce = true;
@@ -52,8 +51,8 @@ public class PlayerMove : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            gun.transform.position = originTf.position;
-            gun.transform.rotation = originTf.rotation;
+            gun.transform.localPosition = originTf.localPosition;
+            gun.transform.localRotation = originTf.localRotation;
             speed = speed / runMultiple;
             isStaminaReduce = false;
         }
@@ -108,6 +107,8 @@ public class PlayerMove : MonoBehaviour
     }
     IEnumerator ShakeCamera()
     {
-        yield return null;
+        gun.transform.localPosition = gunOriginalPosition + new Vector3(1, 1, 1);
+        yield return new WaitForSeconds(0.5f);
+        gun.transform.localPosition = gunOriginalPosition - new Vector3(1, 1, 1);
     }
 }
