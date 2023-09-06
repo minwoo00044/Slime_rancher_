@@ -67,11 +67,8 @@ public class BigSlimeMove : MonoBehaviour
 
         if (lookObject != null)
         {
-            Vector3 relativePos = lookObject.transform.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            if (rotation.y > transform.rotation.y + 0.01f) transform.Rotate(Vector3.up);
-            else if (rotation.y < transform.rotation.y - 0.01f) transform.Rotate(Vector3.down);
-
+            Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
 
             Move();
         }
