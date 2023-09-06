@@ -22,13 +22,20 @@ public class PlayerMove : MonoBehaviour
     public bool isEquipJumpPack = false;
     public float jumpPackPower;
     public float flyLimit;
+
+    public GameObject gun;
+    public Transform originTf;
+    public Transform runGunTf;
+
+    private Camera cam;
+    private Vector3 originalPosition;
     //필요 속성: 모델링 오브젝트의 애니메이터
     //Animator animator;
     private void Start()
     {
+        cam = Camera.main;
         characterController = GetComponent<CharacterController>();
         //animator = gameObject.GetComponentInChildren<Animator>();
-
         runSpeed = speed * runMultiple;
     }
     // Update is called once per frame
@@ -36,12 +43,17 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            gun.transform.position = runGunTf.position;
+            gun.transform.rotation = runGunTf.rotation;
             speed = runSpeed;
             Player.Instance.stamina -= staminaReduce * Time.deltaTime;
             isStaminaReduce = true;
+            StartCoroutine(ShakeCamera());
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
+            gun.transform.position = originTf.position;
+            gun.transform.rotation = originTf.rotation;
             speed = speed / runMultiple;
             isStaminaReduce = false;
         }
@@ -94,5 +106,8 @@ public class PlayerMove : MonoBehaviour
 
         //animator.SetFloat("MoveMotion", dir.magnitude);
     }
-
+    IEnumerator ShakeCamera()
+    {
+        yield return null;
+    }
 }

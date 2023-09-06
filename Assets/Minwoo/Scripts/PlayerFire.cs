@@ -25,12 +25,14 @@ public class PlayerFire : MonoBehaviour
     public float radius = 2.0f;
     public float pullSpeed = 5f;
     public LayerMask pullableObjectsLayer;
+    public LayerMask autoFarmObjectsLayer;
     public Transform gunPos;
     public GameObject pullEff;
     public float bulletForce;
     public float addDistance = 0.5f;
 
     private bool isPulling = false;
+    [SerializeField]
     private GameObject objectToPull;
 
     public GameObject bingle;
@@ -113,7 +115,6 @@ public class PlayerFire : MonoBehaviour
         for (int i = 0; i < render.Length; i++)
         {
             render[i].material.SetColor("_EmissionColor", color * intensity);
-            print(render[i].material.GetColor("_EmissionColor"));
         }
     }
     private void PullObject()
@@ -122,15 +123,16 @@ public class PlayerFire : MonoBehaviour
         Vector3 center = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // 화면 중심을 월드 좌표로 변환
                                                                                                               // Spherecast의 반지름 설정
         EmissionChange(new Color(0, 1, 1), angle, -1);
-        if (Physics.SphereCast(center, radius, ray.direction, out RaycastHit hit, maxDistance, pullableObjectsLayer))
+        if (Physics.SphereCast(center, radius, ray.direction, out RaycastHit hit, maxDistance, pullableObjectsLayer | autoFarmObjectsLayer))
         {
             objectToPull = hit.collider.gameObject;
             isPulling = true;
         }
 
 
-        if (isPulling && objectToPull != null)
+        if (isPulling && objectToPull != null && objectToPull.layer == 6)
         {
+
             Vector3 targetPosition = gunPos.position;
             objectToPull.transform.position = Vector3.MoveTowards(objectToPull.transform.position, targetPosition, pullSpeed * Time.deltaTime);
 
@@ -175,7 +177,17 @@ public class PlayerFire : MonoBehaviour
                     }
                 }
             }
+
         }
+        else if (isPulling && objectToPull != null && objectToPull.layer == 7)
+        {
+            AutoFarmer autoFarmer = objectToPull.GetComponent<AutoFarmer>();
+            if (autoFarmer != null) 
+            {
+                StartCoroutine(autoFarmer.GenerateItem());
+            }
+        }
+
     }
     private void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
