@@ -30,7 +30,7 @@ public class SlimeMove : MonoBehaviour
 
     float hunger = 0;
     GameObject gem;
-    public GameObject spawnPos;
+    GameObject spawnPos;
     public GameObject gemList;
     public GameObject slimeList;
 
@@ -53,9 +53,17 @@ public class SlimeMove : MonoBehaviour
         for (int i = 0; i < cols.Length; i++)
         {
             findObject = cols[i].gameObject;
-            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            if(findObject.tag == "Tar")
             {
                 lookObject = findObject;
+                break;
+            }
+            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            {
+                if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                {
+                    lookObject = findObject;
+                }
             }
             if (findObject.tag == "Food" && hunger == 0)
             {
@@ -64,30 +72,19 @@ public class SlimeMove : MonoBehaviour
                     lookObject = findObject;
                 }
             }
-
-            findObject = null;
         }
 
         if (lookObject != null)
         {
-            Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0 , lookObject.transform.position.z - transform.position.z);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
-
+            Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
+            if (lookObject.tag == "Tar")
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
+            else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
             Move();
         }
 
         else
         {
-            if (onGround)
-            {
-                jumpDaley -= Time.deltaTime;
-                if (0 > jumpDaley)
-                {
-                    jumpDaley = Random.Range(3, 5);
-                    Jump();
-                }
-            }
-
             if (!onGround)
             {
                 Move();
@@ -126,6 +123,14 @@ public class SlimeMove : MonoBehaviour
                 rotateDaley -= Time.deltaTime;
             }
         }
+        if (onGround)
+        {
+            jumpDaley -= Time.deltaTime;
+            if (0 > jumpDaley)
+            {
+                Jump();
+            }
+        }
 
         if (hunger > 0)
         {
@@ -156,6 +161,8 @@ public class SlimeMove : MonoBehaviour
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddForce(jumpBir, ForceMode.Impulse);
+
+        jumpDaley = Random.Range(3, 5);
 
     }
     private void Move()

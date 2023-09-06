@@ -69,7 +69,7 @@ Transform:
   - {fileID: 1230445700928164404}
   - {fileID: 6859267561832756595}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1131074323140682430
 MonoBehaviour:
@@ -89,10 +89,8 @@ MonoBehaviour:
   moveSpeed: 0.01
   moveCount: 0
   findRange: 5
-  lookObject: {fileID: 0}
-  spawnPos: {fileID: 0}
   gemList: {fileID: 2559791417349143405, guid: 0b03b3fcc501ffb40b958e63239cfcd0, type: 3}
-  tar: {fileID: 4763338745157471974, guid: 256f612bef181854fb8dede1ff81b103, type: 3}
+  tar: {fileID: 7435777063803728612, guid: 663b4359501484b4eae547d90a277b11, type: 3}
 --- !u!33 &3338953257185084789
 MeshFilter:
   m_ObjectHideFlags: 0

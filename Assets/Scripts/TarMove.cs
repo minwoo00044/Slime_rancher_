@@ -26,11 +26,12 @@ public class TarMove : MonoBehaviour
     GameObject lookObject;
     GameObject findObject;
 
-    int slimeSize = 0;
+    int slimeSize = 1;
+    public GameObject tar;
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize) * 0.8f;
     }
 
     // Update is called once per frame
@@ -46,7 +47,10 @@ public class TarMove : MonoBehaviour
             findObject = cols[i].gameObject;
             if (findObject.tag == "Slime")
             {
-                lookObject = findObject;
+                if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                {
+                    lookObject = findObject;
+                }
             }
 
             findObject = null;
@@ -63,16 +67,6 @@ public class TarMove : MonoBehaviour
         }
         else
         {
-            if (onGround)
-            {
-                jumpDaley -= Time.deltaTime;
-                if (0 > jumpDaley)
-                {
-                    jumpDaley = Random.Range(3, 5);
-                    Jump();
-                }
-            }
-
             if (!onGround)
             {
                 Move();
@@ -111,6 +105,14 @@ public class TarMove : MonoBehaviour
                 rotateDaley -= Time.deltaTime;
             }
         }
+        if (onGround)
+        {
+            jumpDaley -= Time.deltaTime;
+            if (jumpDaley < 0)
+            {
+                Jump();
+            }
+        }
 
     }
     private void OnTriggerStay(Collider other)
@@ -128,11 +130,11 @@ public class TarMove : MonoBehaviour
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddForce(jumpBir, ForceMode.Impulse);
+        jumpDaley = Random.Range(3, 5);
 
     }
     private void Move()
     {
-
         transform.Translate(Vector3.forward * moveSpeed);
     }
     private void OnCollisionEnter(Collision collision)
@@ -142,7 +144,15 @@ public class TarMove : MonoBehaviour
             Destroy(collision.gameObject);
             lookObject = null;
             slimeSize++;
-            transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize);
+            if (slimeSize == 3)
+            {
+                GameObject tarGO = Instantiate(tar);
+                tarGO.transform.position = transform.position;
+                Rigidbody rigidbody = tarGO.GetComponent<Rigidbody>();
+                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
+                slimeSize = 1;
+            }
+            transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize)*0.8f;
         }
     }
 }

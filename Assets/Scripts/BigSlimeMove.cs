@@ -28,9 +28,9 @@ public class BigSlimeMove : MonoBehaviour
     GameObject findObject;
 
     float hunger = 0;
-    public GameObject gem1;
-    public GameObject gem2;
-    public GameObject spawnPos;
+    GameObject gem1;
+    GameObject gem2;
+    GameObject spawnPos;
     public GameObject gemList;
     public GameObject tar;
 
@@ -50,9 +50,17 @@ public class BigSlimeMove : MonoBehaviour
         for (int i = 0; i < cols.Length; i++)
         {
             findObject = cols[i].gameObject;
-            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            if (findObject.tag == "Tar")
             {
                 lookObject = findObject;
+                break;
+            }
+            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            {
+                if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                {
+                    lookObject = findObject;
+                }
             }
             if (findObject.tag == "Food" && hunger <= 0)
             {
@@ -68,23 +76,14 @@ public class BigSlimeMove : MonoBehaviour
         if (lookObject != null)
         {
             Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
-
+            if (lookObject.tag == "Tar")
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
+            else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
             Move();
         }
 
         else
         {
-            if (onGround)
-            {
-                jumpDaley -= Time.deltaTime;
-                if (0 > jumpDaley)
-                {
-                    jumpDaley = Random.Range(3, 5);
-                    Jump();
-                }
-            }
-
             if (!onGround)
             {
                 Move();
@@ -123,6 +122,14 @@ public class BigSlimeMove : MonoBehaviour
                 rotateDaley -= Time.deltaTime;
             }
         }
+        if (onGround)
+        {
+            jumpDaley -= Time.deltaTime;
+            if (jumpDaley < 0)
+            {
+                Jump();
+            }
+        }
 
         if (hunger > 0)
         {
@@ -157,6 +164,7 @@ public class BigSlimeMove : MonoBehaviour
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddForce(jumpBir, ForceMode.Impulse);
+        jumpDaley = Random.Range(3, 5);
 
     }
     private void Move()
@@ -203,10 +211,16 @@ public class BigSlimeMove : MonoBehaviour
     }
     void GrowthSlime()
     {
-        GameObject bigSlime = Instantiate(tar);
-        bigSlime.transform.position = spawnPos.transform.position;
-        Rigidbody slimeStert = bigSlime.GetComponent<Rigidbody>();
-        slimeStert.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        GameObject tar1 = Instantiate(tar);
+        tar1.transform.position = spawnPos.transform.position;
+        Rigidbody slimeStert1 = tar1.GetComponent<Rigidbody>();
+        slimeStert1.AddForce(Vector3.up * 3, ForceMode.Impulse);
+
+        GameObject tar2 = Instantiate(tar);
+        tar2.transform.position = spawnPos.transform.position;
+        Rigidbody slimeStert2 = tar2.GetComponent<Rigidbody>();
+        slimeStert2.AddForce(Vector3.up * 3, ForceMode.Impulse);
+
         Destroy(this.gameObject);
     }
 }
