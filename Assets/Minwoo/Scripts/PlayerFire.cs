@@ -165,6 +165,8 @@ public class PlayerFire : MonoBehaviour
 
                     List<GameObject> currentPool = bulletSlot[currentState];
                     List<GameObject> outPool;
+                    if (objectToPull.GetComponent<Item>() == null)
+                        return;
                     string targetName = objectToPull.GetComponent<Item>().itemData.itemName;
                     //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
                     if(isThereSameSlot(targetName, out outPool))
