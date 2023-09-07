@@ -24,7 +24,7 @@ public class CamRotate : MonoBehaviour
         //순서 3 : 물체를 회전시킨다.
         // r = r0 + vt
 
-        arm.transform.eulerAngles = new Vector3(-my, mx, 0);
+        //arm.transform.eulerAngles = new Vector3(-my, mx, 0);
         transform.eulerAngles = dir;
     }
 }

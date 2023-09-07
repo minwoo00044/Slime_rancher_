@@ -26,25 +26,28 @@ public class PlayerMove : MonoBehaviour
     public GameObject gun;
     private Vector3 gunOriginalPosition;
     //필요 속성: 모델링 오브젝트의 애니메이터
-    //Animator animator;
+    Animator animator;
     private void Start()
     {
         gunOriginalPosition = gun.transform.localPosition;
         characterController = GetComponent<CharacterController>();
-        //animator = gameObject.GetComponentInChildren<Animator>();
+        animator = gameObject.GetComponentInChildren<Animator>();
         runSpeed = speed * runMultiple;
+
     }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            animator.SetBool("isRun", true);
             speed = runSpeed;
             Player.Instance.stamina -= staminaReduce * Time.deltaTime;
             isStaminaReduce = true;
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
+            animator.SetBool("isRun", false);
             speed = speed / runMultiple;
             isStaminaReduce = false;
         }

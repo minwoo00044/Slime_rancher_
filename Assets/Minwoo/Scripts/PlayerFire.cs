@@ -40,6 +40,10 @@ public class PlayerFire : MonoBehaviour
 
     public Renderer[] render;
     public float intensity;
+    private bool isShootCool = false;
+    public float delayTime = 0.3f;
+
+    Animator animator;
     public enum BulletState
     {
         Slot0,
@@ -51,6 +55,7 @@ public class PlayerFire : MonoBehaviour
     public Dictionary<BulletState, List<GameObject>> bulletSlot = new Dictionary<BulletState, List<GameObject>>();
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         bulletSlot.Add(BulletState.Slot0, itemPool0);
         bulletSlot.Add(BulletState.Slot01, itemPool1);
         bulletSlot.Add(BulletState.Slot02, itemPool2);
@@ -58,56 +63,70 @@ public class PlayerFire : MonoBehaviour
     }
     private void Update()
     {
+        if(!animator.GetBool("isRun"))
+        {
+            if (Input.GetMouseButton(1))
+            {
+                EmissionChange(Color.green, angle, 1);
+                BulletCheck(bulletState);
+            }
+            if (Input.GetMouseButton(0))
+            {
+                PullObject();
+                pullEff.SetActive(true);
+            }
+            else
+            {
+                pullEff.SetActive(false);
+            }
+        }
 
-        if (Input.GetMouseButton(1))
-        {
-            EmissionChange(Color.green, angle, 1);
-            BulletCheck(bulletState);
-        }
-        if (Input.GetMouseButton(0))
-        {
-            PullObject();
-            pullEff.SetActive(true);
-        }
-        else
-        {
-            pullEff.SetActive(false);
-        }
     }
 
     private void BulletCheck(BulletState currentState)
     {
         if(bulletSlot.ContainsKey(currentState)) 
         {
-            List<GameObject> currenntPool = bulletSlot[currentState];
-            if(currenntPool.Count > 0)
+            List<GameObject> currentPool = bulletSlot[currentState];
+            if(currentPool.Count > 0)
             {
-                if (currenntPool[currenntPool.Count - 1 ] == null)
+                if (currentPool[currentPool.Count - 1 ] == null)
                     return;
-                Fire(currenntPool[currenntPool.Count - 1]);
-                currenntPool.Remove(currenntPool[currenntPool.Count - 1]);
+                StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool)); 
+                
             }
         }
     }
 
-    private void Fire(GameObject bullet)
+    IEnumerator Fire(GameObject bullet, List<GameObject> _currentPool)
     {
-        if (bullet == null)
-            return;
-        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
-
-        if (bulletRigidbody != null)
+        if (bullet != null)
         {
-            bullet.SetActive(true);
-            bullet.transform.position = gunPos.transform.position;
-            bullet.transform.rotation = gunPos.transform.rotation;
-            Vector3 forceDirection = transform.forward;
-            if(bullet != null)
+            if(!isShootCool)
             {
-                bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
-                Inventory.Instance.currentItem.UseItem();
+                isShootCool = true;
+                yield return new WaitForSeconds(delayTime);
+                Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+
+                if (bulletRigidbody != null)
+                {
+                    bullet.SetActive(true);
+                    _currentPool.Remove(_currentPool[_currentPool.Count - 1]);
+                    bullet.transform.position = gunPos.transform.position;
+                    bullet.transform.rotation = gunPos.transform.rotation;
+                    Vector3 forceDirection = transform.forward;
+                    if (bullet != null)
+                    {
+                        bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
+                        if(Inventory.Instance.currentItem != null)
+                            Inventory.Instance.currentItem.UseItem();
+                    }
+                }
+                isShootCool = false;
             }
+
         }
+
     }
     private void EmissionChange(Color color, float angle, int dir)
     {
