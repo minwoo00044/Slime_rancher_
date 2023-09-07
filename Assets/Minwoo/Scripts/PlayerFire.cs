@@ -105,7 +105,8 @@ public class PlayerFire : MonoBehaviour
             if(bullet != null)
             {
                 bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
-                Inventory.Instance.currentItem.UseItem();
+                if(Inventory.Instance.currentItem != null)
+                    Inventory.Instance.currentItem.UseItem();
             }
         }
     }
@@ -196,7 +197,7 @@ public class PlayerFire : MonoBehaviour
         targetObject.SetActive(false);
         for (int i = 0; i < targetPool.Count; i++)
         {
-            print(targetPool[i]);
+            //print(targetPool[i]);
         }
         Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
     }
