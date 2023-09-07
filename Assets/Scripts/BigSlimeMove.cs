@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class SlimeMove : MonoBehaviour
+public class BigSlimeMove : MonoBehaviour
 {
     float jumpDaley;
     float moveDaley;
@@ -12,12 +11,12 @@ public class SlimeMove : MonoBehaviour
 
     public bool onGround = true;
 
-    public float maxJumpHigh = 5f;
+    public float maxJumpHigh = 6f;
     public float minJumpHigh = 3f;
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.005f;
+    public float moveSpeed = 0.004f;
     public float moveCount;
 
     float rotateSize;
@@ -29,19 +28,17 @@ public class SlimeMove : MonoBehaviour
     GameObject findObject;
 
     float hunger = 0;
-    GameObject gem;
+    GameObject gem1;
+    GameObject gem2;
     GameObject spawnPos;
     public GameObject gemList;
-    public GameObject slimeList;
-
+    public GameObject tar;
 
     void Start()
     {
-        spawnPos = transform.GetChild(2).gameObject;
+        spawnPos = transform.GetChild(3).gameObject;
         FindMyGem();
     }
-
-
 
     void Update()
     {
@@ -53,19 +50,19 @@ public class SlimeMove : MonoBehaviour
         for (int i = 0; i < cols.Length; i++)
         {
             findObject = cols[i].gameObject;
-            if(findObject.tag == "Tar")
+            if (findObject.tag == "Tar")
             {
                 lookObject = findObject;
                 break;
             }
-            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
             {
                 if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
                 {
                     lookObject = findObject;
                 }
             }
-            if (findObject.tag == "Food" && hunger == 0)
+            if (findObject.tag == "Food" && hunger <= 0)
             {
                 if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
                 {
@@ -76,9 +73,9 @@ public class SlimeMove : MonoBehaviour
 
         if (lookObject != null)
         {
-            Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
+            Vector3 relativePos = new(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
             if (lookObject.tag == "Tar")
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
             else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
             Move();
         }
@@ -126,7 +123,7 @@ public class SlimeMove : MonoBehaviour
         if (onGround)
         {
             jumpDaley -= Time.deltaTime;
-            if (0 > jumpDaley)
+            if (jumpDaley < 0)
             {
                 Jump();
             }
@@ -136,9 +133,13 @@ public class SlimeMove : MonoBehaviour
         {
             if (hunger >= 100)
             {
-                GameObject gemGO = Instantiate(gem);
-                gemGO.transform.position = spawnPos.transform.position;
-                Rigidbody rigidbody = gemGO.GetComponent<Rigidbody>();
+                GameObject gem1GO = Instantiate(gem1);
+                gem1GO.transform.position = spawnPos.transform.position;
+                Rigidbody rigidbody = gem1GO.GetComponent<Rigidbody>();
+                rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                GameObject gem2GO = Instantiate(gem2);
+                gem2GO.transform.position = spawnPos.transform.position;
+                rigidbody = gem2GO.GetComponent<Rigidbody>();
                 rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
             }
             hunger -= Time.deltaTime;
@@ -161,7 +162,6 @@ public class SlimeMove : MonoBehaviour
 
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.AddForce(jumpBir, ForceMode.Impulse);
-
         jumpDaley = Random.Range(3, 5);
 
     }
@@ -172,7 +172,7 @@ public class SlimeMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Food" && hunger == 0)
+        if (collision.gameObject.tag == "Food" && hunger <= 0)
         {
             Destroy(collision.gameObject);
             lookObject = null;
@@ -181,41 +181,44 @@ public class SlimeMove : MonoBehaviour
         }
         if (collision.gameObject.tag == "Item" && collision.gameObject.transform.GetChild(0).name != transform.GetChild(0).name)
         {
+            Destroy(collision.gameObject);
+            lookObject = null;
             GrowthSlime();
         }
     }
-
     void FindMyGem()
     {
+        int countNum = 0;
         for (int i = 0; i < gemList.transform.childCount; i++)
         {
             GameObject thisGem = gemList.transform.GetChild(i).gameObject;
-            if (thisGem.transform.GetChild(0).name == transform.GetChild(0).name)
+            if (thisGem.transform.GetChild(0).name == this.transform.GetChild(countNum).name)
             {
-
-                gem = thisGem;
-                break;
-
+                if (gem1 == null)
+                {
+                    gem1 = thisGem;
+                    countNum++;
+                }
+                else
+                {
+                    gem2 = thisGem;
+                    break;
+                }
             }
         }
     }
     void GrowthSlime()
     {
-        for (int i = 0; i < slimeList.transform.childCount; i++)
-        {
-            GameObject thisSlime = slimeList.transform.GetChild(i).gameObject;
-            if (thisSlime.transform.GetChild(0).name == this.transform.GetChild(0).name || thisSlime.transform.GetChild(0).name == lookObject.transform.GetChild(0).name)
-            {
-                if (thisSlime.transform.GetChild(1).name == this.transform.GetChild(0).name || thisSlime.transform.GetChild(1).name == lookObject.transform.GetChild(0).name)
-                {
-                    Destroy(lookObject);
-                    GameObject bigSlime = Instantiate(thisSlime);
-                    bigSlime.transform.position = spawnPos.transform.position;
-                    Rigidbody slimeStert = bigSlime.GetComponent<Rigidbody>();
-                    slimeStert.AddForce(Vector3.up*5,ForceMode.Impulse);
-                    Destroy(this.gameObject);
-                }
-            }
-        }
+        GameObject tar1 = Instantiate(tar);
+        tar1.transform.position = spawnPos.transform.position;
+        Rigidbody slimeStert1 = tar1.GetComponent<Rigidbody>();
+        slimeStert1.AddForce(Vector3.up * 3, ForceMode.Impulse);
+
+        GameObject tar2 = Instantiate(tar);
+        tar2.transform.position = spawnPos.transform.position;
+        Rigidbody slimeStert2 = tar2.GetComponent<Rigidbody>();
+        slimeStert2.AddForce(Vector3.up * 3, ForceMode.Impulse);
+
+        Destroy(this.gameObject);
     }
 }
