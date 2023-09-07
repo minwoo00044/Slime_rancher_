@@ -105,7 +105,7 @@ public class PlayerFire : MonoBehaviour
             if(!isShootCool)
             {
                 isShootCool = true;
-                yield return new WaitForSeconds(delayTime);
+               
                 Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
 
                 if (bulletRigidbody != null)
@@ -114,7 +114,7 @@ public class PlayerFire : MonoBehaviour
                     _currentPool.Remove(_currentPool[_currentPool.Count - 1]);
                     bullet.transform.position = gunPos.transform.position;
                     bullet.transform.rotation = gunPos.transform.rotation;
-                    Vector3 forceDirection = transform.forward;
+                    Vector3 forceDirection = Camera.main.transform.forward;
                     if (bullet != null)
                     {
                         bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
@@ -122,6 +122,7 @@ public class PlayerFire : MonoBehaviour
                             Inventory.Instance.currentItem.UseItem();
                     }
                 }
+                yield return new WaitForSeconds(delayTime);
                 isShootCool = false;
             }
 
