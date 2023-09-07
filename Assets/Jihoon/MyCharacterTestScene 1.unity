@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -856,6 +856,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 7a13f501773bba44c94bd20df2c4b886, type: 2}
+--- !u!114 &648754704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 598882363289397054, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+  m_PrefabInstance: {fileID: 25137204550051891}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &652249213
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,6 +3779,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949247684}
   m_CullTransparentMesh: 1
+--- !u!114 &1960921998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3656555026833794402, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+  m_PrefabInstance: {fileID: 25137204550051891}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2003692103
 GameObject:
   m_ObjectHideFlags: 0
@@ -4002,6 +4024,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -33
       objectReference: {fileID: 0}
+    - target: {fileID: 3736308153524150909, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+      propertyPath: HpBar
+      value: 
+      objectReference: {fileID: 1960921998}
+    - target: {fileID: 3736308153524150909, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+      propertyPath: enBar
+      value: 
+      objectReference: {fileID: 648754704}
+    - target: {fileID: 3736308153524150909, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 1960921998}
     - target: {fileID: 3775893929333173398, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
       propertyPath: onSlotImg
       value: 
@@ -4162,10 +4196,18 @@ PrefabInstance:
       propertyPath: noItemImage
       value: 
       objectReference: {fileID: 21300000, guid: 59a46a34f060187408492d1403625194, type: 3}
+    - target: {fileID: 8278004160874096191, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+      propertyPath: m_Name
+      value: 'EnBarBackground '
+      objectReference: {fileID: 0}
     - target: {fileID: 8538580389734650686, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
       propertyPath: noItemImage
       value: 
       objectReference: {fileID: 21300000, guid: 59a46a34f060187408492d1403625194, type: 3}
+    - target: {fileID: 8691600288328536175, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
+      propertyPath: itemData.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
