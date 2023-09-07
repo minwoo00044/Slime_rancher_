@@ -12,12 +12,12 @@ public class SlimeMove : MonoBehaviour
 
     public bool onGround = true;
 
-    public float maxJumpHigh;
-    public float minJumpHigh;
+    public float maxJumpHigh = 5f;
+    public float minJumpHigh = 3f;
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.01f;
+    public float moveSpeed = 0.005f;
     public float moveCount;
 
     float rotateSize;

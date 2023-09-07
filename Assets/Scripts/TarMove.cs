@@ -10,19 +10,19 @@ public class TarMove : MonoBehaviour
 
     public bool onGround = true;
 
-    public float maxJumpHigh;
-    public float minJumpHigh;
+    public float maxJumpHigh =4f;
+    public float minJumpHigh = 2f;
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.005f;
+    public float moveSpeed = 0.006f;
     public float moveCount;
 
     float rotateSize;
     int rightOrLeft = 1;
     Vector3 rotateBir;
 
-    public float findRange = 5f;
+    public float findRange = 10f;
     GameObject lookObject;
     GameObject findObject;
 
@@ -52,8 +52,6 @@ public class TarMove : MonoBehaviour
                     lookObject = findObject;
                 }
             }
-
-            findObject = null;
         }
 
         if (lookObject != null)

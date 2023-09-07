@@ -89,7 +89,7 @@ Transform:
   - {fileID: 6018667711409944641}
   - {fileID: 7587614961769252237}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5839194555293871301
 MonoBehaviour:
@@ -103,18 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d452873713d139847a7bdefc4805e6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpDaley: 0
-  moveDaley: 5
-  rotateDaley: 0
   onGround: 1
-  maxJumpHigh: 10
+  maxJumpHigh: 6
   minJumpHigh: 3
-  moveSpeed: 0.01
+  moveSpeed: 0.004
   moveCount: 0
   findRange: 5
-  lookObject: {fileID: 0}
-  gem: {fileID: 8870473980919683952, guid: 6d70665901cdb1841a151287db04e68b, type: 3}
-  gemSpawnPos: {fileID: 6735915138210205755}
+  gemList: {fileID: 0}
+  slimeList: {fileID: 0}
 --- !u!33 &6272366191848271240
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -194,7 +190,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157204510212372430}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

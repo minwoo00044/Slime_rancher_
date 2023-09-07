@@ -11,12 +11,12 @@ public class BigSlimeMove : MonoBehaviour
 
     public bool onGround = true;
 
-    public float maxJumpHigh;
-    public float minJumpHigh;
+    public float maxJumpHigh = 6f;
+    public float minJumpHigh = 3f;
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.01f;
+    public float moveSpeed = 0.004f;
     public float moveCount;
 
     float rotateSize;
@@ -69,13 +69,11 @@ public class BigSlimeMove : MonoBehaviour
                     lookObject = findObject;
                 }
             }
-
-            findObject = null;
         }
 
         if (lookObject != null)
         {
-            Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
+            Vector3 relativePos = new(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
             if (lookObject.tag == "Tar")
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
             else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
