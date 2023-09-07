@@ -1,67 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1677371031981514714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2193536890971853327}
-  m_Layer: 0
-  m_Name: Gun (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2193536890971853327
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1677371031981514714}
-  m_LocalRotation: {x: -0.14844899, y: -0.51077014, z: -0.040373497, w: 0.84584093}
-  m_LocalPosition: {x: -0.1, y: -0.1, z: 0.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7249913483216322970}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: -17, y: -63, z: 5}
---- !u!1 &1891128306426874046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5130867481882916297}
-  m_Layer: 0
-  m_Name: Gun (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &5130867481882916297
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891128306426874046}
-  m_LocalRotation: {x: -0, y: -0.09725334, z: -0, w: 0.9952597}
-  m_LocalPosition: {x: -0.01, y: -0.038, z: 0.716}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7249913483216322970}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: -11.162, z: 0}
 --- !u!1 &2250638767509341081
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,8 +501,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5910530618208161117}
-  - {fileID: 2193536890971853327}
-  - {fileID: 5130867481882916297}
   m_Father: {fileID: 2727054729817036783}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -832,8 +768,6 @@ MonoBehaviour:
   jumpPackPower: 10
   flyLimit: 20
   gun: {fileID: 6312704621477607803}
-  originTf: {fileID: 5130867481882916297}
-  runGunTf: {fileID: 2193536890971853327}
 --- !u!114 &3928275173730734613
 MonoBehaviour:
   m_ObjectHideFlags: 0

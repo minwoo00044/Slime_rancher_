@@ -24,9 +24,6 @@ public class PlayerMove : MonoBehaviour
     public float flyLimit;
 
     public GameObject gun;
-    public Transform originTf;
-    public Transform runGunTf;
-
     private Vector3 gunOriginalPosition;
     //필요 속성: 모델링 오브젝트의 애니메이터
     //Animator animator;
@@ -42,17 +39,12 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            gun.transform.localPosition = runGunTf.localPosition;
-            gun.transform.localRotation = runGunTf.localRotation;
             speed = runSpeed;
             Player.Instance.stamina -= staminaReduce * Time.deltaTime;
             isStaminaReduce = true;
-            StartCoroutine(ShakeCamera());
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            gun.transform.localPosition = originTf.localPosition;
-            gun.transform.localRotation = originTf.localRotation;
             speed = speed / runMultiple;
             isStaminaReduce = false;
         }
@@ -105,10 +97,5 @@ public class PlayerMove : MonoBehaviour
 
         //animator.SetFloat("MoveMotion", dir.magnitude);
     }
-    IEnumerator ShakeCamera()
-    {
-        gun.transform.localPosition = gunOriginalPosition + new Vector3(1, 1, 1);
-        yield return new WaitForSeconds(0.5f);
-        gun.transform.localPosition = gunOriginalPosition - new Vector3(1, 1, 1);
-    }
+
 }
