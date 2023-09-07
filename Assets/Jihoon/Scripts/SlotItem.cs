@@ -8,6 +8,7 @@ public class SlotItem : MonoBehaviour
 {
     public ItemData item;
     public TMP_Text itemAmountText;
+    public Sprite noItemImage; 
     Image itemImage;
     int currentAmount=0;
     public bool SetItem(ItemData newItem)
@@ -30,7 +31,6 @@ public class SlotItem : MonoBehaviour
             item = newItem;
             item.itemQuantity++;
             itemAmountText.text = "x " + item.itemQuantity;
-            itemImage.enabled = true;
             itemImage.sprite = item.itemImage;
             return true;
         }
@@ -50,7 +50,6 @@ public class SlotItem : MonoBehaviour
         {
             item = null;
             itemImage.sprite = null;
-            itemImage.enabled =false;
             itemAmountText.text = "";
         }
     }
@@ -63,7 +62,11 @@ public class SlotItem : MonoBehaviour
     private void Update()
     {
         //이하는 전부 테스트용 코드
-        if (item == null) return;
+        if (item == null)
+        {
+            itemImage.sprite = noItemImage;
+            return;
+        }
         if(currentAmount != item.itemQuantity)
         {
             currentAmount = item.itemQuantity;

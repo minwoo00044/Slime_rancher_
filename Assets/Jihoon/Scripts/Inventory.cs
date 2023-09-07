@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +18,9 @@ public class Inventory : MonoBehaviour
     int currentIndex;
     public Item[] itemTest = new Item[4];
     private PlayerFire playerFire;
+    public Sprite onSlotImg;
+    public Sprite offSlotImg;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,12 +102,39 @@ public class Inventory : MonoBehaviour
 
     void ChangeSlotImage()
     {
-        currentSlot.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 200);
+        RectTransform rect = currentSlot.GetComponent<RectTransform>();
+        Transform[] currentSlotChildren = currentSlot.GetComponentsInChildren<Transform>();
+        foreach(var currentSlotChild in currentSlotChildren)
+        {
+            RectTransform rectChild = currentSlotChild.GetComponent<RectTransform>();
+            rectChild.anchoredPosition = new Vector2(rectChild.anchoredPosition.x, 30);
+            if(rectChild.GetComponent<TMP_Text>() != null)
+            {
+                rectChild.anchoredPosition = new Vector2(rectChild.anchoredPosition.x, -33);
+            }
+        }
+        rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, 160);
+        rect.sizeDelta = new Vector2(150, 210);
+        currentSlot.sprite = onSlotImg;
     }
 
     void DeselectSlot()
     {
-        currentSlot.GetComponent<RectTransform>().sizeDelta = new Vector2(150, 150);
+        RectTransform rect = currentSlot.GetComponent<RectTransform>();
+        Transform[] currentSlotChildren = currentSlot.GetComponentsInChildren<Transform>();
+        foreach (var currentSlotChild in currentSlotChildren)
+        {
+            RectTransform rectChild = currentSlotChild.GetComponent<RectTransform>();
+            rectChild.anchoredPosition = new Vector2(rectChild.anchoredPosition.x, 20);
+            if (rectChild.GetComponent<TMP_Text>() != null)
+            {
+                rectChild.anchoredPosition = new Vector2(rectChild.anchoredPosition.x, -33);
+            }
+        }
+
+        rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, 130);
+        rect.sizeDelta = new Vector2(150, 180);
+        currentSlot.sprite = offSlotImg;
 
         currentSlot = null;
     }
@@ -150,12 +182,23 @@ public class Inventory : MonoBehaviour
                 for (int i = 0; i < inventorySlots.Length; i++)
                 {
                     if (slotItems[i].SetItem(newItem))
+                    {
                         return;
+                    }
                 }
 
             }
         }
     }
+
+    void OnApplicationQuit()
+    {
+        for(int i = 0; i < inventorySlots.Length;i++)
+        {
+
+        }
+    }
+
     IEnumerator InventoryTest()
     {
         while (true)
