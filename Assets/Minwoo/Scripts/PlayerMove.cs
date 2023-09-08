@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+
+    
     public float speed = 10f;
     public float runMultiple;
     float runSpeed;
-
+    
     public float jumpPower = 10;
     CharacterController characterController;
     float gravity = -20f;
@@ -61,12 +63,12 @@ public class PlayerMove : MonoBehaviour
             yVelocity = 0;
         }
         //일반 점프
-        if (Input.GetButtonDown("Jump") && !isJumping && !isEquipJumpPack)
+        if (Input.GetButtonDown("Jump") && !isJumping)
         {
             yVelocity = jumpPower;
             isJumping = true;
         }
-        else if (Input.GetButton("Jump") && isEquipJumpPack)
+        if (Input.GetButton("Jump") && isEquipJumpPack)
         {
             isStaminaReduce = true;
             Player.Instance.stamina -= staminaReduce * Time.deltaTime;
