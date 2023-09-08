@@ -67,8 +67,13 @@ public class PlayerFire : MonoBehaviour
         {
             if (Input.GetMouseButton(1))
             {
+                animator.SetBool("isShoot", true);
                 EmissionChange(Color.green, angle, 1);
                 BulletCheck(bulletState);
+            }
+            else
+            {
+                animator.SetBool("isShoot", false);
             }
             if (Input.GetMouseButton(0))
             {
@@ -92,8 +97,8 @@ public class PlayerFire : MonoBehaviour
             {
                 if (currentPool[currentPool.Count - 1 ] == null)
                     return;
-                StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool)); 
-                
+                StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool));
+
             }
         }
     }
