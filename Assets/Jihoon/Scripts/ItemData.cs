@@ -10,7 +10,9 @@ public class ItemData : ScriptableObject
     public Sprite itemImage;
     public int itemPrice = 10;
     public int itemQuantity = 0;
+    public bool isBig = false;
     int soldQuantity = 0;
+
 
     public bool CompareData(ItemData data)
     {
