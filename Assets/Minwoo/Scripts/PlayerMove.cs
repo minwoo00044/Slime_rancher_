@@ -19,7 +19,7 @@ public class PlayerMove : MonoBehaviour
     public bool isJumping = false;
 
     public bool isStaminaReduce = false;
-    bool isRunning = false; 
+    public bool isRunning = false; 
     public float staminaReduce;
 
     public bool isEquipJumpPack = false;

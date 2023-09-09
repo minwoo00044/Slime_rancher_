@@ -59,7 +59,7 @@ public class PlayerFire : MonoBehaviour
         {
             return _bulletState;
         }
-        set 
+        set
         {
             _bulletState = value;
             animator.SetTrigger("reload");
@@ -67,10 +67,12 @@ public class PlayerFire : MonoBehaviour
     }
     public Dictionary<BulletState, List<GameObject>> bulletSlot = new Dictionary<BulletState, List<GameObject>>();
     private bool isStick = false;
+    private PlayerMove playerMove;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerMove = GetComponent<PlayerMove>();
         bulletSlot.Add(BulletState.Slot0, itemPool0);
         bulletSlot.Add(BulletState.Slot01, itemPool1);
         bulletSlot.Add(BulletState.Slot02, itemPool2);
@@ -78,27 +80,61 @@ public class PlayerFire : MonoBehaviour
     }
     private void Update()
     {
-        if(!animator.GetBool("isRun"))
+        if (isStick)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
-                animator.SetBool("isShoot", true);
-                EmissionChange(Color.green, angle, 1);
-                BulletCheck(_bulletState);
+                if (gunPos.childCount == 1)
+                    return;
+                Fire(gunPos.GetChild(1).gameObject);
+                return;
             }
-            else
+            else if (Input.GetMouseButtonDown(1) && isStick)
             {
-                animator.SetBool("isShoot", false);
+                if (gunPos.childCount == 1)
+                    return;
+                StickOrDrop(gunPos.GetChild(1).gameObject, true);
+                return;
             }
-            if (Input.GetMouseButton(1))
+            EmissionChange(Color.green, angle, 1);
+            pullEff.SetActive(false);
+        }
+        else
+        {
+            for (int i = 0; i < render.Length; i++)
             {
-                PullObject();
-                pullEff.SetActive(true);
+                render[i].material.SetColor("_EmissionColor", new Color(0, 1, 1) * intensity);
             }
-            else
+
+        }
+
+
+
+
+        if (Input.GetMouseButton(0) && !isStick)
+        {
+            animator.SetBool("isShoot", true);
+            EmissionChange(new Color(1, 0, 0), angle, -1);
+            BulletCheck(_bulletState);
+        }
+        else if (Input.GetMouseButtonUp(0) && !isStick)
+        {
+            animator.SetBool("isShoot", false);
+        }
+        if (Input.GetMouseButton(1) && !isStick)
+        {
+            EmissionChange(Color.green, angle, 1);
+            animator.SetBool("isRun", false);
+            PullObject();
+            pullEff.SetActive(true);
+        }
+        else if (Input.GetMouseButtonUp(1) && !isStick)
+        {
+            if (playerMove.isRunning)
             {
-                pullEff.SetActive(false);
+                animator.SetBool("isRun", true);
             }
+            pullEff.SetActive(false);
         }
 
     }
@@ -113,12 +149,12 @@ public class PlayerFire : MonoBehaviour
 
     private void BulletCheck(BulletState currentState)
     {
-        if(bulletSlot.ContainsKey(currentState)) 
+        if (bulletSlot.ContainsKey(currentState))
         {
             List<GameObject> currentPool = bulletSlot[currentState];
-            if(currentPool.Count > 0)
+            if (currentPool.Count > 0)
             {
-                if (currentPool[currentPool.Count - 1 ] == null)
+                if (currentPool[currentPool.Count - 1] == null)
                     return;
                 StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool));
 
@@ -130,10 +166,10 @@ public class PlayerFire : MonoBehaviour
     {
         if (bullet != null)
         {
-            if(!isShootCool)
+            if (!isShootCool)
             {
                 isShootCool = true;
-               
+
                 Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
 
                 if (bulletRigidbody != null)
@@ -146,7 +182,7 @@ public class PlayerFire : MonoBehaviour
                     if (bullet != null)
                     {
                         bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
-                        if(Inventory.Instance.currentItem != null)
+                        if (Inventory.Instance.currentItem != null)
                             Inventory.Instance.currentItem.UseItem();
                     }
                 }
@@ -155,7 +191,17 @@ public class PlayerFire : MonoBehaviour
             }
 
         }
-
+    }
+    private void Fire(GameObject bullet)
+    {
+        if (bullet != null)
+        {
+            StickOrDrop(bullet, true);
+            Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+            Vector3 forceDirection = Camera.main.transform.forward;
+            bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
+            StartCoroutine(DelayFlag(true));
+        }
     }
     private void EmissionChange(Color color, float angle, int dir)
     {
@@ -170,7 +216,7 @@ public class PlayerFire : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // Ray from the center of the camera view
         Vector3 center = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0)); // 화면 중심을 월드 좌표로 변환
                                                                                                               // Spherecast의 반지름 설정
-        EmissionChange(new Color(0, 1, 1), angle, -1);
+
         if (Physics.SphereCast(center, radius, ray.direction, out RaycastHit hit, maxDistance, pullableObjectsLayer | autoFarmObjectsLayer))
         {
             objectToPull = hit.collider.gameObject;
@@ -198,17 +244,17 @@ public class PlayerFire : MonoBehaviour
                     Item targetItem = objectToPull.GetComponent<Item>();
                     string targetName = targetItem.itemData.itemName;
                     //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
-                    if(isThereSameSlot(targetName, out outPool))
+                    if (isThereSameSlot(targetName, out outPool))
                     {
-                        if(!targetItem.itemData.isBig)
+                        if (!targetItem.itemData.isBig)
                         {
                             AddPool(outPool, objectToPull);
                         }
                         else
                         {
-                            StickAtGun(objectToPull);
+                            StickOrDrop(objectToPull, false);
                         }
-     
+
                     }
                     ////지금 슬롯이 비었다면 저장
                     //else if (currentPool.Count == 0)
@@ -230,12 +276,12 @@ public class PlayerFire : MonoBehaviour
                                 {
                                     if (!targetItem.itemData.isBig)
                                     {
-                                        AddPool(outPool, objectToPull);
+                                        AddPool(item, objectToPull);
                                         break;
                                     }
                                     else
                                     {
-                                        StickAtGun(objectToPull);
+                                        StickOrDrop(objectToPull, false);
                                         break;
                                     }
                                 }
@@ -249,7 +295,7 @@ public class PlayerFire : MonoBehaviour
         else if (isPulling && objectToPull != null && objectToPull.layer == 7)
         {
             AutoFarmer autoFarmer = objectToPull.GetComponent<AutoFarmer>();
-            if (autoFarmer != null) 
+            if (autoFarmer != null)
             {
                 StartCoroutine(autoFarmer.GenerateItem());
             }
@@ -267,15 +313,31 @@ public class PlayerFire : MonoBehaviour
         }
         Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
     }
-    private void StickAtGun(GameObject targetObject)
+    private void StickOrDrop(GameObject targetObject, bool flag)
     {
         Rigidbody rb = targetObject.GetComponent<Rigidbody>();
-        targetObject.GetComponent<Collider>().enabled = false;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        targetObject.transform.SetParent(gunPos.transform);      
+        targetObject.GetComponent<Collider>().enabled = flag;
+        rb.useGravity = flag;
+        rb.freezeRotation = !flag;
+        if (!flag)
+        {
+            rb.velocity = Vector3.zero;
+            targetObject.transform.localEulerAngles = Vector3.zero;
+            targetObject.transform.SetParent(gunPos.transform);
+            isStick = !flag;
+        }
+        else
+        {
+            targetObject.transform.SetParent(null);
+            StartCoroutine(DelayFlag(flag));
+        }
     }
-    private bool isThereSameSlot(string _targetName, out List<GameObject>sameSlot)
+    IEnumerator DelayFlag(bool flag)
+    {
+        yield return new WaitForSeconds(0.35f);
+        isStick = !flag;
+    }
+    private bool isThereSameSlot(string _targetName, out List<GameObject> sameSlot)
     {
         foreach (var item in bulletSlot.Values)
         {
