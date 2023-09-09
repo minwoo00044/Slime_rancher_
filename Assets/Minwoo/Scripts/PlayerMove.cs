@@ -19,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     public bool isJumping = false;
 
     public bool isStaminaReduce = false;
+    bool isRunning = false; 
     public float staminaReduce;
 
     public bool isEquipJumpPack = false;
@@ -40,18 +41,21 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            animator.SetBool("isRun", true);
-            speed = runSpeed;
-            Player.Instance.stamina -= staminaReduce * Time.deltaTime;
-            isStaminaReduce = true;
+            // Toggle the running state
+            isRunning = !isRunning;
+
+            // Set the animator parameter and adjust speed based on the running state
+            animator.SetBool("isRun", isRunning);
+            speed = isRunning ? runSpeed : speed / runMultiple;
+            isStaminaReduce = isRunning;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
+
+        // Optionally, you can reduce stamina while the player is running here
+        if (isRunning)
         {
-            animator.SetBool("isRun", false);
-            speed = speed / runMultiple;
-            isStaminaReduce = false;
+            Player.Instance.stamina -= staminaReduce * Time.deltaTime;
         }
         if (isJumping && characterController.collisionFlags == CollisionFlags.Below)
         {

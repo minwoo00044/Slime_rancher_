@@ -52,8 +52,22 @@ public class PlayerFire : MonoBehaviour
         Slot02,
         Slot03
     }
-    public BulletState bulletState = BulletState.Slot0;
+    private BulletState _bulletState = BulletState.Slot0;
+    public BulletState bulletState
+    {
+        get
+        {
+            return _bulletState;
+        }
+        set 
+        {
+            _bulletState = value;
+            animator.SetTrigger("reload");
+        }
+    }
     public Dictionary<BulletState, List<GameObject>> bulletSlot = new Dictionary<BulletState, List<GameObject>>();
+    private bool isStick = false;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -70,7 +84,7 @@ public class PlayerFire : MonoBehaviour
             {
                 animator.SetBool("isShoot", true);
                 EmissionChange(Color.green, angle, 1);
-                BulletCheck(bulletState);
+                BulletCheck(_bulletState);
             }
             else
             {
@@ -173,19 +187,28 @@ public class PlayerFire : MonoBehaviour
             if (Vector3.Distance(objectToPull.transform.position, targetPosition) < addDistance && objectToPull.activeInHierarchy)
             {
                 isPulling = false;
-                if (bulletSlot.ContainsKey(bulletState))
+                if (bulletSlot.ContainsKey(_bulletState))
                 {
-                    BulletState currentState = bulletState;
+                    BulletState currentState = _bulletState;
 
                     List<GameObject> currentPool = bulletSlot[currentState];
                     List<GameObject> outPool;
                     if (objectToPull.GetComponent<Item>() == null)
                         return;
-                    string targetName = objectToPull.GetComponent<Item>().itemData.itemName;
+                    Item targetItem = objectToPull.GetComponent<Item>();
+                    string targetName = targetItem.itemData.itemName;
                     //지금 먹은 아이템과 같은 아이템을 저장하고 있는 슬롯이 있나요?
                     if(isThereSameSlot(targetName, out outPool))
                     {
-                        AddPool(outPool, objectToPull);
+                        if(!targetItem.itemData.isBig)
+                        {
+                            AddPool(outPool, objectToPull);
+                        }
+                        else
+                        {
+                            StickAtGun(objectToPull);
+                        }
+     
                     }
                     ////지금 슬롯이 비었다면 저장
                     //else if (currentPool.Count == 0)
@@ -205,8 +228,16 @@ public class PlayerFire : MonoBehaviour
                                 List<GameObject> item = bulletSlot[key];
                                 if (item.Count == 0)
                                 {
-                                    AddPool(item, objectToPull);
-                                    break;
+                                    if (!targetItem.itemData.isBig)
+                                    {
+                                        AddPool(outPool, objectToPull);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        StickAtGun(objectToPull);
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -235,6 +266,14 @@ public class PlayerFire : MonoBehaviour
             print(targetPool[i]);
         }
         Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
+    }
+    private void StickAtGun(GameObject targetObject)
+    {
+        Rigidbody rb = targetObject.GetComponent<Rigidbody>();
+        targetObject.GetComponent<Collider>().enabled = false;
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        targetObject.transform.SetParent(gunPos.transform);      
     }
     private bool isThereSameSlot(string _targetName, out List<GameObject>sameSlot)
     {
