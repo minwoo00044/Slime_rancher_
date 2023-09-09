@@ -44,6 +44,7 @@ public class PlayerFire : MonoBehaviour
     public float delayTime = 0.3f;
 
     Animator animator;
+
     public enum BulletState
     {
         Slot0,
@@ -65,7 +66,7 @@ public class PlayerFire : MonoBehaviour
     {
         if(!animator.GetBool("isRun"))
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(0))
             {
                 animator.SetBool("isShoot", true);
                 EmissionChange(Color.green, angle, 1);
@@ -75,7 +76,7 @@ public class PlayerFire : MonoBehaviour
             {
                 animator.SetBool("isShoot", false);
             }
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(1))
             {
                 PullObject();
                 pullEff.SetActive(true);
@@ -86,6 +87,14 @@ public class PlayerFire : MonoBehaviour
             }
         }
 
+    }
+    public void InitializePool(int slotNumber, Item savedItem, int amount)
+    {
+        List<GameObject> targetPool = bulletSlot[(BulletState)slotNumber];
+        for (int i = 0; i < amount; i++)
+        {
+            targetPool.Add(savedItem.gameObject);
+        }
     }
 
     private void BulletCheck(BulletState currentState)
@@ -178,11 +187,11 @@ public class PlayerFire : MonoBehaviour
                     {
                         AddPool(outPool, objectToPull);
                     }
-                    //지금 슬롯이 비었다면 저장
-                    else if (currentPool.Count == 0)
-                    {
-                        AddPool(currentPool, objectToPull);
-                    }
+                    ////지금 슬롯이 비었다면 저장
+                    //else if (currentPool.Count == 0)
+                    //{
+                    //    AddPool(currentPool, objectToPull);
+                    //}
                     //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
                     else
                     {

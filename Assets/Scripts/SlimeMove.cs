@@ -34,7 +34,6 @@ public class SlimeMove : MonoBehaviour
     public GameObject gemList;
     public GameObject slimeList;
 
-
     void Start()
     {
         spawnPos = transform.GetChild(2).gameObject;
@@ -184,7 +183,6 @@ public class SlimeMove : MonoBehaviour
             GrowthSlime();
         }
     }
-
     void FindMyGem()
     {
         for (int i = 0; i < gemList.transform.childCount; i++)
@@ -192,7 +190,6 @@ public class SlimeMove : MonoBehaviour
             GameObject thisGem = gemList.transform.GetChild(i).gameObject;
             if (thisGem.transform.GetChild(0).name == transform.GetChild(0).name)
             {
-
                 gem = thisGem;
                 break;
 
