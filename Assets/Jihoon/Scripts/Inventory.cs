@@ -11,8 +11,8 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
 
     public Image[] inventorySlots;
-    [SerializeField]
-    Image currentSlot;
+    
+    public Image currentSlot;
     [HideInInspector]
     public SlotItem currentItem;
     int currentIndex;
