@@ -109,33 +109,36 @@ public class PlayerFire : MonoBehaviour
         }
 
 
-
-
-        if (Input.GetMouseButton(0) && !isStick)
+        if(!isStick)
         {
-            animator.SetBool("isShoot", true);
-            EmissionChange(new Color(1, 0, 0), angle, -1);
-            BulletCheck(_bulletState);
-        }
-        else if (Input.GetMouseButtonUp(0) && !isStick)
-        {
-            animator.SetBool("isShoot", false);
-        }
-        if (Input.GetMouseButton(1) && !isStick)
-        {
-            EmissionChange(Color.green, angle, 1);
-            animator.SetBool("isRun", false);
-            PullObject();
-            pullEff.SetActive(true);
-        }
-        else if (Input.GetMouseButtonUp(1) && !isStick)
-        {
-            if (playerMove.isRunning)
+            if (Input.GetMouseButton(0))
             {
-                animator.SetBool("isRun", true);
+                animator.SetBool("isShoot", true);
+                EmissionChange(new Color(1, 0, 0), angle, -1);
+                BulletCheck(_bulletState);
             }
-            pullEff.SetActive(false);
+            else if (Input.GetMouseButtonUp(0))
+        {
+                animator.SetBool("isShoot", false);
+            }
+            if (Input.GetMouseButton(1))
+            {
+                EmissionChange(Color.green, angle, 1);
+                animator.SetBool("isRun", false);
+                PullObject();
+                pullEff.SetActive(true);
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                if (playerMove.isRunning)
+                {
+                    animator.SetBool("isRun", true);
+                }
+                pullEff.SetActive(false);
+            }
+
         }
+
 
     }
     public void InitializePool(int slotNumber, Item savedItem, int amount)
