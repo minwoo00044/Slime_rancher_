@@ -45,7 +45,5 @@ public class StatusUIManager : MonoBehaviour
         goldText.text = gold.ToString();
         hpBar.fillAmount = (float)hp / (float)maxHp;
         enBar.fillAmount = energy / maxEnergy;
-        Debug.Log(hp / maxHp);
-        Debug.Log(hp);
     }
 }
