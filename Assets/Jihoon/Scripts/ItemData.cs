@@ -11,8 +11,17 @@ public class ItemData : ScriptableObject
     public int itemPrice = 10;
     public int itemQuantity = 0;
     public bool isBig = false;
+    
     int soldQuantity = 0;
 
+    public ItemType itemType;
+    public enum ItemType
+    {
+        Slime,
+        Product,
+        Animal,
+        Gem
+    }
 
     public bool CompareData(ItemData data)
     {
