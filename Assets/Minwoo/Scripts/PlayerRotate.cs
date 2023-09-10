@@ -8,7 +8,8 @@ public class PlayerRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Player.Instance.isStop)
+            return;
         float mouseX = Input.GetAxis("Mouse X");
         Vector3 dir = new Vector3(0, mouseX, 0);
         transform.eulerAngles = transform.eulerAngles + dir * speed * Time.deltaTime;

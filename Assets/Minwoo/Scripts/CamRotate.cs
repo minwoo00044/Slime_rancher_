@@ -11,7 +11,8 @@ public class CamRotate : MonoBehaviour
     public GameObject arm;
     void Update()
     {
-
+        if (Player.Instance.isStop)
+            return;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 

@@ -85,6 +85,8 @@ public class PlayerFire : MonoBehaviour
     }
     private void Update()
     {
+        if (Player.Instance.isStop)
+            return;
         if (isStick)
         {
             if (Input.GetMouseButtonDown(0))

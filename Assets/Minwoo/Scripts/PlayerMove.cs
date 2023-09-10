@@ -41,6 +41,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Player.Instance.isStop)
+            return;
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             // Toggle the running state

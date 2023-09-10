@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public LayerMask interactableObject;
     public GameObject Guidetext;
 
+    [SerializeField]
     private  GameObject _targetUI;
     void Update()
     {
@@ -39,6 +40,8 @@ public class PlayerInteraction : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 _targetUI.SetActive(true);
+                Guidetext.SetActive(false);
+                Player.Instance.isStop = true;
             }
         }
     }

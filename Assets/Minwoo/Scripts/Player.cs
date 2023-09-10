@@ -66,6 +66,16 @@ public class Player : MonoBehaviour
     private PlayerMove playerMove;
     private PlayerFire playerFire;
     public GameObject SpotLight;
+    private bool _isStop;
+    public bool isStop
+    {
+        get
+        { return _isStop; }
+        set
+        {
+            _isStop = value;
+        }
+    }
     private void Awake()
     {
         if (instance == null)
