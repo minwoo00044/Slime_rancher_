@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class AutoFarmer : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class AutoFarmer : MonoBehaviour
         if (haveItemPool[haveItemPool.Count - 1] == null)
             return;
         haveItemPool[haveItemPool.Count - 1].SetActive(true);
+        Vector3 dir = (Player.Instance.gameObject.transform.position - transform.position).normalized;
+        haveItemPool[haveItemPool.Count - 1].GetComponent<Rigidbody>().AddForce(dir * 150);
         haveItemPool.Remove(haveItemPool[haveItemPool.Count - 1]);
     }
 }

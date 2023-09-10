@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6851754983757379758}
   - component: {fileID: 1762830420136569377}
   - component: {fileID: 3624359859561775511}
+  - component: {fileID: -8325968840981439753}
   m_Layer: 6
   m_Name: LeafGem
   m_TagString: Item
@@ -135,6 +136,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8325968840981439753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8870473980919683952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8cee53c453c1c428b534ccfdcbc839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 7a13f501773bba44c94bd20df2c4b886, type: 2}
 --- !u!1001 &4492243250894733901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -203,6 +217,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leaf
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fc38eb1d15aad094cafb3cb0e7542241, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -268,6 +286,10 @@ PrefabInstance:
     - target: {fileID: 6842637255592626096, guid: e899268da60fc134ca5efbdd34b903ff, type: 3}
       propertyPath: m_Name
       value: Leaf
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842637255592626096, guid: e899268da60fc134ca5efbdd34b903ff, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1128961492684924150}
   - component: {fileID: 4535937352779207117}
   - component: {fileID: 2218761031345809742}
+  - component: {fileID: 226902625223640595}
   m_Layer: 6
   m_Name: LeafSlime
   m_TagString: Slime
@@ -123,7 +124,7 @@ Transform:
   - {fileID: 4231043012852673356}
   - {fileID: 3598777394033353289}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3243599987996746668
 MonoBehaviour:
@@ -243,6 +244,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &226902625223640595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435777063803728612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8cee53c453c1c428b534ccfdcbc839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 5c3f749d17f2f004d849c76850d8f600, type: 2}
 --- !u!1001 &3925966265170855330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,6 +313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leaf
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fc38eb1d15aad094cafb3cb0e7542241, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -317,6 +335,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3414017642195827263}
     m_Modifications:
+    - target: {fileID: -8974606608180858246, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -377,6 +399,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b743b2ec420ccea40a7ed16b95bd6e42, type: 2}
+    - target: {fileID: -5098033314448498520, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -4421387502358083834, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3
@@ -389,9 +415,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: -809624348202768371, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
       propertyPath: m_Name
       value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1891019083907190217, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668605608433959078, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221923010788876961, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7044479379385586571, guid: 3637a84931739744cb21e01b4578ab51, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -458,6 +508,10 @@ PrefabInstance:
     - target: {fileID: 6842637255592626096, guid: e899268da60fc134ca5efbdd34b903ff, type: 3}
       propertyPath: m_Name
       value: Leaf
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842637255592626096, guid: e899268da60fc134ca5efbdd34b903ff, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

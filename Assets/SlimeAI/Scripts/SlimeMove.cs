@@ -59,12 +59,16 @@ public class SlimeMove : MonoBehaviour
                 lookObject = findObject;
                 break;
             }
-            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            if (findObject.tag == "Item"  && findObject.transform.childCount > 0)
             {
-                if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                if(findObject.transform.GetChild(0).name != transform.GetChild(0).name)
                 {
-                    lookObject = findObject;
+                    if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                    {
+                        lookObject = findObject;
+                    }
                 }
+  
             }
             if (findObject.tag == "Food" && hunger == 0)
             {
@@ -203,6 +207,8 @@ public class SlimeMove : MonoBehaviour
         for (int i = 0; i < slimeList.transform.childCount; i++)
         {
             GameObject thisSlime = slimeList.transform.GetChild(i).gameObject;
+            if (lookObject.transform.childCount < 1)
+                return;
             if (thisSlime.transform.GetChild(0).name == this.transform.GetChild(0).name || thisSlime.transform.GetChild(0).name == lookObject.transform.GetChild(0).name)
             {
                 if (thisSlime.transform.GetChild(1).name == this.transform.GetChild(0).name || thisSlime.transform.GetChild(1).name == lookObject.transform.GetChild(0).name)
