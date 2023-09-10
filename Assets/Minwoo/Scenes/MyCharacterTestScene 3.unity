@@ -3342,6 +3342,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
+      propertyPath: eatSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 03a5e845ea623ba4796b05860542b715, type: 3}
+    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
+      propertyPath: fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9244f13cf59691b41b541c93a3109c20, type: 3}
+    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
+      propertyPath: emptySound
+      value: 
+      objectReference: {fileID: 8300000, guid: d5038eafe9ca05c4bb1e691325f4cc57, type: 3}
+    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
+      propertyPath: reloadSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 96c024475cc3dff4683ee692712060f5, type: 3}
     - target: {fileID: 3232051947639475817, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_RootOrder
       value: 2

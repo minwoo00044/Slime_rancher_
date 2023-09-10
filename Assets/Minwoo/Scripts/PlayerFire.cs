@@ -30,6 +30,10 @@ public class PlayerFire : MonoBehaviour
     public GameObject pullEff;
     public float bulletForce;
     public float addDistance = 0.5f;
+    public AudioClip eatSound;
+    public AudioClip fireSound;
+    public AudioClip emptySound;
+    public AudioClip reloadSound;
 
     private bool isPulling = false;
     [SerializeField]
@@ -62,6 +66,7 @@ public class PlayerFire : MonoBehaviour
         set
         {
             _bulletState = value;
+            SoundManager.Instance.PlaySound(reloadSound);
             animator.SetTrigger("reload");
         }
     }
@@ -107,9 +112,7 @@ public class PlayerFire : MonoBehaviour
             }
 
         }
-
-
-        if(!isStick)
+        if (!isStick)
         {
             if (Input.GetMouseButton(0))
             {
@@ -118,7 +121,7 @@ public class PlayerFire : MonoBehaviour
                 BulletCheck(_bulletState);
             }
             else if (Input.GetMouseButtonUp(0))
-        {
+            {
                 animator.SetBool("isShoot", false);
             }
             if (Input.GetMouseButton(1))
@@ -138,8 +141,6 @@ public class PlayerFire : MonoBehaviour
             }
 
         }
-
-
     }
     public void InitializePool(int slotNumber, Item savedItem, int amount)
     {
@@ -149,7 +150,6 @@ public class PlayerFire : MonoBehaviour
             targetPool.Add(savedItem.gameObject);
         }
     }
-
     private void BulletCheck(BulletState currentState)
     {
         if (bulletSlot.ContainsKey(currentState))
@@ -160,11 +160,15 @@ public class PlayerFire : MonoBehaviour
                 if (currentPool[currentPool.Count - 1] == null)
                     return;
                 StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool));
+            }
+            else
+            {
+                if (!SoundManager.Instance.IsPlaying(emptySound))
+                    SoundManager.Instance.PlaySound(emptySound);
 
             }
         }
     }
-
     IEnumerator Fire(GameObject bullet, List<GameObject> _currentPool)
     {
         if (bullet != null)
@@ -178,6 +182,7 @@ public class PlayerFire : MonoBehaviour
                 if (bulletRigidbody != null)
                 {
                     bullet.SetActive(true);
+                    SoundManager.Instance.PlaySound(fireSound);
                     _currentPool.Remove(_currentPool[_currentPool.Count - 1]);
                     bullet.transform.position = gunPos.transform.position;
                     bullet.transform.rotation = gunPos.transform.rotation;
@@ -225,8 +230,6 @@ public class PlayerFire : MonoBehaviour
             objectToPull = hit.collider.gameObject;
             isPulling = true;
         }
-
-
         if (isPulling && objectToPull != null && objectToPull.layer == 6)
         {
 
@@ -257,13 +260,7 @@ public class PlayerFire : MonoBehaviour
                         {
                             StickOrDrop(objectToPull, false);
                         }
-
                     }
-                    ////지금 슬롯이 비었다면 저장
-                    //else if (currentPool.Count == 0)
-                    //{
-                    //    AddPool(currentPool, objectToPull);
-                    //}
                     //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
                     else
                     {
@@ -303,17 +300,13 @@ public class PlayerFire : MonoBehaviour
                 StartCoroutine(autoFarmer.GenerateItem());
             }
         }
-
     }
     private void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
 
         targetPool.Add(targetObject);
         targetObject.SetActive(false);
-        for (int i = 0; i < targetPool.Count; i++)
-        {
-            print(targetPool[i]);
-        }
+        SoundManager.Instance.PlaySound(eatSound);
         Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
     }
     private void StickOrDrop(GameObject targetObject, bool flag)
