@@ -22,6 +22,11 @@ public class GunItemUI : MonoBehaviour
         }
         else
         {
+            if (Inventory.Instance.currentItem.item == null) 
+            {
+                image.enabled = false;
+                return;
+            }
             image.enabled = true;
             image.sprite = Inventory.Instance.currentItem.item.itemImage;
         }

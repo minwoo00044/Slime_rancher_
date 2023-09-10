@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Farm : MonoBehaviour
 {
-    float timer;
+    public float timer;
     public GameObject product;
     bool isHarvested;
+
+    GameObject newProduct;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,14 +20,30 @@ public class Farm : MonoBehaviour
     {
         if(isHarvested)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime * 60f;
             if(timer > 720f)
             {
                 isHarvested = false;
                 timer = 0f;
-                Instantiate(product, transform.position, Quaternion.identity);
+                newProduct = Instantiate(product, gameObject.transform);
+                newProduct.transform.position = transform.position;
             }
         }
-        
+        else
+        {
+            if (transform.childCount == 0)
+            {
+                isHarvested = true;
+            }
+            if(newProduct != null)
+            {
+                if(newProduct.activeSelf == false)
+                {
+                    newProduct.transform.SetParent(null);
+                    newProduct = null;
+                }
+            }
+        }
     }
+
 }

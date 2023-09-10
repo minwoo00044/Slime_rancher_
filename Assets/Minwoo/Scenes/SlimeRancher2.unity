@@ -813,10 +813,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: bulletForce
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3232051947639475817, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -860,10 +856,6 @@ PrefabInstance:
     - target: {fileID: 3232051947639475817, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322193277992592875, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: maxDistance
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8255470640725237813, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_Name
