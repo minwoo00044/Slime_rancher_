@@ -3,7 +3,9 @@ guid: d452873713d139847a7bdefc4805e6b3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gemList: {fileID: 2559791417349143405, guid: 0b03b3fcc501ffb40b958e63239cfcd0, type: 3}
+  - slimeList: {fileID: 7367072970116455182, guid: 14ee887a487b0cb4f8dd5b6fce0d4989, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

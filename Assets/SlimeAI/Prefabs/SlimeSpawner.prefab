@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c5be5ed6c631f41ab8ce189d1abd25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slime: {fileID: 7435777063803728612, guid: a76c936e18b74cd4bb3fb0ffc759ac04, type: 3}
+  slime: {fileID: 0}
   spawnDelay: 30
   spawnToSpawnTime: 1
   countRange: 20

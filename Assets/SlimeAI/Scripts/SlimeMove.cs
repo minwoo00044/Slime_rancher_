@@ -45,6 +45,8 @@ public class SlimeMove : MonoBehaviour
 
     void Update()
     {
+        //if (gameObject.activeInHierarchy)
+
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
 
@@ -53,7 +55,7 @@ public class SlimeMove : MonoBehaviour
         for (int i = 0; i < cols.Length; i++)
         {
             findObject = cols[i].gameObject;
-            if(findObject.tag == "Tar")
+            if (findObject.tag == "Tar")
             {
                 lookObject = findObject;
                 break;
@@ -78,7 +80,7 @@ public class SlimeMove : MonoBehaviour
         {
             Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
             if (lookObject.tag == "Tar")
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
             else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
             Move();
         }
@@ -212,7 +214,7 @@ public class SlimeMove : MonoBehaviour
                     GameObject bigSlime = Instantiate(thisSlime);
                     bigSlime.transform.position = spawnPos.transform.position;
                     Rigidbody slimeStert = bigSlime.GetComponent<Rigidbody>();
-                    slimeStert.AddForce(Vector3.up*5,ForceMode.Impulse);
+                    slimeStert.AddForce(Vector3.up * 5, ForceMode.Impulse);
                     Destroy(this.gameObject);
                 }
             }

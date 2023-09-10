@@ -55,11 +55,14 @@ public class BigSlimeMove : MonoBehaviour
                 lookObject = findObject;
                 break;
             }
-            if (findObject.tag == "Item" && findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+            if (findObject.tag == "Item")
             {
-                if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                if(findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
                 {
-                    lookObject = findObject;
+                    if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
+                    {
+                        lookObject = findObject;
+                    }
                 }
             }
             if (findObject.tag == "Food" && hunger <= 0)
@@ -179,11 +182,15 @@ public class BigSlimeMove : MonoBehaviour
 
             hunger = 100;
         }
-        if (collision.gameObject.tag == "Item" && collision.gameObject.transform.GetChild(0).name != transform.GetChild(0).name)
+        if (collision.gameObject.tag == "Item")
         {
-            Destroy(collision.gameObject);
-            lookObject = null;
-            GrowthSlime();
+            if(collision.gameObject.transform.GetChild(0).name != transform.GetChild(0).name && collision.gameObject.transform.GetChild(0).name != transform.GetChild(1).name)
+            {
+                Destroy(collision.gameObject);
+                lookObject = null;
+                GrowthSlime();
+            }
+            
         }
     }
     void FindMyGem()
@@ -197,6 +204,7 @@ public class BigSlimeMove : MonoBehaviour
                 if (gem1 == null)
                 {
                     gem1 = thisGem;
+                    i = 0;
                     countNum++;
                 }
                 else
