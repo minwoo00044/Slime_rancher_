@@ -26,12 +26,12 @@ public class TarMove : MonoBehaviour
     GameObject lookObject;
     GameObject findObject;
 
-    int slimeSize = 1;
+    int slimeSize = 2;
     public GameObject tar;
     // Start is called before the first frame update
     void Start()
     {
-        transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize) * 0.8f;
+        transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize);
     }
 
     // Update is called once per frame
@@ -140,13 +140,13 @@ public class TarMove : MonoBehaviour
             collision.gameObject.SetActive(false);
             lookObject = null;
             slimeSize++;
-            if (slimeSize == 3)
+            if (slimeSize == 4)
             {
                 GameObject tarGO = Instantiate(tar);
                 tarGO.transform.position = transform.position;
                 Rigidbody rigidbody = tarGO.GetComponent<Rigidbody>();
-                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
-                slimeSize = 1;
+                rigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
+                slimeSize = 2;
             }
             transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize)*0.8f;
         }
