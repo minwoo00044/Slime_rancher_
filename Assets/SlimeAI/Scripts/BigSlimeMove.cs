@@ -45,7 +45,6 @@ public class BigSlimeMove : MonoBehaviour
         if (transform.parent != null)
             if (transform.parent.tag == "Player")
             {
-                print("stick!");
                 return;
             }
                 
