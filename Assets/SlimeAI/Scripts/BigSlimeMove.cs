@@ -42,6 +42,13 @@ public class BigSlimeMove : MonoBehaviour
 
     void Update()
     {
+        if (transform.parent != null)
+            if (transform.parent.tag == "Player")
+            {
+                print("stick!");
+                return;
+            }
+                
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
 

@@ -2495,7 +2495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5910724307659787088, guid: 9f7720464a995c745b8b9a0181361cfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 141.31607
+      value: 93
       objectReference: {fileID: 0}
     - target: {fileID: 5910724307659787088, guid: 9f7720464a995c745b8b9a0181361cfa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6359,6 +6359,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1131074323140682430, guid: 62a7af92d1529dc4eb8ab57953791594, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2212419681968071688, guid: 62a7af92d1529dc4eb8ab57953791594, type: 3}
       propertyPath: m_Name
       value: PurpleSlime

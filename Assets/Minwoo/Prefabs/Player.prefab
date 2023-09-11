@@ -1188,6 +1188,7 @@ MonoBehaviour:
   - {fileID: 3431538065195125898}
   - {fileID: 5539640627901632473}
   - {fileID: 7745079641155291264}
+  - {fileID: 4449802157244915030}
   intensity: 5
   delayTime: 0.3
 --- !u!114 &1226935527083652080
@@ -1223,7 +1224,7 @@ MonoBehaviour:
   power: 10
   additionalUpwardForce: 10
   staminaReduce: 33
-  gunPos: {fileID: 0}
+  gunPos: {fileID: 9103726894576977923}
 --- !u!95 &8051928314268856009
 Animator:
   serializedVersion: 5
