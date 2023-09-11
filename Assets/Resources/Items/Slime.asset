@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7eae82ff2bc5c947a0d8f053abd3c38, type: 3}
-  m_Name: Fruit
+  m_Name: Slime
   m_EditorClassIdentifier: 
-  itemName: Fruit
-  itemImage: {fileID: 21300000, guid: e66baf9a980da2d49ad84bc5d99cb197, type: 3}
+  itemName: Slime
+  itemImage: {fileID: 21300000, guid: cc85d36f180338244b3ef1e9da16b424, type: 3}
   itemPrice: 10
-  itemQuantity: 6
+  itemQuantity: 0
   isBig: 0
-  itemType: 1
+  itemType: 0
