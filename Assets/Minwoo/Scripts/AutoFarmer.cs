@@ -9,43 +9,116 @@ public class AutoFarmer : MonoBehaviour
 {
     public float delayTime;
     private bool isGenerating = false;
-    private List<GameObject> haveItemPool = new List<GameObject>();
+    private bool isPulling = false;
     public GameObject demoItem;
+    public float harvestDelay;
+    private List<GameObject> detectedItems = new List<GameObject>();
+    public float pullSpeed;
+    public Transform cage;
+    private Vector3 cageRange;
+
+    private List<GameObject> itemPool0 = new List<GameObject>();
+    private List<GameObject> itemPool1 = new List<GameObject>();
     private void Awake()
     {
-        for(int i = 0; i < 5; i++)
-        {
-            GameObject instance = Instantiate(demoItem);
-            instance.transform.position = transform.position;
-            instance.transform.rotation = transform.rotation;
-            instance.SetActive(false);
-            haveItemPool.Add(instance);
-        }
+        cage = transform.parent;
+        StartCoroutine(AddPoolDelay());
     }
     public IEnumerator GenerateItem()
     {
         if (!isGenerating) // 이 조건을 추가하여 이미 생성 중인 경우 다시 생성하지 않도록 합니다.
         {
+
             isGenerating = true;
             yield return new WaitForSeconds(delayTime);
-            print(haveItemPool.Count);
-            if(haveItemPool.Count > 0)
+
+            if (itemPool0.Count > 0)
             {
-                RemovePool();
+                RemovePool(itemPool0);
+            }
+            else
+            {
+                RemovePool(itemPool1);
             }
             isGenerating = false;
         }
     }
-    private void AddPool()
+    IEnumerator AddPoolDelay()
     {
+        if (!isPulling)
+        {
+            isPulling = true;
+            yield return new WaitForSeconds(harvestDelay);
+            print("delay");
+            StartCoroutine(AddPool());
+            isPulling = false;
+        }
+        else
+        {
+            yield return new WaitForSeconds(harvestDelay);
+            print("delay");
+            StartCoroutine(AddPool());
+            isPulling = false;
+        }
     }
-    private void RemovePool()
+    IEnumerator AddPool()
     {
-        if (haveItemPool[haveItemPool.Count - 1] == null)
+        detectedItems.Clear();
+        print("add");
+        for (int i = 0; i < cage.childCount; i++)
+        {
+            if (cage.GetChild(i).name == "Floor")
+            {
+                cageRange = cage.GetChild(i).localScale;
+            }
+        }
+        Collider[] colliders = Physics.OverlapBox(cage.position, new Vector3(cageRange.x / 2f, 10F, cageRange.z / 2f));
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Item") && collider.gameObject.activeInHierarchy)
+            {
+                detectedItems.Add(collider.gameObject);
+            }
+        }
+
+        print(detectedItems.Count);
+        if(detectedItems.Count > 0)
+        {
+            foreach (GameObject item in detectedItems)
+            {
+                Vector3 targetPosition = transform.position;
+                while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
+                {
+                    item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime);
+                    yield return null;
+                }
+                if (item.activeInHierarchy)
+                {
+                    item.SetActive(false);
+                    if (itemPool0.Count < 1)
+                    {
+                        itemPool0.Add(item);
+                    }
+                    else
+                    {
+                        itemPool1.Add(item);
+                    }
+                }
+            }
+        }
+        // 검출된 아이템 리스트를 순회하거나 필요에 따라 처리
+
+        StartCoroutine(AddPoolDelay());
+    }
+
+    private void RemovePool(List<GameObject> targetPool)
+    {
+        if (targetPool[targetPool.Count - 1] == null)
             return;
-        haveItemPool[haveItemPool.Count - 1].SetActive(true);
+        targetPool[targetPool.Count - 1].SetActive(true);
         Vector3 dir = (Player.Instance.gameObject.transform.position - transform.position).normalized;
-        haveItemPool[haveItemPool.Count - 1].GetComponent<Rigidbody>().AddForce(dir * 150);
-        haveItemPool.Remove(haveItemPool[haveItemPool.Count - 1]);
+        targetPool[targetPool.Count - 1].GetComponent<Rigidbody>().AddForce(dir * 150);
+        targetPool.Remove(targetPool[targetPool.Count - 1]);
     }
 }
