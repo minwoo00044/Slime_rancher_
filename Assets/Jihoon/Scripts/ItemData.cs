@@ -18,7 +18,8 @@ public class ItemData : ScriptableObject
     public enum ItemType
     {
         Slime,
-        Product,
+        Fruit,
+        Vegetable,
         Animal,
         Gem
     }
