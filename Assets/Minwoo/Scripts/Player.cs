@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
             else if (value < 0) 
             {
                 value = 0;
+                if(playerMove.isRunning)
+                    playerMove.ToggleRun();
+
             }
             _stamina = value;
         }
@@ -67,6 +70,7 @@ public class Player : MonoBehaviour
     private PlayerFire playerFire;
     public GameObject SpotLight;
     private bool _isStop;
+    public Transform gunPos;
     public bool isStop
     {
         get

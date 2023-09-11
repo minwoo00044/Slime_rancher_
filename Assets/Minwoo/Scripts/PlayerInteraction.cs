@@ -9,7 +9,8 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject Guidetext;
 
     [SerializeField]
-    private  GameObject _targetUI;
+    private GameObject _targetUI;
+    private AutoFarmer autoFarmer;
     void Update()
     {
         Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0.0f);
@@ -25,7 +26,17 @@ public class PlayerInteraction : MonoBehaviour
                 if (hit.collider != null)
                 {
                     Guidetext.SetActive(true);
-                    _targetUI = hit.collider.gameObject.GetComponent<InteractableObject>().targetUI;
+                    if (hit.collider.gameObject.layer == 1 << 9)
+                    {
+                        _targetUI = hit.collider.gameObject.GetComponent<InteractableObject>().targetUI;
+                        autoFarmer = null;
+                    }
+                    else
+                    {
+                        autoFarmer = hit.collider.gameObject.gameObject.GetComponent<AutoFarmer>();
+                        _targetUI = null;
+                    }
+
                 }
             }
             else
@@ -35,13 +46,17 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        if(_targetUI != null)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if(Input.GetKeyDown(KeyCode.E))
+            if (_targetUI != null)
             {
                 _targetUI.SetActive(true);
                 Guidetext.SetActive(false);
                 Player.Instance.isStop = true;
+            }
+            else if (autoFarmer != null)
+            {
+                StartCoroutine(autoFarmer.AddPool());
             }
         }
     }

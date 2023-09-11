@@ -1,9 +1,11 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEditor.Progress;
 
 public class AutoFarmer : MonoBehaviour
 {
@@ -49,22 +51,20 @@ public class AutoFarmer : MonoBehaviour
         {
             isPulling = true;
             yield return new WaitForSeconds(harvestDelay);
-            print("delay");
+
             StartCoroutine(AddPool());
             isPulling = false;
         }
         else
         {
             yield return new WaitForSeconds(harvestDelay);
-            print("delay");
             StartCoroutine(AddPool());
             isPulling = false;
         }
     }
-    IEnumerator AddPool()
+    public IEnumerator AddPool()
     {
         detectedItems.Clear();
-        print("add");
         for (int i = 0; i < cage.childCount; i++)
         {
             if (cage.GetChild(i).name == "Floor")
@@ -82,7 +82,6 @@ public class AutoFarmer : MonoBehaviour
             }
         }
 
-        print(detectedItems.Count);
         if(detectedItems.Count > 0)
         {
             foreach (GameObject item in detectedItems)
@@ -114,11 +113,19 @@ public class AutoFarmer : MonoBehaviour
 
     private void RemovePool(List<GameObject> targetPool)
     {
-        if (targetPool[targetPool.Count - 1] == null)
+        if (targetPool.Count < 1)
             return;
         targetPool[targetPool.Count - 1].SetActive(true);
-        Vector3 dir = (Player.Instance.gameObject.transform.position - transform.position).normalized;
-        targetPool[targetPool.Count - 1].GetComponent<Rigidbody>().AddForce(dir * 150);
+        StartCoroutine(pullToGun(targetPool[targetPool.Count - 1], Player.Instance.gunPos));
         targetPool.Remove(targetPool[targetPool.Count - 1]);
+    }
+
+    IEnumerator pullToGun(GameObject target, Transform gunPos)
+    {
+        while (Vector3.Distance(target.transform.position, gunPos.position) > 0.1f)
+        {
+            target.transform.position = Vector3.MoveTowards(target.transform.position, gunPos.position, pullSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }

@@ -45,13 +45,10 @@ public class PlayerMove : MonoBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            // Toggle the running state
-            isRunning = !isRunning;
-
-            // Set the animator parameter and adjust speed based on the running state
-            animator.SetBool("isRun", isRunning);
-            speed = isRunning ? runSpeed : speed / runMultiple;
-            isStaminaReduce = isRunning;
+            if(Player.Instance.stamina > 0)
+            {
+                ToggleRun();
+            }
         }
 
         // Optionally, you can reduce stamina while the player is running here
@@ -71,24 +68,17 @@ public class PlayerMove : MonoBehaviour
         //일반 점프
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
-            yVelocity = jumpPower;
-            isJumping = true;
-        }
-        if (Input.GetButton("Jump") && isEquipJumpPack)
-        {
-            isStaminaReduce = true;
-            Player.Instance.stamina -= staminaReduce * Time.deltaTime;
-            if (transform.position.y < flyLimit)
-            {
-
-                yVelocity = jumpPower;
-                yVelocity += jumpPackPower * Time.deltaTime;
-
-            }
+            Jump();
         }
         else if (Input.GetButtonUp("Jump"))
         {
-            isStaminaReduce = false;
+            EndJump();
+        }
+
+        // Check for jump pack usage
+        if (Input.GetButton("Jump") && isEquipJumpPack)
+        {
+            UseJumpPack();
         }
 
         float h = Input.GetAxis("Horizontal");
@@ -109,4 +99,44 @@ public class PlayerMove : MonoBehaviour
         //animator.SetFloat("MoveMotion", dir.magnitude);
     }
 
+    public void ToggleRun()
+    {
+        // Toggle the running state
+        isRunning = !isRunning;
+
+        // Set the animator parameter and adjust speed based on the running state
+        animator.SetBool("isRun", isRunning);
+        speed = isRunning ? runSpeed : speed / runMultiple;
+        isStaminaReduce = isRunning;
+    }
+
+    private void Jump()
+    {
+        yVelocity = jumpPower;
+        isJumping = true;
+    }
+
+    private void EndJump()
+    {
+        isJumping = false;
+        isStaminaReduce = false;
+    }
+    private void UseJumpPack()
+    {
+        if (Player.Instance.stamina > 1)
+        {
+            isStaminaReduce = true;
+            isJumping = true;
+            Player.Instance.stamina -= staminaReduce * Time.deltaTime;
+
+            if (transform.position.y < flyLimit)
+            {
+                yVelocity = jumpPower + jumpPackPower * Time.deltaTime;
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
 }
