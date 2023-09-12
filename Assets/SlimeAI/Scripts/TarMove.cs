@@ -135,6 +135,10 @@ public class TarMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == 4)
+        {
+            Destroy(this.gameObject);
+        }
         if (collision.gameObject.tag == "Slime")
         {
             collision.gameObject.SetActive(false);
