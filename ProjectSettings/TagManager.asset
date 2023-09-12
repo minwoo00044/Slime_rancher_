@@ -8,6 +8,7 @@ TagManager:
   - Slime
   - Tar
   - Food
+  - Tree
   layers:
   - Default
   - TransparentFX

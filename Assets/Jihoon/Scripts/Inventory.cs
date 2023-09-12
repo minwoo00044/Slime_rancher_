@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
     private PlayerFire playerFire;
     public Sprite onSlotImg;
     public Sprite offSlotImg;
+    KeyCode key;
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +35,13 @@ public class Inventory : MonoBehaviour
         }
         //StartCoroutine(InventoryTest());
         playerFire = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFire>();
+        LoadInventory();
     }
     // Update is called once per frame
     void Update()
     {
         if (MenuManager.instance.isPaused) return;
+        
         if (Input.GetMouseButtonDown(1))
         {
             //if (currentItem.item != null)
@@ -54,6 +57,29 @@ public class Inventory : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             Debug.Log("Mouse Wheel Scrolled");
+        }
+    }
+
+    void LoadInventory()
+    {
+        for(int i =0; i<4; i++)
+        {
+            if(PlayerPrefs.HasKey("Slot" + i))
+            {
+                string name = PlayerPrefs.GetString("Slot" + i);
+                ItemData savedItem = DataManager.instance.FindDataByName(name);
+                if(savedItem == null)
+                {
+                    return;
+                }
+                savedItem.itemQuantity--;
+                AddItemToInventory(savedItem);
+            }
+            else
+            {
+                print("Key°¡ ¾øÀ½");
+                return;
+            }
         }
     }
 
@@ -73,7 +99,6 @@ public class Inventory : MonoBehaviour
 
     Image GetCurrentSlot()
     {
-        KeyCode key = GetLastPressedKeyCode();
         int index = (int)key - (int)KeyCode.Alpha1;
         switch (index)
         {
@@ -120,6 +145,7 @@ public class Inventory : MonoBehaviour
 
     void DeselectSlot()
     {
+        if ((int)key >= 49 && (int)key < 52) return;
         RectTransform rect = currentSlot.GetComponent<RectTransform>();
         Transform[] currentSlotChildren = currentSlot.GetComponentsInChildren<Transform>();
         foreach (var currentSlotChild in currentSlotChildren)
@@ -146,6 +172,7 @@ public class Inventory : MonoBehaviour
 
     void SelectSlot()
     {
+        KeyCode key = GetLastPressedKeyCode();
         if (currentSlot != null)
         {
             DeselectSlot();
@@ -183,6 +210,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (slotItems[i].SetItem(newItem))
                     {
+                        PlayerPrefs.SetString("Slot" + i, newItem.itemName);
                         return;
                     }
                 }

@@ -20,13 +20,13 @@ public class Farm : MonoBehaviour
     {
         if(isHarvested)
         {
-            timer += Time.deltaTime * 60f;
+            timer += Time.deltaTime * 360f;
             if(timer > 720f)
             {
                 isHarvested = false;
                 timer = 0f;
-                newProduct = Instantiate(product, gameObject.transform);
-                newProduct.transform.position = transform.position;
+                newProduct = Instantiate(product, transform.position, Quaternion.Euler(-90, 0, 0));
+                newProduct.transform.SetParent(this.transform);
             }
         }
         else

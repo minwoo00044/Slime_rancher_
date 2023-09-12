@@ -26,7 +26,7 @@ public class TimeManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         second += Time.deltaTime*60;
         if(second >= 60)
         {

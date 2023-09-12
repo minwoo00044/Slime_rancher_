@@ -17,4 +17,4 @@ MonoBehaviour:
   itemPrice: 10
   itemQuantity: 0
   isBig: 0
-  itemType: 0
+  itemType: 2
