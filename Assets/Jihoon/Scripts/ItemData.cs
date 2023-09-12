@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New ItemData", menuName = "Item Data")]
 public class ItemData : ScriptableObject
 {
     public string itemName;
@@ -23,6 +23,7 @@ public class ItemData : ScriptableObject
         Animal,
         Gem
     }
+
 
     public bool CompareData(ItemData data)
     {

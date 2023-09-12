@@ -31,6 +31,20 @@ public class SlotItem : MonoBehaviour
             item = newItem;
             item.itemQuantity++;
             itemAmountText.text = "x " + item.itemQuantity;
+            if(itemImage == null)
+            {
+                print("???????????");
+            }
+            if(itemImage.sprite == null)
+            {
+                print(item.itemName);
+                print(1);
+            }
+            else if(item.itemImage == null)
+            {
+                print(item.itemName);
+                print(2);
+            }
             itemImage.sprite = item.itemImage;
             return true;
         }
@@ -54,7 +68,7 @@ public class SlotItem : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         itemImage = GetComponent<Image>();
     }
