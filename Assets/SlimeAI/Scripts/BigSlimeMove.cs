@@ -181,6 +181,10 @@ public class BigSlimeMove : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == 4)
+        {
+            Destroy(this.gameObject);
+        }
         if (collision.gameObject.tag == "Food" && hunger <= 0)
         {
             Destroy(collision.gameObject);
