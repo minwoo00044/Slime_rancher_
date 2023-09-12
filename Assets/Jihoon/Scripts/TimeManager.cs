@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour
     public Material nightMaterial;
 
     public float skyboxRotateSpeed;
-    public Light light;
+    //public Light light;
     // Start is called before the first frame update
     void Start()
     {

@@ -83,6 +83,7 @@ public class PlayerFire : MonoBehaviour
         bulletSlot.Add(BulletState.Slot02, itemPool2);
         bulletSlot.Add(BulletState.Slot03, itemPool3);
     }
+
     private void Update()
     {
         if (Player.Instance.isStop)
@@ -144,12 +145,14 @@ public class PlayerFire : MonoBehaviour
 
         }
     }
-    public void InitializePool(int slotNumber, Item savedItem, int amount)
+    public void InitializePool(int slotNumber, ItemData savedItem, int amount)
     {
         List<GameObject> targetPool = bulletSlot[(BulletState)slotNumber];
         for (int i = 0; i < amount; i++)
         {
-            targetPool.Add(savedItem.gameObject);
+            GameObject poolItem = Instantiate(savedItem.itemPrefab);
+            poolItem.SetActive(false);
+            targetPool.Add(poolItem);
         }
     }
     private void BulletCheck(BulletState currentState)

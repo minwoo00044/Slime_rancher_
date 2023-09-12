@@ -74,6 +74,7 @@ public class Inventory : MonoBehaviour
                 }
                 savedItem.itemQuantity--;
                 AddItemToInventory(savedItem);
+                playerFire.InitializePool(i, savedItem, savedItem.itemQuantity);
             }
             else
             {
