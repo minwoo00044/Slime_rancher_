@@ -874,6 +874,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
+      propertyPath: bulletForce
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3232051947639475817, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1427,22 +1431,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 654075387649405199, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: dayMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 30af4ca41c36fda49bad4a48501b7e28, type: 2}
-    - target: {fileID: 654075387649405199, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: nightMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 36ba6bd58adbca84e8186b7d2370fc7f, type: 2}
-    - target: {fileID: 654075387649405199, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: skyboxRotateSpeed
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3736308153524150909, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: gold
-      value: 250
-      objectReference: {fileID: 0}
     - target: {fileID: 3882253229944328463, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1527,21 +1515,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5708741661530466482, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6804094092899881858, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7421143353925082507, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8506161231995927519, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

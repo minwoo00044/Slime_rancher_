@@ -21,18 +21,19 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Tree") && itemData.itemType == ItemData.ItemType.Fruit)
+        if (other.gameObject.CompareTag("Farm") && (itemData.itemType == ItemData.ItemType.Fruit || itemData.itemType == ItemData.ItemType.Vegetable))
         {
             if (GetComponent<Rigidbody>() != null)
             {
                 GetComponent<Rigidbody>().isKinematic = true;
             }
         }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Tree") && itemData.itemType == ItemData.ItemType.Fruit)
+        if (other.gameObject.CompareTag("Farm") && (itemData.itemType == ItemData.ItemType.Fruit || itemData.itemType == ItemData.ItemType.Vegetable))
         {
             if (GetComponent<Rigidbody>() != null)
             {

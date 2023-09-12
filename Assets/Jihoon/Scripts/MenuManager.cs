@@ -43,6 +43,7 @@ public class MenuManager : MonoBehaviour
             }
             else
             {
+                Player.Instance.isStop = true;
                 isPaused = true;
                 Time.timeScale = 0;
                 menuUI.SetActive(true);
@@ -53,6 +54,7 @@ public class MenuManager : MonoBehaviour
     public void Play()
     {
         Time.timeScale = 1.0f;
+        Player.Instance.isStop = false;
         isPaused = false;
         menuUI.SetActive(false);
         soundUI.SetActive(false);
