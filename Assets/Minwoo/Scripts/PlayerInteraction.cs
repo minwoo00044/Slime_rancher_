@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class PlayerInteraction : MonoBehaviour
                 if (hit.collider != null)
                 {
                     Guidetext.SetActive(true);
-                    if (hit.collider.gameObject.layer == 1 << 9)
+                    print(hit.collider.gameObject.layer);
+                    if (hit.collider.gameObject.layer == 9)
                     {
                         _targetUI = hit.collider.gameObject.GetComponent<InteractableObject>().targetUI;
                         autoFarmer = null;
@@ -36,7 +38,6 @@ public class PlayerInteraction : MonoBehaviour
                         autoFarmer = hit.collider.gameObject.gameObject.GetComponent<AutoFarmer>();
                         _targetUI = null;
                     }
-
                 }
             }
             else

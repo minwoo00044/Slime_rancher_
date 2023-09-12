@@ -813,10 +813,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1226935527083652080, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: gunPos
-      value: 
-      objectReference: {fileID: 919285174}
     - target: {fileID: 3232051947639475817, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -861,16 +857,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4322193277992592875, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: interactableObject.m_Bits
-      value: 640
-      objectReference: {fileID: 0}
     - target: {fileID: 8255470640725237813, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9103726894576977923, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3774,6 +3762,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 613791388856288609, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1037797046308612983, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
       propertyPath: m_Name
       value: Console
@@ -3846,6 +3838,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4063718094166851675, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063718094166851675, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063718094166851675, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063718094166851675, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: InteractableObject, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7638967145420644914, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3861,6 +3869,10 @@ PrefabInstance:
     - target: {fileID: 7638967145420644914, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -575
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071244430721547757, guid: 471f97f108e880542994a81cc125dfe8, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8955,11 +8967,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899954282}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &919285174 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4757246133345434860, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-  m_PrefabInstance: {fileID: 142951428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &942063424
 GameObject:
   m_ObjectHideFlags: 0

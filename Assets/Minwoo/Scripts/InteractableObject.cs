@@ -10,6 +10,6 @@ public class InteractableObject : MonoBehaviour
     public void ChangeState()
     {
         Player.Instance.isStop = false;
-
     }
+
 }

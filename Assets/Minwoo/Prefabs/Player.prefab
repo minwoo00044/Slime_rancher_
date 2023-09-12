@@ -1084,7 +1084,7 @@ Transform:
   - {fileID: 2727054729817036783}
   - {fileID: 1643622835920248780}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4962883939747489623
 CharacterController:
@@ -1207,6 +1207,7 @@ MonoBehaviour:
   _stamina: 100
   staminaRegen: 10
   SpotLight: {fileID: 0}
+  gunPos: {fileID: 4757246133345434860}
 --- !u!114 &5406134245606283194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,7 +1262,7 @@ MonoBehaviour:
   maxDistance: 5
   interactableObject:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 640
   Guidetext: {fileID: 4182422008686122340}
   _targetUI: {fileID: 0}
 --- !u!1 &9103726894576977923
@@ -1275,7 +1276,7 @@ GameObject:
   - component: {fileID: 4757246133345434860}
   m_Layer: 0
   m_Name: GunPos
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
