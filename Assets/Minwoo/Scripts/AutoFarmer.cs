@@ -64,6 +64,7 @@ public class AutoFarmer : MonoBehaviour
     }
     public IEnumerator AddPool()
     {
+
         detectedItems.Clear();
         for (int i = 0; i < cage.childCount; i++)
         {
@@ -74,6 +75,7 @@ public class AutoFarmer : MonoBehaviour
         }
         Collider[] colliders = Physics.OverlapBox(cage.position, new Vector3(cageRange.x / 2f, 10F, cageRange.z / 2f));
 
+        print(colliders.Length);
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag("Item") && collider.gameObject.activeInHierarchy)
@@ -81,11 +83,12 @@ public class AutoFarmer : MonoBehaviour
                 detectedItems.Add(collider.gameObject);
             }
         }
-
-        if(detectedItems.Count > 0)
+        
+        if (detectedItems.Count > 0)
         {
             foreach (GameObject item in detectedItems)
             {
+                print(item.name);
                 Vector3 targetPosition = transform.position;
                 while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
                 {

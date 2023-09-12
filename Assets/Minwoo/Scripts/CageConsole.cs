@@ -6,7 +6,7 @@ public class CageConsole : MonoBehaviour
 {
     public GameObject[] buildingList;
 
-    public GameObject center;
+    public Transform center;
     private int _buildingIndex;
     public int buildingIndex
     {
@@ -20,8 +20,9 @@ public class CageConsole : MonoBehaviour
 
     private void Build()
     {
-        GameObject instance = Instantiate(buildingList[buildingIndex]);
-        instance.transform.position = center.transform.GetChild(0).transform.position;
+        GameObject instance = Instantiate(buildingList[buildingIndex], center.GetChild(0));
+        Vector3 instancePos = new Vector3(instance.transform.parent.GetChild(1).position.x + 1, instance.transform.parent.GetChild(1).position.y - 3, instance.transform.parent.GetChild(1).position.z);
+        instance.transform.position = instancePos;
 
     }
 }

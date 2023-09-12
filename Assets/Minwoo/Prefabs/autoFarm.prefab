@@ -122,3 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 1
   demoItem: {fileID: 7546094561971027849, guid: 09292db8ad5112644b04cce1c2257e54, type: 3}
+  harvestDelay: 10
+  pullSpeed: 10
+  cage: {fileID: 0}

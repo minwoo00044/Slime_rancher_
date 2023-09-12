@@ -27,11 +27,13 @@ public class PlayerInteraction : MonoBehaviour
                 if (hit.collider != null)
                 {
                     Guidetext.SetActive(true);
-                    print(hit.collider.gameObject.layer);
                     if (hit.collider.gameObject.layer == 9)
                     {
-                        _targetUI = hit.collider.gameObject.GetComponent<InteractableObject>().targetUI;
-                        autoFarmer = null;
+                        if(hit.collider.gameObject.GetComponent<InteractableObject>() != null)
+                        {
+                            _targetUI = hit.collider.gameObject.GetComponent<InteractableObject>().targetUI;
+                            autoFarmer = null;
+                        }
                     }
                     else
                     {
