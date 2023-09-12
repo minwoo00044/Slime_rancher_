@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Jihoon/MyCharacterTestScene 1.unity
+    path: Assets/Jihoon/Scenes/MyCharacterTestScene 1.unity
     guid: 7e10ae8650ca07a4dad866d09de99beb
   m_configObjects: {}

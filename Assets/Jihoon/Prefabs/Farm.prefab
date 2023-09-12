@@ -52,7 +52,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2195452992986127417
 Transform:
   m_ObjectHideFlags: 0
@@ -65,6 +65,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2371092646955060061}
   - {fileID: 7014840415869877840}
   - {fileID: 220458442524584319}
   - {fileID: 4676361507332077546}
@@ -680,6 +681,111 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7674371571197135582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2371092646955060061}
+  - component: {fileID: 5468167524040978428}
+  - component: {fileID: 2608154688568420326}
+  - component: {fileID: 4537173332317518582}
+  m_Layer: 0
+  m_Name: FarmArea
+  m_TagString: Farm
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2371092646955060061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674371571197135582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.48, y: -0.95, z: 3.5}
+  m_LocalScale: {x: 7, y: 1, z: 7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2195452992986127417}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5468167524040978428
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674371571197135582}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2608154688568420326
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674371571197135582}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4537173332317518582
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674371571197135582}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7761554652781297057
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +956,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (28)
       objectReference: {fileID: 0}
@@ -1018,6 +1128,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (25)
       objectReference: {fileID: 0}
@@ -1100,6 +1214,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (14)
       objectReference: {fileID: 0}
@@ -1181,6 +1299,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (4)
@@ -1522,6 +1644,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (20)
       objectReference: {fileID: 0}
@@ -1604,6 +1730,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (29)
       objectReference: {fileID: 0}
@@ -1685,6 +1815,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (17)
@@ -2026,6 +2160,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (15)
       objectReference: {fileID: 0}
@@ -2107,6 +2245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner
@@ -2190,6 +2332,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (11)
       objectReference: {fileID: 0}
@@ -2271,6 +2417,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (21)
@@ -2526,6 +2676,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (5)
       objectReference: {fileID: 0}
@@ -2608,6 +2762,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (26)
       objectReference: {fileID: 0}
@@ -2659,7 +2817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5312342745968275589, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 6.03
       objectReference: {fileID: 0}
     - target: {fileID: 5312342745968275589, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2689,6 +2847,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (2)
@@ -2771,6 +2933,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (10)
@@ -2885,7 +3051,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1030093625418334837, guid: aab8eaf5938ed574ca8084b231d3bd49, type: 3}
       propertyPath: m_TagString
-      value: Tree
+      value: Farm
       objectReference: {fileID: 0}
     - target: {fileID: 1580338797469087352, guid: aab8eaf5938ed574ca8084b231d3bd49, type: 3}
       propertyPath: m_RootOrder
@@ -2941,11 +3107,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1680651025378456545, guid: aab8eaf5938ed574ca8084b231d3bd49, type: 3}
       propertyPath: m_TagString
-      value: Tree
+      value: Farm
       objectReference: {fileID: 0}
     - target: {fileID: 2208361888798600386, guid: aab8eaf5938ed574ca8084b231d3bd49, type: 3}
       propertyPath: m_Name
       value: Tree (1) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2208361888798600386, guid: aab8eaf5938ed574ca8084b231d3bd49, type: 3}
+      propertyPath: m_TagString
+      value: Farm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3375,6 +3545,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (8)
       objectReference: {fileID: 0}
@@ -3543,6 +3717,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (7)
       objectReference: {fileID: 0}
@@ -3624,6 +3802,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7987571332987982036, guid: 9645d875873fe1c4592e6b54ff60d302, type: 3}
       propertyPath: m_Name
       value: FarmSpawner (16)

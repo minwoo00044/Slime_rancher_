@@ -32,8 +32,13 @@ public class TimeManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
-        second += Time.deltaTime*60;
+    {
+        second += Time.deltaTime * 60;
+        float rotateSeconds = (second + minute * 60) * skyboxRotateSpeed;
+        rotateSeconds %= 360;
+        RenderSettings.skybox.SetFloat("_Rotation", rotateSeconds);
+
+
 
         if(minute < 6)
         {
@@ -52,7 +57,7 @@ public class TimeManager : MonoBehaviour
             nightMaterial.SetFloat("_Exposure", 1f - (second + minute * 60 - 1080) / 360 * 0.5f);
         }
 
-        RenderSettings.skybox.SetFloat("_Rotation", (second + minute*60) * skyboxRotateSpeed);
+
         if(second >= 60)
         {
             second -= 60;
