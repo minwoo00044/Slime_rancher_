@@ -8,9 +8,11 @@ public class ItemData : ScriptableObject
 {
     public string itemName;
     public Sprite itemImage;
+    public GameObject itemPrefab;
     public int itemPrice = 10;
     public int itemQuantity = 0;
     public bool isBig = false;
+
     
     int soldQuantity = 0;
 

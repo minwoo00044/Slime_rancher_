@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemImage: {fileID: 0}
+  itemPrefab: {fileID: 2212419681968071688, guid: 62a7af92d1529dc4eb8ab57953791594, type: 3}
   itemPrice: 10
   itemQuantity: 0
   isBig: 1

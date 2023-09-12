@@ -25,7 +25,14 @@ public class Farm : MonoBehaviour
             {
                 isHarvested = false;
                 timer = 0f;
-                newProduct = Instantiate(product, transform.position, Quaternion.Euler(-90, 0, 0));
+                if(product.GetComponentInChildren<Item>().itemData.itemType == ItemData.ItemType.Fruit)
+                {
+                    newProduct = Instantiate(product, transform.position, Quaternion.Euler(-90, 0, 0));
+                }
+                else if (product.GetComponentInChildren<Item>().itemData.itemType == ItemData.ItemType.Vegetable)
+                {
+                    newProduct = Instantiate(product, transform.position - new Vector3(0, 0.8f, 0), Quaternion.identity);
+                }
                 newProduct.transform.SetParent(this.transform);
             }
         }
