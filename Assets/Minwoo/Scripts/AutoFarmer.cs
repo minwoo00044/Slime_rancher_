@@ -17,13 +17,15 @@ public class AutoFarmer : MonoBehaviour
     private List<GameObject> detectedItems = new List<GameObject>();
     public float pullSpeed;
     public Transform cage;
+    public Transform cleaner;
+    public Transform exit;
     private Vector3 cageRange;
 
     private List<GameObject> itemPool0 = new List<GameObject>();
     private List<GameObject> itemPool1 = new List<GameObject>();
     private void Awake()
     {
-        cage = transform.parent;
+        cage = transform.parent.parent;
         StartCoroutine(AddPoolDelay());
     }
     public IEnumerator GenerateItem()
@@ -73,9 +75,12 @@ public class AutoFarmer : MonoBehaviour
                 cageRange = cage.GetChild(i).localScale;
             }
         }
-        Collider[] colliders = Physics.OverlapBox(cage.position, new Vector3(cageRange.x / 2f, 10F, cageRange.z / 2f));
+        Collider[] colliders = Physics.OverlapBox(cage.GetChild(0).position, new Vector3(cageRange.x / 2f, 10F, cageRange.z / 2f));
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            print(colliders[i].name);
+        }
 
-        print(colliders.Length);
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag("Item") && collider.gameObject.activeInHierarchy)
@@ -89,7 +94,7 @@ public class AutoFarmer : MonoBehaviour
             foreach (GameObject item in detectedItems)
             {
                 print(item.name);
-                Vector3 targetPosition = transform.position;
+                Vector3 targetPosition = cleaner.transform.position;
                 while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
                 {
                     item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime);
@@ -101,10 +106,12 @@ public class AutoFarmer : MonoBehaviour
                     if (itemPool0.Count < 1)
                     {
                         itemPool0.Add(item);
+                        break;
                     }
                     else
                     {
                         itemPool1.Add(item);
+                        break;
                     }
                 }
             }
@@ -119,6 +126,7 @@ public class AutoFarmer : MonoBehaviour
         if (targetPool.Count < 1)
             return;
         targetPool[targetPool.Count - 1].SetActive(true);
+        targetPool[targetPool.Count - 1].transform.position = new Vector3(exit.position.x, exit.position.y + 1, exit.position.z);
         StartCoroutine(pullToGun(targetPool[targetPool.Count - 1], Player.Instance.gunPos));
         targetPool.Remove(targetPool[targetPool.Count - 1]);
     }

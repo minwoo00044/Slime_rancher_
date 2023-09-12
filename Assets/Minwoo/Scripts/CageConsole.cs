@@ -21,7 +21,7 @@ public class CageConsole : MonoBehaviour
     private void Build()
     {
         GameObject instance = Instantiate(buildingList[buildingIndex], center.GetChild(0));
-        Vector3 instancePos = new Vector3(instance.transform.parent.GetChild(1).position.x + 1, instance.transform.parent.GetChild(1).position.y - 3, instance.transform.parent.GetChild(1).position.z);
+        Vector3 instancePos = new Vector3(instance.transform.parent.GetChild(1).position.x + 1, instance.transform.parent.GetChild(1).position.y  , instance.transform.parent.GetChild(1).position.z);
         instance.transform.position = instancePos;
 
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 95876909903054342}
   - component: {fileID: 1894573148460714437}
   - component: {fileID: 4572277182599004929}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: WallCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 3694480618567574133}
   - component: {fileID: 3249390737205204169}
   - component: {fileID: 5415210466258872481}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: WallCollider4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 2276217229391141848}
   - component: {fileID: 6044231438192107180}
   - component: {fileID: 1112564169998364762}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: WallCollider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 778028915792072684}
   - component: {fileID: 5307030439248400808}
   - component: {fileID: 7338967447216216314}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: WallCollider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1383,7 +1383,7 @@ Transform:
   - {fileID: 6959688972131809063}
   - {fileID: 4228464584355555213}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &49083546575817445
 PrefabInstance:
