@@ -145,7 +145,6 @@ public class Inventory : MonoBehaviour
 
     void DeselectSlot()
     {
-        if ((int)key >= 49 && (int)key < 52) return;
         RectTransform rect = currentSlot.GetComponent<RectTransform>();
         Transform[] currentSlotChildren = currentSlot.GetComponentsInChildren<Transform>();
         foreach (var currentSlotChild in currentSlotChildren)
@@ -172,7 +171,9 @@ public class Inventory : MonoBehaviour
 
     void SelectSlot()
     {
-        KeyCode key = GetLastPressedKeyCode();
+        key = GetLastPressedKeyCode();
+        print((int)key);
+        if ((int)key < 49 || (int)key > 52) return;
         if (currentSlot != null)
         {
             DeselectSlot();
