@@ -145,11 +145,11 @@ public class BigSlimeMove : MonoBehaviour
                 GameObject gem1GO = Instantiate(gem1);
                 gem1GO.transform.position = spawnPos.transform.position;
                 Rigidbody rigidbody = gem1GO.GetComponent<Rigidbody>();
-                rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
                 GameObject gem2GO = Instantiate(gem2);
                 gem2GO.transform.position = spawnPos.transform.position;
                 rigidbody = gem2GO.GetComponent<Rigidbody>();
-                rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
             }
             hunger -= Time.deltaTime;
         }
@@ -226,12 +226,12 @@ public class BigSlimeMove : MonoBehaviour
         GameObject tar1 = Instantiate(tar);
         tar1.transform.position = spawnPos.transform.position;
         Rigidbody slimeStert1 = tar1.GetComponent<Rigidbody>();
-        slimeStert1.AddForce(Vector3.up * 3, ForceMode.Impulse);
+        slimeStert1.AddForce(Vector3.up * 2, ForceMode.Impulse);
 
         GameObject tar2 = Instantiate(tar);
         tar2.transform.position = spawnPos.transform.position;
         Rigidbody slimeStert2 = tar2.GetComponent<Rigidbody>();
-        slimeStert2.AddForce(Vector3.up * 3, ForceMode.Impulse);
+        slimeStert2.AddForce(Vector3.up * 2, ForceMode.Impulse);
 
         Destroy(this.gameObject);
     }

@@ -144,7 +144,7 @@ public class SlimeMove : MonoBehaviour
                 GameObject gemGO = Instantiate(gem);
                 gemGO.transform.position = spawnPos.transform.position;
                 Rigidbody rigidbody = gemGO.GetComponent<Rigidbody>();
-                rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
             }
             hunger -= Time.deltaTime;
         }
