@@ -17,7 +17,7 @@ public class SlimeMove : MonoBehaviour
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.005f;
+    public float moveSpeed = 0.009f;
     public float moveCount;
 
     float rotateSize;
@@ -128,6 +128,9 @@ public class SlimeMove : MonoBehaviour
                 rotateDaley -= Time.deltaTime;
             }
         }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), Time.deltaTime * 3);
+
         if (onGround)
         {
             jumpDaley -= Time.deltaTime;

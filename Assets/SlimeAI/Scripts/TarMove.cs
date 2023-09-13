@@ -15,7 +15,7 @@ public class TarMove : MonoBehaviour
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.006f;
+    public float moveSpeed = 0.01f;
     public float moveCount;
 
     float rotateSize;
@@ -28,6 +28,8 @@ public class TarMove : MonoBehaviour
 
     int slimeSize = 2;
     public GameObject tar;
+
+    bool scenePos = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,13 @@ public class TarMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent != null)
+            if (transform.parent.tag == "Player")
+            {
+                scenePos = true;
+                return;
+            }
+
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
 
@@ -101,8 +110,20 @@ public class TarMove : MonoBehaviour
                 rotateDaley -= Time.deltaTime;
             }
         }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), Time.deltaTime * 3);
+
         if (onGround)
         {
+            if (scenePos)
+            {
+                GameObject reset = Instantiate(this.gameObject);
+                reset.transform.position = transform.position;
+                Rigidbody slimeStert1 = reset.GetComponent<Rigidbody>();
+                slimeStert1.freezeRotation = true;
+                slimeStert1.AddForce(Vector3.up, ForceMode.Impulse);
+                Destroy(this.gameObject);
+            }
             jumpDaley -= Time.deltaTime;
             if (jumpDaley < 0)
             {
@@ -141,7 +162,7 @@ public class TarMove : MonoBehaviour
         }
         if (collision.gameObject.tag == "Slime")
         {
-            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             lookObject = null;
             slimeSize++;
             if (slimeSize == 4)

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 4535937352779207117}
   - component: {fileID: 2218761031345809742}
   - component: {fileID: -5652480126137675575}
+  - component: {fileID: 1923208569644228546}
   m_Layer: 6
   m_Name: Tar
   m_TagString: Tar
@@ -241,6 +242,19 @@ MonoBehaviour:
   moveCount: 0
   findRange: 10
   tar: {fileID: 7435777063803728612}
+--- !u!114 &1923208569644228546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435777063803728612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8cee53c453c1c428b534ccfdcbc839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 77d4cbc0341d0b04fb75aab577055765, type: 2}
 --- !u!1001 &3824582478354492674
 PrefabInstance:
   m_ObjectHideFlags: 0

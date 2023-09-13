@@ -16,7 +16,7 @@ public class BigSlimeMove : MonoBehaviour
 
     Vector3 jumpBir;
 
-    public float moveSpeed = 0.004f;
+    public float moveSpeed = 0.008f;
     public float moveCount;
 
     float rotateSize;
@@ -34,6 +34,8 @@ public class BigSlimeMove : MonoBehaviour
     public GameObject gemList;
     public GameObject tar;
 
+    bool scenePos = false;
+
     void Start()
     {
         spawnPos = transform.GetChild(3).gameObject;
@@ -42,11 +44,14 @@ public class BigSlimeMove : MonoBehaviour
 
     void Update()
     {
+        
         if (transform.parent != null)
             if (transform.parent.tag == "Player")
             {
+                scenePos = true;
                 return;
             }
+        
                 
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
@@ -129,8 +134,20 @@ public class BigSlimeMove : MonoBehaviour
                 rotateDaley -= Time.deltaTime;
             }
         }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), Time.deltaTime * 3);
+
         if (onGround)
         {
+            if(scenePos)
+            {
+                GameObject reset = Instantiate(this.gameObject);
+                reset.transform.position = transform.position;
+                Rigidbody slimeStert1 = reset.GetComponent<Rigidbody>();
+                slimeStert1.freezeRotation = true;
+                slimeStert1.AddForce(Vector3.up, ForceMode.Impulse);
+                Destroy(this.gameObject);
+            }
             jumpDaley -= Time.deltaTime;
             if (jumpDaley < 0)
             {
