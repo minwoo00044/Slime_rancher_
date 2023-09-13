@@ -13,8 +13,7 @@ public class InhanceConsole : MonoBehaviour
         if(StatusUIManager.instance.gold >= money)
         {
             Player.Instance.isEquipZetPack = true;
-            StatusUIManager.instance.gold -= money;
-            SuccesAction();
+            SuccesAction(money);
         }
     }
     public void EqiupImpact(int money)
@@ -22,8 +21,7 @@ public class InhanceConsole : MonoBehaviour
         if (StatusUIManager.instance.gold >= money)
         {
             Player.Instance.isEquipImpact = true;
-            StatusUIManager.instance.gold -= money;
-            SuccesAction();
+            SuccesAction(money);
         }
     }
 
@@ -32,8 +30,7 @@ public class InhanceConsole : MonoBehaviour
         if (StatusUIManager.instance.gold >= money)
         {
             Player.Instance.isEquipWaterTank = true;
-            StatusUIManager.instance.gold -= money;
-            SuccesAction();
+            SuccesAction(money);
         }
     }
 
@@ -42,8 +39,7 @@ public class InhanceConsole : MonoBehaviour
         if (StatusUIManager.instance.gold >= money)
         {
             Player.Instance.maxHp += 50;
-            StatusUIManager.instance.gold -= money;
-            SuccesAction();
+            SuccesAction(money);
         }
     }
     public void InhanceStamina(int money)
@@ -51,8 +47,7 @@ public class InhanceConsole : MonoBehaviour
         if (StatusUIManager.instance.gold >= money)
         {
             Player.Instance.maxStamina += 50;
-            StatusUIManager.instance.gold -= money;
-            SuccesAction();
+            SuccesAction(money);
         }
     }
 
@@ -61,12 +56,13 @@ public class InhanceConsole : MonoBehaviour
         if (StatusUIManager.instance.gold >= money)
         {
             Player.Instance.staminaRegen *= 1.5f;
-            StatusUIManager.instance.gold -= money;
-            SuccesAction();
+            SuccesAction(money);
         }
     }
-    private void SuccesAction()
+
+    private void SuccesAction(int _money)
     {
+        StatusUIManager.instance.gold -= _money;
         Player.Instance.isStop = false;
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
         clickObject.GetComponent<Button>().interactable = false;
