@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InteractableObject : MonoBehaviour
 {
@@ -11,5 +13,6 @@ public class InteractableObject : MonoBehaviour
     {
         Player.Instance.isStop = false;
     }
+
 
 }

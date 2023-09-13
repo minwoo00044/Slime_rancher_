@@ -1132,7 +1132,6 @@ MonoBehaviour:
   isStaminaReduce: 0
   isRunning: 0
   staminaReduce: 20
-  isEquipJumpPack: 1
   jumpPackPower: 10
   flyLimit: 20
   gun: {fileID: 6312704621477607803}
@@ -1205,10 +1204,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 10
+  maxHp: 10
   _stamina: 100
   staminaRegen: 10
+  maxStamina: 100
   SpotLight: {fileID: 0}
   gunPos: {fileID: 4757246133345434860}
+  isEquipZetPack: 0
+  isEquipImpact: 0
 --- !u!114 &5406134245606283194
 MonoBehaviour:
   m_ObjectHideFlags: 0

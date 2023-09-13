@@ -22,7 +22,7 @@ public class PlayerMove : MonoBehaviour
     public bool isRunning = false; 
     public float staminaReduce;
 
-    public bool isEquipJumpPack = false;
+    
     public float jumpPackPower;
     public float flyLimit;
 
@@ -76,7 +76,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         // Check for jump pack usage
-        if (Input.GetButton("Jump") && isEquipJumpPack)
+        if (Input.GetButton("Jump") && Player.Instance.isEquipZetPack)
         {
             UseJumpPack();
         }

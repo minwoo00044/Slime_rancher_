@@ -42,7 +42,8 @@ public class Player : MonoBehaviour
 
         }
     }
-    private int maxHp = 10;
+    [SerializeField]
+    public int maxHp = 10;
     [SerializeField]
     private float _stamina = 100;
     public float stamina
@@ -65,12 +66,26 @@ public class Player : MonoBehaviour
         }
     }
     public float staminaRegen;
-    private float maxStamina = 100;
+    [HideInInspector]
+    public float maxStamina = 100;
     private PlayerMove playerMove;
     private PlayerFire playerFire;
     public GameObject SpotLight;
     private bool _isStop;
     public Transform gunPos;
+    public bool isEquipZetPack = false;
+    public bool isEquipImpact = false;
+    private bool _isEquipWaterTank;
+    public bool isEquipWaterTank
+    {
+        get {return _isEquipWaterTank;}
+        set 
+        { 
+            _isEquipWaterTank = value;
+            //5번째 ui 생성하는 함수
+        }
+    }
+
     public bool isStop
     {
         get
@@ -87,7 +102,6 @@ public class Player : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
         else
         {
             Destroy(gameObject);

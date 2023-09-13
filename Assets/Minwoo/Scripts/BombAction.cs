@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 //목적 : 폭탄이 물체에 부딪히면 폭탄이 이펙트를 만들고 파괴된다.
 public class BombAction : MonoBehaviour
@@ -13,7 +14,7 @@ public class BombAction : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && Player.Instance.isEquipImpact)
         {
             if(bombEffect != null)
             {
