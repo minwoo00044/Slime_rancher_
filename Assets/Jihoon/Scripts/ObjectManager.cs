@@ -31,10 +31,14 @@ public class ObjectManager : MonoBehaviour
     public void SaveObjects()
     {
         objectDataList.Clear();
-
+        int i = 0;
         // 게임 오브젝트를 순회하면서 데이터 수집
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Food"))
         {
+            if (obj.activeSelf)
+            {
+                continue;
+            }
             ObjectData data = new ObjectData
             {
                 name = obj.name,
@@ -42,8 +46,9 @@ public class ObjectManager : MonoBehaviour
                 positionY = obj.transform.position.y,
                 positionZ = obj.transform.position.z
             };
-
+            
             objectDataList.Add(data);
+            i++;
         }
 
         // 데이터를 JSON 형식으로 저장
