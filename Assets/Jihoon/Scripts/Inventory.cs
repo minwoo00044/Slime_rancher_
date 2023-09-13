@@ -20,6 +20,8 @@ public class Inventory : MonoBehaviour
     private PlayerFire playerFire;
     public Sprite onSlotImg;
     public Sprite offSlotImg;
+
+    SlotItem[] slotItems = new SlotItem[4];
     KeyCode key;
 
     // Start is called before the first frame update
@@ -33,7 +35,8 @@ public class Inventory : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //StartCoroutine(InventoryTest());
+        slotItems = GetComponentsInChildren<SlotItem>();
+
         playerFire = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFire>();
         LoadInventory();
 
@@ -62,11 +65,12 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("Mouse Wheel Scrolled");
         }
+
+        
     }
 
     void LoadInventory()
     {
-        SlotItem[] slotItems = GetComponentsInChildren<SlotItem>();
         for (int i =0; i<4; i++)
         {
             if(PlayerPrefs.HasKey("Slot" + i))
@@ -207,17 +211,28 @@ public class Inventory : MonoBehaviour
 
     public void AddItemToInventory(ItemData newItem)
     {
-        SlotItem[] slotItems = GetComponentsInChildren<SlotItem>();
         foreach (ItemData data in DataManager.instance.itemData)
         {
             if (newItem.itemName == data.itemName)
             {
-                for (int i = 0; i < inventorySlots.Length; i++)
+                int slotIndex = CheckInventory(newItem);
+                if (slotIndex != -1)
                 {
-                    if (slotItems[i].SetItem(newItem))
+                    slotItems[slotIndex].SetItem(newItem);
+                    PlayerPrefs.SetString("Slot" + slotIndex, newItem.itemName);
+                    print(slotIndex + " : " + PlayerPrefs.GetString("Slot" + slotIndex));
+                    return;
+                }
+                else
+                {
+                    for (int i = 0; i < inventorySlots.Length; i++)
                     {
-                        PlayerPrefs.SetString("Slot" + i, newItem.itemName);
-                        return;
+                        if (slotItems[i].SetItem(newItem))
+                        {
+                            PlayerPrefs.SetString("Slot" + i, newItem.itemName);
+                            print(i + "new : " + PlayerPrefs.GetString("Slot" + i));
+                            return;
+                        }
                     }
                 }
 
@@ -225,12 +240,17 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
+    int CheckInventory(ItemData itemData)
     {
-        for(int i = 0; i < inventorySlots.Length;i++)
+        for(int i = 0; i < slotItems.Length; i++)
         {
-
+            if (slotItems[i].item == null) continue;
+            if (slotItems[i].item.CompareData(itemData))
+            {
+                return i;
+            }
         }
+        return -1;
     }
 
     IEnumerator InventoryTest()
@@ -241,5 +261,10 @@ public class Inventory : MonoBehaviour
             ItemData newItem = itemTest[Random.Range(0, 4)].itemData;
             AddItemToInventory(newItem);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        
     }
 }

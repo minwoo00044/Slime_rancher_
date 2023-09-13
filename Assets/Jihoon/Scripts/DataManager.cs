@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
+        //PlayerPrefs.DeleteAll();
         if (instance == null)
         {
             instance = this;
@@ -41,13 +42,13 @@ public class DataManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKey(KeyCode.P)&& Input.GetKey(KeyCode.O))
         {
-            SaveData();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            LoadData();
+            foreach(ItemData data in itemData)
+            {
+                data.itemQuantity = 0;
+                PlayerPrefs.DeleteAll();
+            }
         }
     }
 

@@ -29,7 +29,7 @@ public class ItemData : ScriptableObject
 
     public bool CompareData(ItemData data)
     {
-        if(itemName == data.itemName && itemPrice == data.itemPrice && itemQuantity == data.itemQuantity)
+        if(itemName == data.itemName)
         {
             return true;
         }

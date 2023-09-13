@@ -54,10 +54,8 @@ public class SlotItem : MonoBehaviour
     {
         item.itemQuantity--;
         itemAmountText.text = "x " + item.itemQuantity;
-        Debug.Log(item.itemName + ": " + item.itemQuantity);
         useAllItems();
     }
-
 
     void useAllItems()
     {
