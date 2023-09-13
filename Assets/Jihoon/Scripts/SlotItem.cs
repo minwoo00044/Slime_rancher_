@@ -58,6 +58,7 @@ public class SlotItem : MonoBehaviour
         useAllItems();
     }
 
+
     void useAllItems()
     {
         if(item.itemQuantity <= 0)

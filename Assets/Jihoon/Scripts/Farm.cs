@@ -31,7 +31,7 @@ public class Farm : MonoBehaviour
                 }
                 else if (product.GetComponentInChildren<Item>().itemData.itemType == ItemData.ItemType.Vegetable)
                 {
-                    newProduct = Instantiate(product, transform.position - new Vector3(0, 0.7f, 0), Quaternion.identity);
+                    newProduct = Instantiate(product, transform.position - new Vector3(0, 0.5f, 0), Quaternion.identity);
                 }
                 newProduct.transform.SetParent(this.transform);
             }

@@ -178,7 +178,6 @@ public class Inventory : MonoBehaviour
 
     void SelectSlot()
     {
-        print((int)key);
         if ((int)key < 49 || (int)key > 52) return;
         if (currentSlot != null)
         {

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Jihoon/Scenes/MyCharacterTestScene 1.unity
-    guid: 7e10ae8650ca07a4dad866d09de99beb
+    path: Assets/Jihoon/Scenes/StartScene.unity
+    guid: 0463a911124becd46b7cb8d5f3572077
+  - enabled: 1
+    path: Assets/Jihoon/Scenes/SlimeRancher2 1.unity
+    guid: 3de8bd9aa11fa214db3e2fededc18f2c
   m_configObjects: {}
