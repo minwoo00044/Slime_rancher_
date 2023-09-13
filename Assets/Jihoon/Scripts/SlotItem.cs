@@ -52,6 +52,8 @@ public class SlotItem : MonoBehaviour
 
     public void UseItem()
     {
+        if (item == null)
+            return;
         item.itemQuantity--;
         itemAmountText.text = "x " + item.itemQuantity;
         useAllItems();

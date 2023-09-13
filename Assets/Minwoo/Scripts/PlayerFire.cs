@@ -164,6 +164,7 @@ public class PlayerFire : MonoBehaviour
             {
                 if (currentPool[currentPool.Count - 1] == null)
                     return;
+                print(currentPool[currentPool.Count - 1].name);
                 StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool));
             }
             else

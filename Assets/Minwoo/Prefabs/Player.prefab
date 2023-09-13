@@ -1176,7 +1176,7 @@ MonoBehaviour:
   gunPos: {fileID: 4757246133345434860}
   pullEff: {fileID: 6870634354436838629}
   bulletForce: 10
-  addDistance: 0.2
+  addDistance: 0.3
   eatSound: {fileID: 8300000, guid: 03a5e845ea623ba4796b05860542b715, type: 3}
   fireSound: {fileID: 8300000, guid: 9244f13cf59691b41b541c93a3109c20, type: 3}
   emptySound: {fileID: 8300000, guid: d5038eafe9ca05c4bb1e691325f4cc57, type: 3}
