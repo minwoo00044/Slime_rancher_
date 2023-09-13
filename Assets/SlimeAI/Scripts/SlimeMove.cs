@@ -44,8 +44,6 @@ public class SlimeMove : MonoBehaviour
 
     void Update()
     {
-        //if (gameObject.activeInHierarchy)
-
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
 

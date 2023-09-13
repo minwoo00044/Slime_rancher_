@@ -10,7 +10,7 @@ public class TarMove : MonoBehaviour
 
     public bool onGround = true;
 
-    public float maxJumpHigh =4f;
+    public float maxJumpHigh = 4f;
     public float minJumpHigh = 2f;
 
     Vector3 jumpBir;
@@ -18,9 +18,7 @@ public class TarMove : MonoBehaviour
     public float moveSpeed = 0.01f;
     public float moveCount;
 
-    float rotateSize;
-    int rightOrLeft = 1;
-    Vector3 rotateBir;
+    Quaternion lookBir;
 
     public float findRange = 10f;
     GameObject lookObject;
@@ -29,7 +27,7 @@ public class TarMove : MonoBehaviour
     int slimeSize = 2;
     public GameObject tar;
 
-    bool scenePos = false;
+    bool grip = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,17 +37,88 @@ public class TarMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.parent != null)
-            if (transform.parent.tag == "Player")
-            {
-                scenePos = true;
-                return;
-            }
+        if (transform.parent != null && transform.parent.tag == "Player")
+        {
+            grip = true;
+            return;
+        }
+        ResetSlime(grip);
 
+        FindObject();
+
+        Move();
+
+        Rotate();
+
+        Jump();
+
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        onGround = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        onGround = false;
+    }
+
+    private void Jump()
+    {
+        if (onGround)
+        {
+            if (jumpDaley < 0)
+            {
+                jumpBir = new Vector3(transform.forward.x, Random.Range(minJumpHigh, maxJumpHigh), transform.forward.z);
+                Rigidbody rigidbody = GetComponent<Rigidbody>();
+                rigidbody.AddForce(jumpBir, ForceMode.Impulse);
+                jumpDaley = Random.Range(3, 5);
+            }
+            jumpDaley -= Time.deltaTime;
+        }
+
+    }
+
+    private void Move()
+    {
+            if (moveDaley <= 0 && moveCount >= 0)
+            {
+                transform.Translate(Vector3.forward * moveSpeed);
+                moveCount -= Time.deltaTime;
+                if (moveCount <= 0)
+                {
+                    moveCount = Random.Range(3, 5);
+                    moveDaley = Random.Range(10, 20);
+                }
+            }
+        moveDaley -= Time.deltaTime;
+    }
+
+    private void Rotate()
+    {
+        if (lookObject != null)
+        {
+            lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
+            moveDaley = 0;
+        }
+        else
+        {
+            if (rotateDaley <= 0)
+            {
+                lookBir = Quaternion.Euler(0, transform.rotation.eulerAngles.y + Random.Range(-100, 100), 0);
+
+                rotateDaley = Random.Range(3, 10);
+            }
+        }
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookBir, Time.deltaTime * 3);
+        rotateDaley -= Time.deltaTime;
+    }
+
+    private void FindObject()
+    {
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
-
-
 
         for (int i = 0; i < cols.Length; i++)
         {
@@ -62,98 +131,20 @@ public class TarMove : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (lookObject != null)
+    private void ResetSlime(bool call)
+    {
+        if (call)
         {
-            Vector3 relativePos = new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
-
-            Move();
+            GameObject reset = Instantiate(this.gameObject);
+            reset.transform.position = transform.position;
+            Rigidbody slimeStert1 = reset.GetComponent<Rigidbody>();
+            slimeStert1.freezeRotation = true;
+            Destroy(this.gameObject);
         }
-        else
-        {
-            if (!onGround)
-            {
-                Move();
-            }
-            else if (moveDaley <= 0 && moveCount >= 0)
-            {
-                Move();
-                moveCount -= Time.deltaTime;
-                if (moveCount <= 0)
-                {
-                    moveCount = Random.Range(3, 10);
-                    moveDaley = Random.Range(5, 10);
-                }
-            }
-            else
-            {
-                moveDaley -= Time.deltaTime;
-            }
-
-            if (rotateDaley <= 0)
-            {
-
-                if (rotateSize <= 0)
-                {
-                    rotateSize = Random.Range(0, 180);
-                    if (Random.Range(1, 3) % 2 == 0) rightOrLeft *= -1;
-                    rotateBir = new Vector3(0, rightOrLeft, 0);
-                    rotateDaley = Random.Range(3, 5);
-                }
-
-                transform.Rotate(rotateBir);
-                rotateSize--;
-            }
-            else
-            {
-                rotateDaley -= Time.deltaTime;
-            }
-        }
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), Time.deltaTime * 3);
-
-        if (onGround)
-        {
-            if (scenePos)
-            {
-                GameObject reset = Instantiate(this.gameObject);
-                reset.transform.position = transform.position;
-                Rigidbody slimeStert1 = reset.GetComponent<Rigidbody>();
-                slimeStert1.freezeRotation = true;
-                slimeStert1.AddForce(Vector3.up, ForceMode.Impulse);
-                Destroy(this.gameObject);
-            }
-            jumpDaley -= Time.deltaTime;
-            if (jumpDaley < 0)
-            {
-                Jump();
-            }
-        }
-
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        onGround = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        onGround = false;
     }
 
-    private void Jump()
-    {
-        jumpBir = new Vector3(0, Random.Range(minJumpHigh, maxJumpHigh), 0);
-
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForce(jumpBir, ForceMode.Impulse);
-        jumpDaley = Random.Range(3, 5);
-
-    }
-    private void Move()
-    {
-        transform.Translate(Vector3.forward * moveSpeed);
-    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 4)
@@ -173,7 +164,7 @@ public class TarMove : MonoBehaviour
                 rigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
                 slimeSize = 2;
             }
-            transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize)*0.8f;
+            transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize);
         }
     }
 }

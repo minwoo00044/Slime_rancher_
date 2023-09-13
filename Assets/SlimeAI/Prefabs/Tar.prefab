@@ -238,7 +238,7 @@ MonoBehaviour:
   onGround: 1
   maxJumpHigh: 4
   minJumpHigh: 2
-  moveSpeed: 0.006
+  moveSpeed: 0.01
   moveCount: 0
   findRange: 10
   tar: {fileID: 7435777063803728612}

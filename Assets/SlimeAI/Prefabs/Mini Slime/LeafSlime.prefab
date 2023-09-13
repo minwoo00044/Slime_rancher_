@@ -141,7 +141,7 @@ MonoBehaviour:
   onGround: 1
   maxJumpHigh: 5
   minJumpHigh: 3
-  moveSpeed: 0.005
+  moveSpeed: 0.009
   moveCount: 0
   findRange: 5
   gemList: {fileID: 2559791417349143405, guid: 0b03b3fcc501ffb40b958e63239cfcd0, type: 3}

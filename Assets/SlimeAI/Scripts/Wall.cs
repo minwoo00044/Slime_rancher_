@@ -26,14 +26,14 @@ public class Wall : MonoBehaviour
         if (other.gameObject.tag == "Slime"||other.gameObject.tag == "Tar"|| other.gameObject.tag == "Item"|| other.gameObject.tag == "Food")
         {
             Rigidbody rigidbody = other.gameObject.GetComponent<Rigidbody>();
-            rigidbody.AddForce(transform.forward *5, ForceMode.Force);
+            rigidbody.AddForce(transform.forward *3, ForceMode.Force);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Slime" || other.gameObject.tag == "Tar" || other.gameObject.tag == "Item" || other.gameObject.tag == "Food")
         {
-            other.gameObject.layer = 7;
+            other.gameObject.layer = 6;
         }
     }
 }

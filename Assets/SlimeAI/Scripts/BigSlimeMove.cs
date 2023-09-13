@@ -19,9 +19,7 @@ public class BigSlimeMove : MonoBehaviour
     public float moveSpeed = 0.008f;
     public float moveCount;
 
-    float rotateSize;
-    int rightOrLeft = 1;
-    Vector3 rotateBir;
+    Quaternion lookBir;
 
     public float findRange = 5f;
     GameObject lookObject;
@@ -34,7 +32,7 @@ public class BigSlimeMove : MonoBehaviour
     public GameObject gemList;
     public GameObject tar;
 
-    bool scenePos = false;
+    bool grip = false;
 
     void Start()
     {
@@ -44,19 +42,94 @@ public class BigSlimeMove : MonoBehaviour
 
     void Update()
     {
+
+        if (transform.parent != null && transform.parent.tag == "Player")
+        {
+            grip = true;
+            return;
+        }
+
         
-        if (transform.parent != null)
-            if (transform.parent.tag == "Player")
+
+        ResetSlime(grip);
+
+        FindObject();
+
+        Move();
+
+        Rotate();
+
+        Jump();
+
+        Eat();
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        onGround = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        onGround = false;
+    }
+
+    private void Jump()
+    {
+        if (onGround)
+        {
+            if (jumpDaley < 0)
             {
-                scenePos = true;
-                return;
+                jumpBir = new Vector3(transform.forward.x, Random.Range(minJumpHigh, maxJumpHigh), transform.forward.z);
+                Rigidbody rigidbody = GetComponent<Rigidbody>();
+                rigidbody.AddForce(jumpBir, ForceMode.Impulse);
+                jumpDaley = Random.Range(3, 5);
             }
-        
-                
+            jumpDaley -= Time.deltaTime;
+        }
+
+    }
+
+    private void Move()
+    {
+        if (moveDaley <= 0 && moveCount >= 0)
+        {
+            transform.Translate(Vector3.forward * moveSpeed);
+            moveCount -= Time.deltaTime;
+            if (moveCount <= 0)
+            {
+                moveCount = Random.Range(3, 5);
+                moveDaley = Random.Range(10, 20);
+            }
+        }
+        moveDaley -= Time.deltaTime;
+    }
+
+    private void Rotate()
+    {
+        if (lookObject != null)
+        {
+            if (lookObject.tag == "Tar") lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
+            else lookBir = Quaternion.LookRotation(new Vector3(transform.position.x - lookObject.transform.position.x, 0, transform.position.z - lookObject.transform.position.z), Vector3.up);
+            moveDaley = 0;
+        }
+        else
+        {
+            if (rotateDaley <= 0)
+            {
+                lookBir = Quaternion.Euler(0, transform.rotation.eulerAngles.y + Random.Range(-100, 100), 0);
+
+                rotateDaley = Random.Range(3, 10);
+            }
+        }
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookBir, Time.deltaTime * 3);
+        rotateDaley -= Time.deltaTime;
+    }
+
+    private void FindObject()
+    {
         Collider[] cols = Physics.OverlapSphere(transform.position, findRange);
         lookObject = null;
-
-
 
         for (int i = 0; i < cols.Length; i++)
         {
@@ -68,7 +141,7 @@ public class BigSlimeMove : MonoBehaviour
             }
             if (findObject.tag == "Item")
             {
-                if(findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
+                if (findObject.transform.GetChild(0).name != transform.GetChild(1).name && findObject.transform.GetChild(0).name != transform.GetChild(0).name)
                 {
                     if (lookObject == null || (lookObject.transform.position - transform.position).magnitude > (findObject.transform.position - transform.position).magnitude)
                     {
@@ -84,77 +157,10 @@ public class BigSlimeMove : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (lookObject != null)
-        {
-            Vector3 relativePos = new(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z);
-            if (lookObject.tag == "Tar")
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-relativePos, Vector3.up), Time.deltaTime * 3);
-            else transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(relativePos, Vector3.up), Time.deltaTime * 3);
-            Move();
-        }
-
-        else
-        {
-            if (!onGround)
-            {
-                Move();
-            }
-            else if (moveDaley <= 0 && moveCount >= 0)
-            {
-                Move();
-                moveCount -= Time.deltaTime;
-                if (moveCount <= 0)
-                {
-                    moveCount = Random.Range(3, 10);
-                    moveDaley = Random.Range(5, 10);
-                }
-            }
-            else
-            {
-                moveDaley -= Time.deltaTime;
-            }
-
-            if (rotateDaley <= 0)
-            {
-
-                if (rotateSize <= 0)
-                {
-                    rotateSize = Random.Range(0, 180);
-                    if (Random.Range(1, 3) % 2 == 0) rightOrLeft *= -1;
-                    rotateBir = new Vector3(0, rightOrLeft, 0);
-                    rotateDaley = Random.Range(3, 5);
-                }
-
-                transform.Rotate(rotateBir);
-                rotateSize--;
-            }
-            else
-            {
-                rotateDaley -= Time.deltaTime;
-            }
-        }
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0), Time.deltaTime * 3);
-
-        if (onGround)
-        {
-            if(scenePos)
-            {
-                GameObject reset = Instantiate(this.gameObject);
-                reset.transform.position = transform.position;
-                Rigidbody slimeStert1 = reset.GetComponent<Rigidbody>();
-                slimeStert1.freezeRotation = true;
-                slimeStert1.AddForce(Vector3.up, ForceMode.Impulse);
-                Destroy(this.gameObject);
-            }
-            jumpDaley -= Time.deltaTime;
-            if (jumpDaley < 0)
-            {
-                Jump();
-            }
-        }
-
+    private void Eat()
+    {
         if (hunger > 0)
         {
             if (hunger >= 100)
@@ -170,31 +176,18 @@ public class BigSlimeMove : MonoBehaviour
             }
             hunger -= Time.deltaTime;
         }
-
     }
 
-    private void OnTriggerStay(Collider other)
+    private void ResetSlime(bool call)
     {
-        onGround = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        onGround = false;
-    }
-
-    private void Jump()
-    {
-        jumpBir = new Vector3(0, Random.Range(minJumpHigh, maxJumpHigh), 0);
-
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForce(jumpBir, ForceMode.Impulse);
-        jumpDaley = Random.Range(3, 5);
-
-    }
-    private void Move()
-    {
-
-        transform.Translate(Vector3.forward * moveSpeed);
+        if (call)
+        {
+            GameObject reset = Instantiate(this.gameObject);
+            reset.transform.position = transform.position;
+            Rigidbody slimeStert1 = reset.GetComponent<Rigidbody>();
+            slimeStert1.freezeRotation = true;
+            Destroy(this.gameObject);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
