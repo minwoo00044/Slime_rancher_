@@ -40,6 +40,7 @@ public class FarmMachine : MonoBehaviour
                     farm.product = vegetable;
                 }
                 isGrowing = true;
+                Destroy(collision.gameObject);
             }
             if(itemType == ItemData.ItemType.Fruit)
             {
@@ -50,6 +51,7 @@ public class FarmMachine : MonoBehaviour
                     farm.product = fruit;
                 }
                 isGrowing = true;
+                Destroy(collision.gameObject);
             }
 
         }

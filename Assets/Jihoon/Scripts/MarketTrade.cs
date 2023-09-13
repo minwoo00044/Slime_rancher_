@@ -13,7 +13,8 @@ public class MarketTrade : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Item"))
+        print(collision.gameObject.name);   
+        if (collision.gameObject.GetComponent<Item>() != null)
         {
             for(int i = 0; i < sellingItems.Length; i++)
             {
