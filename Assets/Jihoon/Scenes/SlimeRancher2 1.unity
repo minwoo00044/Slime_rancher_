@@ -1525,7 +1525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7421143353925082507, guid: be22d79c7ec95534c8952e37cd7e8247, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2553,7 +2553,7 @@ PrefabInstance:
     - target: {fileID: 124357387243073430, guid: 9f7720464a995c745b8b9a0181361cfa, type: 3}
       propertyPath: slime
       value: 
-      objectReference: {fileID: 8057905886779938820, guid: 81f568cd4a0350a4eb78d0851c318700, type: 3}
+      objectReference: {fileID: 6674352122850371042, guid: fd60acf4a384def4187c30dc1511c68d, type: 3}
     - target: {fileID: 124357387243073430, guid: 9f7720464a995c745b8b9a0181361cfa, type: 3}
       propertyPath: spawnDelay
       value: 2
