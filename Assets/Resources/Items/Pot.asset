@@ -16,6 +16,6 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: a1159ed9b89dbe04ba0056251e64e58a, type: 3}
   itemPrefab: {fileID: 7435777063803728612, guid: b50a4bd39a8345341baf88b219e43a15, type: 3}
   itemPrice: 10
-  itemQuantity: 2
+  itemQuantity: 0
   isBig: 0
   itemType: 0

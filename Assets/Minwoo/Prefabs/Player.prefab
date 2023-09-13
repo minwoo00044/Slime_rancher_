@@ -1085,7 +1085,7 @@ Transform:
   - {fileID: 2727054729817036783}
   - {fileID: 1643622835920248780}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4962883939747489623
 CharacterController:

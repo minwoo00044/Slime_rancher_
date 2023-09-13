@@ -36,6 +36,9 @@ public class Inventory : MonoBehaviour
         //StartCoroutine(InventoryTest());
         playerFire = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFire>();
         LoadInventory();
+
+        key = KeyCode.Alpha1;
+        SelectSlot();
     }
     // Update is called once per frame
     void Update()
@@ -51,6 +54,7 @@ public class Inventory : MonoBehaviour
         }
         else if (Input.anyKeyDown)
         {
+            key = GetLastPressedKeyCode();
             SelectSlot();
         }
 
@@ -62,7 +66,8 @@ public class Inventory : MonoBehaviour
 
     void LoadInventory()
     {
-        for(int i =0; i<4; i++)
+        SlotItem[] slotItems = GetComponentsInChildren<SlotItem>();
+        for (int i =0; i<4; i++)
         {
             if(PlayerPrefs.HasKey("Slot" + i))
             {
@@ -70,10 +75,11 @@ public class Inventory : MonoBehaviour
                 ItemData savedItem = DataManager.instance.FindDataByName(name);
                 if(savedItem == null)
                 {
-                    return;
+                    continue;
                 }
                 savedItem.itemQuantity--;
-                AddItemToInventory(savedItem);
+                slotItems[i].SetItem(savedItem);
+               // AddItemToInventory(savedItem);
                 playerFire.InitializePool(i, savedItem, savedItem.itemQuantity);
             }
             else
@@ -172,7 +178,6 @@ public class Inventory : MonoBehaviour
 
     void SelectSlot()
     {
-        key = GetLastPressedKeyCode();
         print((int)key);
         if ((int)key < 49 || (int)key > 52) return;
         if (currentSlot != null)

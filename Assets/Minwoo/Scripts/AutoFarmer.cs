@@ -97,7 +97,7 @@ public class AutoFarmer : MonoBehaviour
                 Vector3 targetPosition = cleaner.transform.position;
                 while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
                 {
-                    item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime);
+                    item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime * 3f);
                     yield return null;
                 }
                 if (item.activeInHierarchy)

@@ -33,7 +33,7 @@ public class Wall : MonoBehaviour
     {
         if (other.gameObject.tag == "Slime" || other.gameObject.tag == "Tar" || other.gameObject.tag == "Item" || other.gameObject.tag == "Food")
         {
-            other.gameObject.layer = 7;
+            other.gameObject.layer = 6;
         }
     }
 }
