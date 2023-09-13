@@ -20,6 +20,7 @@ public class AutoFarmer : MonoBehaviour
     public Transform cleaner;
     public Transform exit;
     private Vector3 cageRange;
+    private bool isAdding = false;
 
     private List<GameObject> itemPool0 = new List<GameObject>();
     private List<GameObject> itemPool1 = new List<GameObject>();
@@ -66,57 +67,61 @@ public class AutoFarmer : MonoBehaviour
     }
     public IEnumerator AddPool()
     {
-
-        detectedItems.Clear();
-        for (int i = 0; i < cage.childCount; i++)
+        if (!isAdding)
         {
-            if (cage.GetChild(i).name == "Floor")
+            isAdding = true;
+            detectedItems.Clear();
+            for (int i = 0; i < cage.childCount; i++)
             {
-                cageRange = cage.GetChild(i).localScale;
-            }
-        }
-        Collider[] colliders = Physics.OverlapBox(cage.GetChild(0).position, new Vector3(cageRange.x / 2f, 10F, cageRange.z / 2f));
-        for(int i = 0; i < colliders.Length; i++)
-        {
-            print(colliders[i].name);
-        }
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag("Item") && collider.gameObject.activeInHierarchy)
-            {
-                detectedItems.Add(collider.gameObject);
-            }
-        }
-        
-        if (detectedItems.Count > 0)
-        {
-            foreach (GameObject item in detectedItems)
-            {
-                print(item.name);
-                Vector3 targetPosition = cleaner.transform.position;
-                while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
+                if (cage.GetChild(i).name == "Floor")
                 {
-                    item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime * 3f);
-                    yield return null;
-                }
-                if (item.activeInHierarchy)
-                {
-                    item.SetActive(false);
-                    if (itemPool0.Count < 1)
-                    {
-                        itemPool0.Add(item);
-                        break;
-                    }
-                    else
-                    {
-                        itemPool1.Add(item);
-                        break;
-                    }
+                    cageRange = cage.GetChild(i).localScale;
                 }
             }
+            Collider[] colliders = Physics.OverlapBox(cage.GetChild(0).position, new Vector3(cageRange.x / 2f, 10F, cageRange.z / 2f));
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                print(colliders[i].name);
+            }
+
+            foreach (Collider collider in colliders)
+            {
+                if (collider.CompareTag("Item") && collider.gameObject.activeInHierarchy)
+                {
+                    detectedItems.Add(collider.gameObject);
+                }
+            }
+
+            if (detectedItems.Count > 0)
+            {
+                foreach (GameObject item in detectedItems)
+                {
+                    print(item.name);
+                    Vector3 targetPosition = cleaner.transform.position;
+                    while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
+                    {
+                        item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime * 3f);
+                        yield return null;
+                    }
+                    if (item.activeInHierarchy)
+                    {
+                        item.SetActive(false);
+                        if (itemPool0.Count < 1)
+                        {
+                            itemPool0.Add(item);
+                            isAdding = false;
+                        }
+                        else
+                        {
+                            itemPool1.Add(item);
+                            isAdding = false;
+                        }
+                    }
+                }
+            }
+
         }
-        // 검출된 아이템 리스트를 순회하거나 필요에 따라 처리
+
 
         StartCoroutine(AddPoolDelay());
     }
