@@ -33,8 +33,12 @@ public class BuildingConsole : MonoBehaviour
         {
             _structureMap.Add((StructureList)i, buildingList[i]); 
         }
+        print(buildingList.Length);
         _bill.Add(buildingList[0], 250);
         _bill.Add(buildingList[1], 250);
+        _bill.Add(buildingList[3], 250);
+        _bill.Add(buildingList[4], 250);
+
     }
     private void Build()
     {

@@ -11,7 +11,7 @@ public class PlayerInteraction : MonoBehaviour
 
     [SerializeField]
     private GameObject _targetUI;
-    private AutoFarmer autoFarmer;
+    private AutoHarvest autoFarmer;
     void Update()
     {
         Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0.0f);
@@ -37,7 +37,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     else
                     {
-                        autoFarmer = hit.collider.gameObject.gameObject.GetComponent<AutoFarmer>();
+                        autoFarmer = hit.collider.gameObject.gameObject.GetComponent<AutoHarvest>();
                         _targetUI = null;
                     }
                 }

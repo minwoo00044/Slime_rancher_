@@ -164,7 +164,6 @@ public class PlayerFire : MonoBehaviour
             {
                 if (currentPool[currentPool.Count - 1] == null)
                     return;
-                print(currentPool[currentPool.Count - 1].name);
                 StartCoroutine(Fire(currentPool[currentPool.Count - 1], currentPool));
             }
             else
@@ -300,10 +299,10 @@ public class PlayerFire : MonoBehaviour
         }
         else if (isPulling && objectToPull != null && objectToPull.layer == 7)
         {
-            AutoFarmer autoFarmer = objectToPull.GetComponent<AutoFarmer>();
-            if (autoFarmer != null)
+            StoredItemGetter storedItemGetter = objectToPull.GetComponent<StoredItemGetter>();
+            if (storedItemGetter != null)
             {
-                StartCoroutine(autoFarmer.GenerateItem());
+                StartCoroutine(storedItemGetter.GenerateItem());
             }
         }
     }

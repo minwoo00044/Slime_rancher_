@@ -7,47 +7,26 @@ using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEditor.Progress;
 
-public class AutoFarmer : MonoBehaviour
+public class AutoHarvest : MonoBehaviour
 {
-    public float delayTime;
-    private bool isGenerating = false;
     private bool isPulling = false;
     public GameObject demoItem;
     public float harvestDelay;
     private List<GameObject> detectedItems = new List<GameObject>();
-    public float pullSpeed;
     public Transform cage;
     public Transform cleaner;
-    public Transform exit;
     private Vector3 cageRange;
     private bool isAdding = false;
+    private StoredItemGetter storedItemGetter;
 
-    private List<GameObject> itemPool0 = new List<GameObject>();
-    private List<GameObject> itemPool1 = new List<GameObject>();
+
     private void Awake()
     {
+        storedItemGetter = GetComponent<StoredItemGetter>();
         cage = transform.parent.parent;
         StartCoroutine(AddPoolDelay());
     }
-    public IEnumerator GenerateItem()
-    {
-        if (!isGenerating) // 이 조건을 추가하여 이미 생성 중인 경우 다시 생성하지 않도록 합니다.
-        {
 
-            isGenerating = true;
-            yield return new WaitForSeconds(delayTime);
-
-            if (itemPool0.Count > 0)
-            {
-                RemovePool(itemPool0);
-            }
-            else
-            {
-                RemovePool(itemPool1);
-            }
-            isGenerating = false;
-        }
-    }
     IEnumerator AddPoolDelay()
     {
         if (!isPulling)
@@ -101,20 +80,20 @@ public class AutoFarmer : MonoBehaviour
                     Vector3 targetPosition = cleaner.transform.position;
                     while (Vector3.Distance(item.transform.position, targetPosition) > 0.1f)
                     {
-                        item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, pullSpeed * Time.deltaTime * 3f);
+                        item.transform.position = Vector3.MoveTowards(item.transform.position, targetPosition, storedItemGetter.pullSpeed * Time.deltaTime * 3f);
                         yield return null;
                     }
                     if (item.activeInHierarchy)
                     {
                         item.SetActive(false);
-                        if (itemPool0.Count < 1)
+                        if (storedItemGetter.itemPool0.Count < 1)
                         {
-                            itemPool0.Add(item);
+                            storedItemGetter.itemPool0.Add(item);
                             isAdding = false;
                         }
                         else
                         {
-                            itemPool1.Add(item);
+                            storedItemGetter.itemPool1.Add(item);
                             isAdding = false;
                         }
                     }
@@ -125,24 +104,5 @@ public class AutoFarmer : MonoBehaviour
 
         }
             StartCoroutine(AddPoolDelay());
-    }
-
-    private void RemovePool(List<GameObject> targetPool)
-    {
-        if (targetPool.Count < 1)
-            return;
-        targetPool[targetPool.Count - 1].SetActive(true);
-        targetPool[targetPool.Count - 1].transform.position = new Vector3(exit.position.x, exit.position.y + 1, exit.position.z);
-        StartCoroutine(pullToGun(targetPool[targetPool.Count - 1], Player.Instance.gunPos));
-        targetPool.Remove(targetPool[targetPool.Count - 1]);
-    }
-
-    IEnumerator pullToGun(GameObject target, Transform gunPos)
-    {
-        while (Vector3.Distance(target.transform.position, gunPos.position) > 0.1f)
-        {
-            target.transform.position = Vector3.MoveTowards(target.transform.position, gunPos.position, pullSpeed * Time.deltaTime);
-            yield return null;
-        }
     }
 }

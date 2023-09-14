@@ -180,35 +180,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c96fe85178e9c3844b24d564815758be, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4104114448260873583}
+      addedObject: {fileID: 6019737047403152341}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c96fe85178e9c3844b24d564815758be, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6019737047403152341}
+      addedObject: {fileID: 5646950029130354097}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c96fe85178e9c3844b24d564815758be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4696836221628172527}
   m_SourcePrefab: {fileID: 100100000, guid: c96fe85178e9c3844b24d564815758be, type: 3}
 --- !u!1 &136549883448839854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c96fe85178e9c3844b24d564815758be, type: 3}
   m_PrefabInstance: {fileID: 947012339890910207}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4104114448260873583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136549883448839854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc62affbef72a54eb0152109fc3770b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delayTime: 0
-  demoItem: {fileID: 0}
-  harvestDelay: 10
-  pullSpeed: 3
-  cage: {fileID: 0}
-  cleaner: {fileID: 4757624622262862549}
-  exit: {fileID: 7577013463745383545}
 --- !u!65 &6019737047403152341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -230,6 +214,39 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.701218, y: 1.6753737, z: 4.4261146}
   m_Center: {x: -0.0000020604787, y: 0.0000012805383, z: 2.211036}
+--- !u!114 &5646950029130354097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136549883448839854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809cc8ab0fd9be946a2350bb6127bd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  demoItem: {fileID: 0}
+  harvestDelay: 10
+  cage: {fileID: 0}
+  cleaner: {fileID: 4757624622262862549}
+--- !u!114 &4696836221628172527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136549883448839854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b844639b57e2c1418455c1326acd28b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 1
+  itemPool0: []
+  itemPool1: []
+  exit: {fileID: 7577013463745383545}
+  pullSpeed: 3
 --- !u!4 &769781052207436820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c96fe85178e9c3844b24d564815758be, type: 3}
