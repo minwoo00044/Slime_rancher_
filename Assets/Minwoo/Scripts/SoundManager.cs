@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
         foreach (AudioSource audioSource in audioSources)
         {
             audioSource.Stop();
+            audioSource.mute = true;
         }
     }
     public void StopSound(AudioClip clip)
