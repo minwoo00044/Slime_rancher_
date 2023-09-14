@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour
         }
 
         jsonFilePath = Application.persistentDataPath + "/itemData.json"; // JSON 파일 경로 설정
-        LoadData();
+        LoadData(); 
     }
 
     private void Start()
@@ -72,6 +72,7 @@ public class DataManager : MonoBehaviour
         {
             int newQuantity = item.itemQuantity;
             int newPrice = item.itemPrice;
+            
             PlayerPrefs.SetInt("Quantity" + i, newQuantity);
             PlayerPrefs.SetInt("Price" + i, newPrice);
             i++;
