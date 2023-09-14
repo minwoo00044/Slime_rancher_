@@ -197,7 +197,7 @@ public class PlayerFire : MonoBehaviour
                     {
                         bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
                         if (Inventory.Instance.currentItem != null)
-                            Inventory.Instance.currentItem.UseItem();
+                            Inventory.Instance.UseItem();
                     }
                 }
                 yield return new WaitForSeconds(delayTime);

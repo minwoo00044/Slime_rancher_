@@ -48,12 +48,9 @@ public class Inventory : MonoBehaviour
     {
         if (MenuManager.instance.isPaused) return;
         
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
-            //if (currentItem.item != null)
-            //{
-            //    currentItem.UseItem();
-            //}
+            
         }
         else if (Input.anyKeyDown)
         {
@@ -67,6 +64,25 @@ public class Inventory : MonoBehaviour
         }
 
         
+    }
+
+    public void UseItem()
+    {
+        if (currentItem != null)
+        {
+            currentItem.UseItem();
+        }
+        if (slotItems[currentIndex] != null)
+        {
+            PlayerPrefs.DeleteKey("Slot" + currentIndex);
+        }
+        for (int i = 0; i < slotItems.Length; i++)
+        {
+            if (slotItems[i].item == null)
+            {
+                PlayerPrefs.DeleteKey("Slot" + i);
+            }
+        }
     }
 
     void LoadInventory()
@@ -85,11 +101,6 @@ public class Inventory : MonoBehaviour
                 slotItems[i].SetItem(savedItem);
                // AddItemToInventory(savedItem);
                 playerFire.InitializePool(i, savedItem, savedItem.itemQuantity);
-            }
-            else
-            {
-                print("Key°¡ ¾øÀ½");
-                return;
             }
         }
     }
@@ -111,6 +122,7 @@ public class Inventory : MonoBehaviour
     Image GetCurrentSlot()
     {
         int index = (int)key - (int)KeyCode.Alpha1;
+        currentIndex = index;
         switch (index)
         {
             case 0:
