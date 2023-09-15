@@ -3,64 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class BuildingConsole : MonoBehaviour
 {
     public Transform center;
-    public GameObject[] buildingList;
-    public enum StructureList
-    {
-        SlimeCage,
-        Farm
-    }
-    private StructureList _structureList;
-    private int _structureIndex;
-    public int structureIndex
-    {
-        set
-        {
-            _structureIndex = value;
-            _structureList = (StructureList)value;
-            Build();
-        }
-    }
-    private Dictionary<StructureList, GameObject> _structureMap = new Dictionary<StructureList, GameObject>();
-    private Dictionary<GameObject, int> _bill = new Dictionary<GameObject, int>();
+    public GameObject[] structList;
+    public GameObject[] UIList;
+    public GameObject targetUI;
 
+    private Dictionary<string, GameObject> _nameStructPair = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> _nameUIPair = new Dictionary<string, GameObject>();
+    private string[] names = { "Cage", "Farm", "Chicken", "Silo", "Incinerator", "Pond"};
+    private InteractableObject interactableObject;
     private void Awake()
     {
-        for(int i = 0; i < buildingList.Length; i++)
+        interactableObject = GetComponent<InteractableObject>();
+        for(int i = 0; i < names.Length; i++)
         {
-            _structureMap.Add((StructureList)i, buildingList[i]); 
+            _nameStructPair.Add(names[i], structList[i]);
+            _nameUIPair.Add(names[i], UIList[i]);
         }
-        print(buildingList.Length);
-        _bill.Add(buildingList[0], 250);
-        _bill.Add(buildingList[1], 250);
-        _bill.Add(buildingList[3], 250);
-        _bill.Add(buildingList[4], 250);
+    }
+    [Tooltip("&로 건물명과 가격을 구분")]
+    public void Interaction(string BuildingAndMoney)
+    {
+        string[] splitString = BuildingAndMoney.Split('&');
+        string structName = splitString[0];
+        int cost = int.Parse(splitString[1]);
+        Build(structName);
+        SuccesAction(cost);
+    }
+    private void Build(string _structName)
+    {
+        Instantiate(_nameStructPair[_structName], center);
+        interactableObject.targetUI = _nameUIPair[_structName];
+    }
 
-    }
-    private void Build()
+    private void SuccesAction(int _money)
     {
-        if(center.childCount < 1)
-        {
-            if(StatusUIManager.instance.gold >= _bill[_structureMap[_structureList]])
-            {
-                GameObject instance = Instantiate(_structureMap[_structureList], center);
-                gameObject.GetComponent<InteractableObject>().targetUI = gameObject.GetComponent<InteractableObject>().targetUIs[_structureIndex];
-                StatusUIManager.instance.gold -= _bill[_structureMap[_structureList]];
-            }
-            else
-            {
-                GameObject clickObject = EventSystem.current.currentSelectedGameObject;
-                StartCoroutine(swtichButton(clickObject.GetComponent<Button>())); 
-            }
-        }
-    }
-    IEnumerator swtichButton(Button button)
-    {
-        yield return new WaitForSeconds(0.5f);
-        print(button.name);
-        button.interactable = true;
+        StatusUIManager.instance.gold -= _money;
+        Player.Instance.isStop = false;
+        GameObject clickObject = EventSystem.current.currentSelectedGameObject;
+        clickObject.GetComponent<Button>().interactable = false;
+        targetUI = clickObject.transform.parent.parent.gameObject;
+        targetUI.SetActive(false);
     }
 }

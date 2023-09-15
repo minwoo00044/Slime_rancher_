@@ -35,19 +35,24 @@ public class PlayerFire : MonoBehaviour
     public AudioClip emptySound;
     public AudioClip reloadSound;
 
+    public GameObject bingle;
+    public int angle = 50;
+    public float intensity;
+    public Renderer[] render;
+    public float delayTime = 0.3f;
+
     private bool isPulling = false;
     [SerializeField]
     private GameObject objectToPull;
 
-    public GameObject bingle;
-    public int angle = 50;
 
-    public Renderer[] render;
-    public float intensity;
     private bool isShootCool = false;
-    public float delayTime = 0.3f;
 
-    Animator animator;
+    private Animator animator;
+
+    private bool isStick = false;
+    private PlayerMove playerMove;
+    private BulletState _bulletState = BulletState.Slot0;
 
     public enum BulletState
     {
@@ -56,7 +61,6 @@ public class PlayerFire : MonoBehaviour
         Slot02,
         Slot03
     }
-    private BulletState _bulletState = BulletState.Slot0;
     public BulletState bulletState
     {
         get
@@ -71,8 +75,6 @@ public class PlayerFire : MonoBehaviour
         }
     }
     public Dictionary<BulletState, List<GameObject>> bulletSlot = new Dictionary<BulletState, List<GameObject>>();
-    private bool isStick = false;
-    private PlayerMove playerMove;
 
     private void Awake()
     {
@@ -83,7 +85,16 @@ public class PlayerFire : MonoBehaviour
         bulletSlot.Add(BulletState.Slot02, itemPool2);
         bulletSlot.Add(BulletState.Slot03, itemPool3);
     }
-
+    public void InitializePool(int slotNumber, ItemData savedItem, int amount)
+    {
+        List<GameObject> targetPool = bulletSlot[(BulletState)slotNumber];
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject poolItem = Instantiate(savedItem.itemPrefab);
+            poolItem.SetActive(false);
+            targetPool.Add(poolItem);
+        }
+    }
     private void Update()
     {
         if (Player.Instance.isStop)
@@ -145,16 +156,6 @@ public class PlayerFire : MonoBehaviour
 
         }
     }
-    public void InitializePool(int slotNumber, ItemData savedItem, int amount)
-    {
-        List<GameObject> targetPool = bulletSlot[(BulletState)slotNumber];
-        for (int i = 0; i < amount; i++)
-        {
-            GameObject poolItem = Instantiate(savedItem.itemPrefab);
-            poolItem.SetActive(false);
-            targetPool.Add(poolItem);
-        }
-    }
     private void BulletCheck(BulletState currentState)
     {
         if (bulletSlot.ContainsKey(currentState))
@@ -214,14 +215,6 @@ public class PlayerFire : MonoBehaviour
             Vector3 forceDirection = Camera.main.transform.forward;
             bulletRigidbody.AddForce(forceDirection * bulletForce, ForceMode.Impulse);
             StartCoroutine(DelayFlag(true));
-        }
-    }
-    private void EmissionChange(Color color, float angle, int dir)
-    {
-        bingle.transform.Rotate(0, 0, dir * angle);
-        for (int i = 0; i < render.Length; i++)
-        {
-            render[i].material.SetColor("_EmissionColor", color * intensity);
         }
     }
     private void PullObject()
@@ -353,6 +346,14 @@ public class PlayerFire : MonoBehaviour
         }
         sameSlot = null;
         return false;
+    }
+    private void EmissionChange(Color color, float angle, int dir)
+    {
+        bingle.transform.Rotate(0, 0, dir * angle);
+        for (int i = 0; i < render.Length; i++)
+        {
+            render[i].material.SetColor("_EmissionColor", color * intensity);
+        }
     }
 
 }
