@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Silo : MonoBehaviour
 {
+
+    public GameObject addPollEff;
+
     private StoredItemGetter storedItemGetter;
     private List<GameObject> items0;
     private List<GameObject> items1;
@@ -38,6 +41,7 @@ public class Silo : MonoBehaviour
 
     private void AddPool(GameObject target)
     {
+        ParticleSystemManager.Instance.PlayParticle(addPollEff, transform.GetChild(0));
         items0.Add(target.gameObject);
         target.gameObject.SetActive(false);
         target.gameObject.layer = 0;

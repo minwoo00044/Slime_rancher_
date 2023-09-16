@@ -59,6 +59,7 @@ public class PlayerMove : MonoBehaviour
         if (isJumping && characterController.collisionFlags == CollisionFlags.Below)
         {
             isJumping = false;
+            isStaminaReduce = false;
         }
         //바닥에 닿아있을때 수직 속도 초기화
         else if (characterController.collisionFlags == CollisionFlags.Below)
@@ -70,10 +71,7 @@ public class PlayerMove : MonoBehaviour
         {
             Jump();
         }
-        else if (Input.GetButtonUp("Jump"))
-        {
-            EndJump();
-        }
+
 
         // Check for jump pack usage
         if (Input.GetButton("Jump") && Player.Instance.isEquipZetPack)
@@ -116,11 +114,7 @@ public class PlayerMove : MonoBehaviour
         isJumping = true;
     }
 
-    private void EndJump()
-    {
-        isJumping = false;
-        isStaminaReduce = false;
-    }
+
     private void UseJumpPack()
     {
         if (Player.Instance.stamina > 1)

@@ -9,6 +9,8 @@ TagManager:
   - Tar
   - Food
   - Farm
+  - FxTemporaire
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Player
   - InteractableObject
   - Wall
-  - 
+  - Pond
   - 
   - 
   - 

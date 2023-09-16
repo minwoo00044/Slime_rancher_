@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
     public Transform gunPos;
     public bool isEquipZetPack = false;
     public bool isEquipImpact = false;
+    [SerializeField]
     private bool _isEquipWaterTank;
     public bool isEquipWaterTank
     {

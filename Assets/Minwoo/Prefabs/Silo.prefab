@@ -31,7 +31,7 @@ Transform:
   - {fileID: 1352579509101928819}
   - {fileID: 642286951667547233}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &8489190997073473609
 GameObject:
@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231898b2910c101448211fd964409912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addPollEff: {fileID: 1429954232896169633, guid: 6bbf88358ee3a894491fe247035c3a79, type: 3}
 --- !u!114 &3726865231773181862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,8 +316,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.29045248, y: 3.1033618, z: 1.9514718}
-  m_Center: {x: -1.6915977, y: -0.10018951, z: 4.0622153}
+  m_Size: {x: 3.669496, y: 3.1033618, z: 6.191554}
+  m_Center: {x: -0.0020759106, y: -0.10018945, z: 2.6622446}
 --- !u!4 &642286951667547233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3e424089bbd089043af47eaab4ee7e0b, type: 3}

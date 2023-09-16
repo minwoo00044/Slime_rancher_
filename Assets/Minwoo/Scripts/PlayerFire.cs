@@ -15,6 +15,8 @@ public class PlayerFire : MonoBehaviour
     public List<GameObject> itemPool2 = new List<GameObject>();
     [HideInInspector]
     public List<GameObject> itemPool3 = new List<GameObject>();
+    [HideInInspector]
+    public List<GameObject> waterPool = new List<GameObject>();
 
     //public List<GameObject> itemPool0 = new List<GameObject>();
     //public List<GameObject> itemPool1 = new List<GameObject>();
@@ -45,6 +47,8 @@ public class PlayerFire : MonoBehaviour
 
     public GameObject addPoolEff;
     public GameObject firePoolEff;
+    public GameObject waterAddEff;
+
     private bool isPulling = false;
     [SerializeField]
     private GameObject objectToPull;
@@ -63,7 +67,8 @@ public class PlayerFire : MonoBehaviour
         Slot0,
         Slot01,
         Slot02,
-        Slot03
+        Slot03,
+        Slot04
     }
     public BulletState bulletState
     {
@@ -88,6 +93,7 @@ public class PlayerFire : MonoBehaviour
         bulletSlot.Add(BulletState.Slot01, itemPool1);
         bulletSlot.Add(BulletState.Slot02, itemPool2);
         bulletSlot.Add(BulletState.Slot03, itemPool3);
+        bulletSlot.Add(BulletState.Slot04, waterPool);
     }
     public void InitializePool(int slotNumber, ItemData savedItem, int amount)
     {
@@ -242,7 +248,7 @@ public class PlayerFire : MonoBehaviour
 
             Vector3 targetPosition = gunPos.position;
             objectToPull.transform.position = Vector3.MoveTowards(objectToPull.transform.position, targetPosition, pullSpeed * Time.deltaTime);
-
+            //print(Vector3.Distance(objectToPull.transform.position, targetPosition));
             if (Vector3.Distance(objectToPull.transform.position, targetPosition) < addDistance && objectToPull.activeInHierarchy)
             {
                 isPulling = false;
@@ -267,6 +273,11 @@ public class PlayerFire : MonoBehaviour
                         {
                             StickOrDrop(objectToPull, false);
                         }
+                    }
+                    else if(objectToPull.CompareTag("Water"))
+                    {
+                        print("!");
+                        AddPool(waterPool, objectToPull);
                     }
                     //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
                     else
@@ -299,8 +310,10 @@ public class PlayerFire : MonoBehaviour
             }
 
         }
-        else if (isPulling && objectToPull != null && objectToPull.layer == 7)
+        else if (isPulling && objectToPull != null && (objectToPull.layer == 7 || objectToPull.layer == 11))
         {
+            if (objectToPull.layer == 11 && !Player.Instance.isEquipWaterTank)
+                return;
             StoredItemGetter storedItemGetter = objectToPull.GetComponent<StoredItemGetter>();
             if (storedItemGetter != null)
             {
@@ -310,11 +323,21 @@ public class PlayerFire : MonoBehaviour
     }
     private void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
-        ParticleSystemManager.Instance.PlayParticle(addPoolEff, gunPos);
-        targetPool.Add(targetObject);
+        if(targetObject.tag == "Water")
+        {
+            ParticleSystemManager.Instance.PlayParticle(waterAddEff, gunPos);
+            waterPool.Add(targetObject);
+            //여기에 5번 슬롯 채우기 구현
+        }
+        else
+        {
+            ParticleSystemManager.Instance.PlayParticle(addPoolEff, gunPos);
+            targetPool.Add(targetObject);
+            Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
+        }
         targetObject.SetActive(false);
         SoundManager.Instance.PlaySound(eatSound);
-        Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
+
     }
     private void StickOrDrop(GameObject targetObject, bool flag)
     {

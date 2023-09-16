@@ -1164,6 +1164,7 @@ MonoBehaviour:
   itemPool1: []
   itemPool2: []
   itemPool3: []
+  waterPool: []
   maxDistance: 10
   radius: 2
   pullSpeed: 10
@@ -1172,11 +1173,11 @@ MonoBehaviour:
     m_Bits: 64
   autoFarmObjectsLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
   gunPos: {fileID: 4757246133345434860}
   pullEff: {fileID: 6870634354436838629}
   bulletForce: 10
-  addDistance: 0.3
+  addDistance: 0.4
   eatSound: {fileID: 8300000, guid: 527d1fa2b0bd6ec40a2df5b47ea2bf92, type: 3}
   fireSound: {fileID: 8300000, guid: d81690809fc56c1438da0b05e9342dba, type: 3}
   emptySound: {fileID: 8300000, guid: d7f8d7391d28ac04dbc63390c8445eeb, type: 3}
@@ -1193,6 +1194,7 @@ MonoBehaviour:
   delayTime: 0.3
   addPoolEff: {fileID: 9157105887711914197, guid: ecb5317ac17e98c4f934e36ff8e0cf46, type: 3}
   firePoolEff: {fileID: 5880797563127281583, guid: 1d823736e2faa4c489afef4c338e47d2, type: 3}
+  waterAddEff: {fileID: 5112403345868107898, guid: 83692bebf7f0e8d419e370ff0af098b9, type: 3}
   objectToPull: {fileID: 0}
 --- !u!114 &1226935527083652080
 MonoBehaviour:
@@ -1215,6 +1217,7 @@ MonoBehaviour:
   gunPos: {fileID: 4757246133345434860}
   isEquipZetPack: 0
   isEquipImpact: 0
+  _isEquipWaterTank: 1
 --- !u!114 &5406134245606283194
 MonoBehaviour:
   m_ObjectHideFlags: 0
