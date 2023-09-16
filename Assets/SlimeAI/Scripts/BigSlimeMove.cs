@@ -26,6 +26,9 @@ public class BigSlimeMove : MonoBehaviour
     GameObject findObject;
 
     float hunger = 0;
+    float eating = 0;
+    float gemCount = 0;
+
     GameObject gem1;
     GameObject gem2;
     GameObject spawnPos;
@@ -34,9 +37,11 @@ public class BigSlimeMove : MonoBehaviour
 
     bool grip = false;
 
+    Animator animator;
     void Start()
     {
         spawnPos = transform.GetChild(3).gameObject;
+        animator = GetComponent<Animator>();
         FindMyGem();
     }
 
@@ -65,9 +70,10 @@ public class BigSlimeMove : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         onGround = true;
+        animator.SetTrigger("JumpE");
     }
     private void OnTriggerExit(Collider other)
     {
@@ -80,6 +86,7 @@ public class BigSlimeMove : MonoBehaviour
         {
             if (jumpDaley < 0)
             {
+                animator.SetTrigger("JumpS");
                 jumpBir = new Vector3(transform.forward.x, Random.Range(minJumpHigh, maxJumpHigh), transform.forward.z);
                 Rigidbody rigidbody = GetComponent<Rigidbody>();
                 rigidbody.AddForce(jumpBir, ForceMode.Impulse);
@@ -109,8 +116,8 @@ public class BigSlimeMove : MonoBehaviour
     {
         if (lookObject != null)
         {
-            if (lookObject.tag == "Tar") lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
-            else lookBir = Quaternion.LookRotation(new Vector3(transform.position.x - lookObject.transform.position.x, 0, transform.position.z - lookObject.transform.position.z), Vector3.up);
+            if (lookObject.tag == "Tar") Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up); 
+            else lookBir = lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
             moveDaley = 0;
         }
         else
@@ -163,18 +170,24 @@ public class BigSlimeMove : MonoBehaviour
     {
         if (hunger > 0)
         {
-            if (hunger >= 100)
-            {
-                GameObject gem1GO = Instantiate(gem1);
-                gem1GO.transform.position = spawnPos.transform.position;
-                Rigidbody rigidbody = gem1GO.GetComponent<Rigidbody>();
-                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
-                GameObject gem2GO = Instantiate(gem2);
-                gem2GO.transform.position = spawnPos.transform.position;
-                rigidbody = gem2GO.GetComponent<Rigidbody>();
-                rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
-            }
             hunger -= Time.deltaTime;
+            if(gemCount > 0)
+            {
+                eating -= Time.deltaTime;
+                if (eating <= 0)
+                {
+                    GameObject gem1GO = Instantiate(gem1);
+                    gem1GO.transform.position = spawnPos.transform.position;
+                    Rigidbody rigidbody = gem1GO.GetComponent<Rigidbody>();
+                    rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
+                    GameObject gem2GO = Instantiate(gem2);
+                    gem2GO.transform.position = spawnPos.transform.position;
+                    rigidbody = gem2GO.GetComponent<Rigidbody>();
+                    rigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
+
+                    gemCount--;
+                }
+            }
         }
     }
 
@@ -200,7 +213,9 @@ public class BigSlimeMove : MonoBehaviour
             Destroy(collision.gameObject);
             lookObject = null;
 
+            eating = 3;
             hunger = 100;
+            gemCount++;
         }
         if (collision.gameObject.tag == "Item")
         {

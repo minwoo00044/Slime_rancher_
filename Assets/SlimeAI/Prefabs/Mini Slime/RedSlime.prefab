@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4535937352779207117}
   - component: {fileID: 2218761031345809742}
   - component: {fileID: -3019852676838343540}
+  - component: {fileID: -4131790633547648450}
   m_Layer: 6
   m_Name: RedSlime
   m_TagString: Slime
@@ -256,6 +257,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: e78c855568c6def4c8967c942939b3de, type: 2}
+--- !u!95 &-4131790633547648450
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435777063803728612}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 49c068e2d9f6b6a46829311544a9aaba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6415096667954512553
 PrefabInstance:
   m_ObjectHideFlags: 0

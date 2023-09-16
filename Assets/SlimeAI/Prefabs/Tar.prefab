@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 2218761031345809742}
   - component: {fileID: -5652480126137675575}
   - component: {fileID: 1923208569644228546}
+  - component: {fileID: 3855627796415563627}
   m_Layer: 6
   m_Name: Tar
   m_TagString: Tar
@@ -123,7 +124,7 @@ Transform:
   - {fileID: 2533048950406230681}
   - {fileID: 3015046009017445150}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &101805567959112136
 MeshFilter:
@@ -255,6 +256,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 77d4cbc0341d0b04fb75aab577055765, type: 2}
+--- !u!95 &3855627796415563627
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435777063803728612}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 49c068e2d9f6b6a46829311544a9aaba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3824582478354492674
 PrefabInstance:
   m_ObjectHideFlags: 0

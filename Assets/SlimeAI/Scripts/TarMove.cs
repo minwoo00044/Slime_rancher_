@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TarMove : MonoBehaviour
@@ -28,15 +29,21 @@ public class TarMove : MonoBehaviour
     public GameObject tar;
 
     bool grip = false;
+
+    float attackDaley;
+
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         transform.localScale = new Vector3(slimeSize, slimeSize, slimeSize);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Attack();
         if (transform.parent != null && transform.parent.tag == "Player")
         {
             grip = true;
@@ -52,12 +59,12 @@ public class TarMove : MonoBehaviour
 
         Jump();
 
-
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         onGround = true;
+        animator.SetTrigger("JumpE");
     }
     private void OnTriggerExit(Collider other)
     {
@@ -70,6 +77,7 @@ public class TarMove : MonoBehaviour
         {
             if (jumpDaley < 0)
             {
+                animator.SetTrigger("JumpS");
                 jumpBir = new Vector3(transform.forward.x, Random.Range(minJumpHigh, maxJumpHigh), transform.forward.z);
                 Rigidbody rigidbody = GetComponent<Rigidbody>();
                 rigidbody.AddForce(jumpBir, ForceMode.Impulse);
@@ -132,7 +140,31 @@ public class TarMove : MonoBehaviour
             }
         }
     }
-
+    private void Attack()
+    {
+        if (grip)
+        {
+            Player player = gameObject.GetComponent<Player>();
+            attackDaley -= Time.deltaTime;
+            if (attackDaley < 0)
+            {
+                player = transform.root.GetComponent<Player>();
+                player.hp--;
+                attackDaley = 5f;
+            }
+        }
+        else if (onGround && lookObject != null)
+        {
+            attackDaley -= Time.deltaTime;
+            if (attackDaley < 0)
+            {
+                Vector3 attackBir = new Vector3(transform.forward.x, 1, transform.forward.z);
+                Rigidbody rigidbody = GetComponent<Rigidbody>();
+                rigidbody.AddForce(attackBir, ForceMode.Impulse);
+                attackDaley = 5f;
+            }
+        }
+    }
     private void ResetSlime(bool call)
     {
         if (call)

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 9031584834685810447}
   - component: {fileID: 6907620095875627627}
   - component: {fileID: -8212314597421901801}
+  - component: {fileID: -1533721670794114824}
   m_Layer: 6
   m_Name: BlueCrown
   m_TagString: Slime
@@ -207,6 +208,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 77d4cbc0341d0b04fb75aab577055765, type: 2}
+--- !u!95 &-1533721670794114824
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212419681968071688}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 49c068e2d9f6b6a46829311544a9aaba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7715813403588672633
 GameObject:
   m_ObjectHideFlags: 0
