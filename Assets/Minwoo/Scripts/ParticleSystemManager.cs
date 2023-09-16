@@ -27,7 +27,7 @@ public class ParticleSystemManager : MonoBehaviour
     public void PlayParticle(GameObject particleObject, Transform location)
     {
         string particleName = particleObject.GetComponent<ParticleData>().particleObjectName;
-        GameObject createdParticle = Instantiate(particleObject, transform);
+        GameObject createdParticle = Instantiate(particleObject, location);
         createdParticle.transform.position = location.position;
     }
     public void PlayParticleOnce(GameObject particleObject, Transform location)
@@ -42,6 +42,7 @@ public class ParticleSystemManager : MonoBehaviour
         {
             if (particleGameObjects.ContainsKey(particleName))
             {
+                particleGameObjects[particleName].transform.SetParent(location);
                 particleGameObjects[particleName].transform.position = location.position;
                 particleGameObjects[particleName].SetActive(true);
             }

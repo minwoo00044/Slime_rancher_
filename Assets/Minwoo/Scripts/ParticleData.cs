@@ -22,7 +22,10 @@ public class ParticleData : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         if(isManaged)
+        {
             gameObject.SetActive(false);
+            transform.SetParent(null);
+        }
         else
             Destroy(gameObject,timer);
     }

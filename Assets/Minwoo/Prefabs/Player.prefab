@@ -1177,20 +1177,23 @@ MonoBehaviour:
   pullEff: {fileID: 6870634354436838629}
   bulletForce: 10
   addDistance: 0.3
-  eatSound: {fileID: 8300000, guid: 03a5e845ea623ba4796b05860542b715, type: 3}
-  fireSound: {fileID: 8300000, guid: 9244f13cf59691b41b541c93a3109c20, type: 3}
-  emptySound: {fileID: 8300000, guid: d5038eafe9ca05c4bb1e691325f4cc57, type: 3}
-  reloadSound: {fileID: 8300000, guid: 96c024475cc3dff4683ee692712060f5, type: 3}
-  objectToPull: {fileID: 0}
+  eatSound: {fileID: 8300000, guid: 527d1fa2b0bd6ec40a2df5b47ea2bf92, type: 3}
+  fireSound: {fileID: 8300000, guid: d81690809fc56c1438da0b05e9342dba, type: 3}
+  emptySound: {fileID: 8300000, guid: d7f8d7391d28ac04dbc63390c8445eeb, type: 3}
+  reloadSound: {fileID: 8300000, guid: 4536d0c3709b5214794cfe0eba0bbf41, type: 3}
+  tornadoSound: {fileID: 8300000, guid: 93be6989d7e9d7b42bbcb795290ce504, type: 3}
   bingle: {fileID: 5123553123727816675}
   angle: 25
+  intensity: 5
   render:
   - {fileID: 3431538065195125898}
   - {fileID: 5539640627901632473}
   - {fileID: 7745079641155291264}
   - {fileID: 4449802157244915030}
-  intensity: 5
   delayTime: 0.3
+  addPoolEff: {fileID: 9157105887711914197, guid: ecb5317ac17e98c4f934e36ff8e0cf46, type: 3}
+  firePoolEff: {fileID: 5880797563127281583, guid: 1d823736e2faa4c489afef4c338e47d2, type: 3}
+  objectToPull: {fileID: 0}
 --- !u!114 &1226935527083652080
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1073,34 +1073,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: eatSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 527d1fa2b0bd6ec40a2df5b47ea2bf92, type: 3}
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: fireSound
-      value: 
-      objectReference: {fileID: 8300000, guid: d81690809fc56c1438da0b05e9342dba, type: 3}
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: addPoolEff
-      value: 
-      objectReference: {fileID: 9157105887711914197, guid: ecb5317ac17e98c4f934e36ff8e0cf46, type: 3}
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: emptySound
-      value: 
-      objectReference: {fileID: 8300000, guid: d7f8d7391d28ac04dbc63390c8445eeb, type: 3}
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: firePoolEff
-      value: 
-      objectReference: {fileID: 5880797563127281583, guid: 1d823736e2faa4c489afef4c338e47d2, type: 3}
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: reloadSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4536d0c3709b5214794cfe0eba0bbf41, type: 3}
-    - target: {fileID: 1267332217097441282, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
-      propertyPath: tornadoSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 93be6989d7e9d7b42bbcb795290ce504, type: 3}
     - target: {fileID: 3232051947639475817, guid: e6d0f29c6580a64468d647d630f254cc, type: 3}
       propertyPath: m_RootOrder
       value: 3
