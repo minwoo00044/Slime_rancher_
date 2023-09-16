@@ -29,7 +29,7 @@ public class SlimeMove : MonoBehaviour
 
     float hunger = 0;
     float eating = 0;
-    float gemCount = 0;
+    public float gemCount = 0;
 
     GameObject gem;
     GameObject spawnPos;
@@ -185,6 +185,10 @@ public class SlimeMove : MonoBehaviour
             eating = 3;
             hunger = 100;
             gemCount++;
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                if (transform.GetChild(i).gameObject.name == collision.gameObject.name) gemCount++;
+            }
         }
         if (collision.gameObject.tag == "Item" && collision.gameObject.transform.GetChild(0).name != transform.GetChild(0).name)
         {

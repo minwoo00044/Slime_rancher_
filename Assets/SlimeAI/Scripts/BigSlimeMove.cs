@@ -216,6 +216,10 @@ public class BigSlimeMove : MonoBehaviour
             eating = 3;
             hunger = 100;
             gemCount++;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (transform.GetChild(i).gameObject.name == collision.gameObject.name) gemCount++;
+            }
         }
         if (collision.gameObject.tag == "Item")
         {
