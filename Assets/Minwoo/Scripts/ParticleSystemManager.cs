@@ -9,6 +9,7 @@ public class ParticleSystemManager : MonoBehaviour
     private static ParticleSystemManager instance;
 
     public static ParticleSystemManager Instance { get { return instance; } }
+    private Dictionary<string, GameObject> particleGameObjects = new Dictionary<string, GameObject>();
 
     private void Awake()
     {
@@ -25,16 +26,45 @@ public class ParticleSystemManager : MonoBehaviour
 
     public void PlayParticle(GameObject particleObject, Transform location)
     {
-        GameObject createdParticle = Instantiate(particleObject, location);
-        ParticleSystem particleSystem = createdParticle.GetComponent<ParticleSystem>();
-        Destroy(createdParticle, particleSystem.main.duration);
+        string particleName = particleObject.GetComponent<ParticleData>().particleObjectName;
+        GameObject createdParticle = Instantiate(particleObject, transform);
+        createdParticle.transform.position = location.position;
     }
-    public bool IsParticlePlaying(GameObject particleObject)
+    public void PlayParticleOnce(GameObject particleObject, Transform location)
     {
-        ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();
-        if (particleSystem != null)
+        string particleName = particleObject.GetComponent<ParticleData>().particleObjectName;
+        if(IsParticlePlaying(particleName))
         {
-            return particleSystem.isPlaying;
+
+            return;
+        }
+        else
+        {
+            if (particleGameObjects.ContainsKey(particleName))
+            {
+                particleGameObjects[particleName].transform.position = location.position;
+                particleGameObjects[particleName].SetActive(true);
+            }
+            else
+            {
+                GameObject createdParticle = Instantiate(particleObject, location);
+                createdParticle.transform.position = location.position;
+                createdParticle.GetComponent<ParticleData>().isManaged = true;
+                particleGameObjects.Add(particleName, createdParticle);
+            }    
+        }
+
+    }
+
+    public bool IsParticlePlaying(string particleName)
+    {
+        if(particleGameObjects.ContainsKey(particleName) && particleGameObjects[particleName].activeInHierarchy)
+        {
+            if(particleGameObjects[particleName].GetComponent<ParticleSystem>().isPlaying)
+            {
+                return true;
+            }
+
         }
         return false;
     }

@@ -30,10 +30,12 @@ public class PlayerFire : MonoBehaviour
     public GameObject pullEff;
     public float bulletForce;
     public float addDistance = 0.5f;
+
     public AudioClip eatSound;
     public AudioClip fireSound;
     public AudioClip emptySound;
     public AudioClip reloadSound;
+    public AudioClip tornadoSound;
 
     public GameObject bingle;
     public int angle = 50;
@@ -41,6 +43,8 @@ public class PlayerFire : MonoBehaviour
     public Renderer[] render;
     public float delayTime = 0.3f;
 
+    public GameObject addPoolEff;
+    public GameObject firePoolEff;
     private bool isPulling = false;
     [SerializeField]
     private GameObject objectToPull;
@@ -142,6 +146,8 @@ public class PlayerFire : MonoBehaviour
             {
                 EmissionChange(Color.green, angle, 1);
                 animator.SetBool("isRun", false);
+                if(!SoundManager.Instance.IsPlaying(tornadoSound))
+                    SoundManager.Instance.PlaySound(tornadoSound);
                 PullObject();
                 pullEff.SetActive(true);
             }
@@ -151,6 +157,8 @@ public class PlayerFire : MonoBehaviour
                 {
                     animator.SetBool("isRun", true);
                 }
+                if (SoundManager.Instance.IsPlaying(tornadoSound))
+                    SoundManager.Instance.StopSound(tornadoSound);
                 pullEff.SetActive(false);
             }
 
@@ -182,6 +190,7 @@ public class PlayerFire : MonoBehaviour
             if (!isShootCool)
             {
                 isShootCool = true;
+                ParticleSystemManager.Instance.PlayParticle(firePoolEff, gunPos);
 
                 Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
 
@@ -301,7 +310,7 @@ public class PlayerFire : MonoBehaviour
     }
     private void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
-
+        ParticleSystemManager.Instance.PlayParticle(addPoolEff, gunPos);
         targetPool.Add(targetObject);
         targetObject.SetActive(false);
         SoundManager.Instance.PlaySound(eatSound);
