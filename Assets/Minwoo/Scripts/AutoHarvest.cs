@@ -9,17 +9,19 @@ using static UnityEditor.Progress;
 
 public class AutoHarvest : MonoBehaviour
 {
-    private bool isPulling = false;
     public GameObject demoItem;
     public float harvestDelay;
-    private List<GameObject> detectedItems = new List<GameObject>();
     public Transform cage;
     public Transform cleaner;
+    public AudioClip harvestSound;
+
+    private bool isPulling = false;
     private Vector3 cageRange;
+    private List<GameObject> detectedItems = new List<GameObject>();
     private bool isAdding = false;
     private StoredItemGetter storedItemGetter;
 
-
+    
     private void Awake()
     {
         storedItemGetter = GetComponent<StoredItemGetter>();
@@ -50,6 +52,8 @@ public class AutoHarvest : MonoBehaviour
         {
             isAdding = true;
             detectedItems.Clear();
+            if(!SoundManager.Instance.IsPlaying(harvestSound))
+                SoundManager.Instance.Play3DSoundAtLocation(harvestSound, cleaner.position);
             for (int i = 0; i < cage.childCount; i++)
             {
                 if (cage.GetChild(i).name == "Floor")

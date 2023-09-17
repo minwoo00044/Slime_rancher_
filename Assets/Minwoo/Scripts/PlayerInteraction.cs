@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public float maxDistance;
     public LayerMask interactableObject;
     public GameObject Guidetext;
+    public AudioClip UISound;
 
     [SerializeField]
     private GameObject _targetUI;
@@ -51,14 +52,17 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+
             if (_targetUI != null)
             {
+                SoundManager.Instance.PlaySound(UISound);
                 _targetUI.SetActive(true);
                 Guidetext.SetActive(false);
                 Player.Instance.isStop = true;
             }
             else if (autoFarmer != null)
             {
+                SoundManager.Instance.PlaySound(UISound);
                 StartCoroutine(autoFarmer.AddPool());
             }
         }

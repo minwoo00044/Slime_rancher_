@@ -3172,7 +3172,7 @@ RectTransform:
   - {fileID: 7261605665789489337}
   - {fileID: 491385497054281172}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4008,7 +4008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4f4f95974cafb49b24c0599d13f0a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 1000
+  gold: 9999
   goldText: {fileID: 3774363362045109686}
   hpBar: {fileID: 3656555026833794402}
   enBar: {fileID: 598882363289397054}

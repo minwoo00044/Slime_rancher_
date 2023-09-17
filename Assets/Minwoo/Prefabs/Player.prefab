@@ -1085,7 +1085,7 @@ Transform:
   - {fileID: 2727054729817036783}
   - {fileID: 1643622835920248780}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4962883939747489623
 CharacterController:
@@ -1196,6 +1196,7 @@ MonoBehaviour:
   firePoolEff: {fileID: 5880797563127281583, guid: 1d823736e2faa4c489afef4c338e47d2, type: 3}
   waterAddEff: {fileID: 5112403345868107898, guid: 83692bebf7f0e8d419e370ff0af098b9, type: 3}
   objectToPull: {fileID: 0}
+  _bulletState: 0
 --- !u!114 &1226935527083652080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1218,7 @@ MonoBehaviour:
   gunPos: {fileID: 4757246133345434860}
   isEquipZetPack: 0
   isEquipImpact: 0
-  _isEquipWaterTank: 1
+  _isEquipWaterTank: 0
 --- !u!114 &5406134245606283194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,6 +1275,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 640
   Guidetext: {fileID: 4182422008686122340}
+  UISound: {fileID: 8300000, guid: 52c592497192d6e4e8faec298829cb6b, type: 3}
   _targetUI: {fileID: 0}
 --- !u!1 &9103726894576977923
 GameObject:

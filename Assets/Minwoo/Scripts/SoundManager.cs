@@ -42,6 +42,7 @@ public class SoundManager : MonoBehaviour
         Destroy(soundObject, clip.length);
     }
 
+
     public void PauseSound()
     {
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
@@ -53,7 +54,24 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
+    public void Play3DSoundAtLocation(AudioClip clip, Vector3 location, float volume = 1.0f)
+    {
+        GameObject soundObject = new GameObject("Sound");
+        soundObject.transform.position = location;
 
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+
+        audioSource.spatialBlend = 1.0f;
+        audioSource.minDistance = 1.0f;
+        audioSource.maxDistance = 10.0f;
+
+        audioSource.Play();
+
+
+        Destroy(soundObject, clip.length);
+    }
     public void StopSound()
     {
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
