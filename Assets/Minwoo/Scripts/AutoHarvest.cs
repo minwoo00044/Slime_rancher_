@@ -58,11 +58,6 @@ public class AutoHarvest : MonoBehaviour
                 }
             }
             Collider[] colliders = Physics.OverlapBox(cage.GetChild(0).position, new Vector3(cageRange.x, 10F, cageRange.z));
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                print(colliders[i].name);
-            }
-
             foreach (Collider collider in colliders)
             {
                 if (collider.CompareTag("Item") && collider.gameObject.activeInHierarchy)
