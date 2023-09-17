@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
         set 
         { 
             _isEquipWaterTank = value;
+            Inventory.Instance.CreateWaterTank();
             //5번째 ui 생성하는 함수
         }
     }
@@ -113,9 +114,14 @@ public class Player : MonoBehaviour
         playerFire = GetComponent<PlayerFire>();
     }
 
+    private void Start()
+    {
+
+    }
+
     private void Update()
     {
-        if(!playerMove.isStaminaReduce)
+        if (!playerMove.isStaminaReduce)
         {
             stamina += staminaRegen * Time.deltaTime;
         }
@@ -132,5 +138,12 @@ public class Player : MonoBehaviour
         {
             item.Clear();
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString("WaterTank", isEquipWaterTank.ToString());
+        PlayerPrefs.SetString("ZetPack", isEquipZetPack.ToString());
+        PlayerPrefs.SetString("Impact", isEquipImpact.ToString());
     }
 }

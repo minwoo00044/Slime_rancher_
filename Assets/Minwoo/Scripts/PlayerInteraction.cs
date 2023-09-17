@@ -13,6 +13,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     private GameObject _targetUI;
     private AutoHarvest autoFarmer;
+    bool isQuest;
     void Update()
     {
         Vector3 viewportCenter = new Vector3(0.5f, 0.5f, 0.0f);
@@ -41,18 +42,23 @@ public class PlayerInteraction : MonoBehaviour
                         autoFarmer = hit.collider.gameObject.gameObject.GetComponent<AutoHarvest>();
                         _targetUI = null;
                     }
+                    if (hit.collider.gameObject.tag == "Quest") isQuest = true;
                 }
             }
             else
             {
                 Guidetext.SetActive(false);
                 _targetUI = null;
+                isQuest = false;
             }
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-
+            if (isQuest)
+            {
+                QuestManager.instance.InitializeQuest();
+            }
             if (_targetUI != null)
             {
                 SoundManager.Instance.PlaySound(UISound);

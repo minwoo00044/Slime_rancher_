@@ -34,7 +34,7 @@ public class Inventory : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        slotItems = GetComponentsInChildren<SlotItem>();
+        slotItems = GetComponentsInChildren<SlotItem>(true);
 
         playerFire = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFire>();
         LoadInventory();
@@ -71,11 +71,12 @@ public class Inventory : MonoBehaviour
         {
             currentItem.UseItem();
         }
+        if (currentIndex == 4) return;
         if (slotItems[currentIndex] == null)
         {
             PlayerPrefs.DeleteKey("Slot" + currentIndex);
         }
-        for (int i = 0; i < slotItems.Length; i++)
+        for (int i = 0; i < slotItems.Length -1; i++)
         {
             if (slotItems[i].item == null)
             {
@@ -92,6 +93,8 @@ public class Inventory : MonoBehaviour
             {
                 string name = PlayerPrefs.GetString("Slot" + i);
                 ItemData savedItem = DataManager.instance.FindDataByName(name);
+                if (name == "Water")
+                    print(savedItem.itemName);
                 if(savedItem == null)
                 {
                     continue;
@@ -116,11 +119,6 @@ public class Inventory : MonoBehaviour
         }
         return KeyCode.None;
     }
-
-
-    
-
-
 
     void ChangeSlotImage()
     {
@@ -168,7 +166,7 @@ public class Inventory : MonoBehaviour
 
     void SelectSlot()
     {
-        if ((int)key < 49 || (int)key > 52) return;
+        if ((int)key < 49 || (int)key > 53) return;
         if (currentSlot != null)
         {
             DeselectSlot();
@@ -198,6 +196,10 @@ public class Inventory : MonoBehaviour
             case 3:
                 playerFire.bulletState = PlayerFire.BulletState.Slot03;
                 break;
+            case 4:
+                if (Player.Instance.isEquipWaterTank == true)
+                    playerFire.bulletState = PlayerFire.BulletState.Slot04;
+                break;
         }
         if (index >= 0 && index < inventorySlots.Length)
         {
@@ -225,14 +227,15 @@ public class Inventory : MonoBehaviour
     {
         if(newItem.itemName == "Water")
         {
-            if (slotItems[4].enabled)
+            if (Player.Instance.isEquipWaterTank)
             {
+                print("water");
                 slotItems[4].SetItem(newItem);
+                PlayerPrefs.SetString("Slot" + 4, newItem.itemName);
             }
             return;
         }
         int slotIndex = CheckInventory(newItem);
-
         if (slotIndex != -1)
         {
             slotItems[slotIndex].SetItem(newItem);
@@ -267,6 +270,13 @@ public class Inventory : MonoBehaviour
 
     public void CreateWaterTank()
     {
+        inventorySlots[4].gameObject.SetActive(true);
+        slotItems[4].OnWaterTankUI();
+        for(int i =0; i<4; i++)
+        {
+            RectTransform rect = inventorySlots[i].GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x - 75, rect.anchoredPosition.y);
+        }
 
     }
 

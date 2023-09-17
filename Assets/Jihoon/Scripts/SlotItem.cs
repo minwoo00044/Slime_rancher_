@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,18 +57,29 @@ public class SlotItem : MonoBehaviour
         if (item == null)
             return;
         item.itemQuantity--;
+        if (item.itemQuantity < 0)
+        {
+            item.itemQuantity = 0;
+        }
         itemAmountText.text = "x " + item.itemQuantity;
         useAllItems();
     }
 
     void useAllItems()
     {
+        if (isWater) return;
         if(item.itemQuantity <= 0)
         {
             item = null;
             itemImage.sprite = null;
             itemAmountText.text = "";
         }
+    }
+
+    public void OnWaterTankUI()
+    {
+        if (item.itemQuantity <= 0) item.itemQuantity = 0;
+        itemAmountText.text = "x " + item.itemQuantity;
     }
 
     private void Awake()

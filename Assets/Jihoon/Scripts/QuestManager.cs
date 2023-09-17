@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
+    public static QuestManager instance;
     public QuestSlot[] quests;
     public RewardSlot[] rewards;
 
@@ -16,13 +17,25 @@ public class QuestManager : MonoBehaviour
     List<ItemData> dataList;
     int totalQuests;
     int totalRewards;
+    bool questInProgress;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         quests = GetComponentsInChildren<QuestSlot>();
         rewards = GetComponentsInChildren<RewardSlot>();
         dataList = DataManager.instance.itemData;
-        StartCoroutine(Test());
     }
 
     IEnumerator Test()
@@ -39,6 +52,7 @@ public class QuestManager : MonoBehaviour
     void QuestClear()
     {
         if (!questCheck()) return;
+        questInProgress = false;
         for(int i = 0; i < totalQuests; i++)
         {
             quests[i].RemoveQuest();
@@ -67,6 +81,8 @@ public class QuestManager : MonoBehaviour
 
     public void InitializeQuest()
     {
+        if(questInProgress) return;
+        questInProgress = true;
         totalQuests = Random.Range(2, 5);
         totalRewards = Random.Range(2, 5);
         for(int i = 0; i < totalQuests; i++)

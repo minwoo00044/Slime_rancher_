@@ -58,7 +58,8 @@ public class DataManager : MonoBehaviour
         {
             if(item.itemName == dataName)
             {
-                if (item.itemQuantity <= 0) return null;
+                if(item.itemName == "Water") return item;
+                else if (item.itemQuantity <= 0) return null;
                 return item;
             }
         }

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7eae82ff2bc5c947a0d8f053abd3c38, type: 3}
-  m_Name: Water
+  m_Name: Gem2
   m_EditorClassIdentifier: 
-  itemName: Water
-  itemImage: {fileID: 21300000, guid: ba5ef97f6e602fc44b02eb8e5af703de, type: 3}
-  itemPrefab: {fileID: 1929580943686902279, guid: e021e14523ce0114cb947b6fb881a513, type: 3}
+  itemName: Gem2
+  itemImage: {fileID: 21300000, guid: 5def6d24512775d4bbbafceda9da95fa, type: 3}
+  itemPrefab: {fileID: 8870473980919683952, guid: 6d70665901cdb1841a151287db04e68b, type: 3}
   itemPrice: 10
-  itemQuantity: 8
+  itemQuantity: 0
   isBig: 0
   isGold: 0
-  itemType: 0
+  itemType: 4

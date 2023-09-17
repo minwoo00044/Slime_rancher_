@@ -35,10 +35,6 @@ public class ObjectManager : MonoBehaviour
         // 게임 오브젝트를 순회하면서 데이터 수집
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Food"))
         {
-            if (obj.activeSelf)
-            {
-                continue;
-            }
             ObjectData data = new ObjectData
             {
                 name = obj.name,

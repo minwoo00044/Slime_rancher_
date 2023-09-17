@@ -327,6 +327,7 @@ public class PlayerFire : MonoBehaviour
         {
             ParticleSystemManager.Instance.PlayParticle(waterAddEff, gunPos);
             waterPool.Add(targetObject);
+            Inventory.Instance.AddItemToInventory(targetObject.GetComponent<Item>().itemData);
             //여기에 5번 슬롯 채우기 구현
         }
         else
