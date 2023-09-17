@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Jihoon/Scenes/StartScene.unity
     guid: 0463a911124becd46b7cb8d5f3572077
   - enabled: 1
-    path: Assets/Jihoon/Scenes/SlimeRancher2 1.unity
-    guid: 3de8bd9aa11fa214db3e2fededc18f2c
+    path: Assets/Jihoon/Scenes/SlimeRancher2 3.unity
+    guid: 08cac1574c72258489e1483d445105ca
   m_configObjects: {}
