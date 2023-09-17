@@ -31,7 +31,7 @@ Transform:
   - {fileID: 1352579509101928819}
   - {fileID: 642286951667547233}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &8489190997073473609
 GameObject:
@@ -316,8 +316,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.669496, y: 3.1033618, z: 6.191554}
-  m_Center: {x: -0.0020759106, y: -0.10018945, z: 2.6622446}
+  m_Size: {x: 2.9736776, y: 3.1033618, z: 6.191554}
+  m_Center: {x: 0.3458333, y: -0.10018945, z: 2.6622446}
 --- !u!4 &642286951667547233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3e424089bbd089043af47eaab4ee7e0b, type: 3}
