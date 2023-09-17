@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Slime
   itemImage: {fileID: 21300000, guid: cc85d36f180338244b3ef1e9da16b424, type: 3}
+  itemPrefab: {fileID: 7435777063803728612, guid: b50a4bd39a8345341baf88b219e43a15, type: 3}
   itemPrice: 10
-  itemQuantity: 0
+  itemQuantity: 1
   isBig: 0
+  isGold: 0
   itemType: 0
