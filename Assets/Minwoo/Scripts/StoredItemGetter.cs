@@ -46,10 +46,12 @@ public class StoredItemGetter : MonoBehaviour
     IEnumerator pullToGun(GameObject target, Transform gunPos)
     {
         target.layer = 6;
-        while (target.activeInHierarchy)
+        PlayerFire player = Player.Instance.gameObject.GetComponent<PlayerFire>();
+        while (Vector3.Distance(target.transform.position, gunPos.position) > player.addDistance)
         {
             target.transform.position = Vector3.MoveTowards(target.transform.position, gunPos.position, pullSpeed * Time.deltaTime);
             yield return null;
         }
+        player.AddPool(player.bulletSlot[player.bulletState], target);
     }
 }

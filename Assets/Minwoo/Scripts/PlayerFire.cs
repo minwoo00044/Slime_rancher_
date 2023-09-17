@@ -323,7 +323,7 @@ public class PlayerFire : MonoBehaviour
             }
         }
     }
-    private void AddPool(List<GameObject> targetPool, GameObject targetObject)
+    public void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
         if(targetObject.tag == "Water")
         {
