@@ -248,10 +248,9 @@ public class PlayerFire : MonoBehaviour
         if (isPulling && objectToPull != null && objectToPull.layer == 6)
         {
 
-            Vector3 targetPosition = gunPos.position;
-            objectToPull.transform.position = Vector3.MoveTowards(objectToPull.transform.position, targetPosition, pullSpeed * Time.deltaTime);
-            //print(Vector3.Distance(objectToPull.transform.position, targetPosition));
-            if (Vector3.Distance(objectToPull.transform.position, targetPosition) < addDistance && objectToPull.activeInHierarchy)
+            
+            objectToPull.transform.position = Vector3.MoveTowards(objectToPull.transform.position, gunPos.position, pullSpeed * Time.deltaTime);
+            if (Vector3.Distance(objectToPull.transform.position, gunPos.position) < addDistance && objectToPull.activeInHierarchy)
             {
                 isPulling = false;
                 if (bulletSlot.ContainsKey(_bulletState))
@@ -278,7 +277,6 @@ public class PlayerFire : MonoBehaviour
                     }
                     else if(objectToPull.CompareTag("Water"))
                     {
-                        print("!");
                         AddPool(waterPool, objectToPull);
                     }
                     //그것도 아니라면 처음부터 순회하면서 0인 곳 찾아서 넣어라
