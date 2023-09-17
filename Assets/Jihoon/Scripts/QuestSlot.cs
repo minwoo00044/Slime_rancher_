@@ -8,25 +8,41 @@ public class QuestSlot : MonoBehaviour
 {
     public ItemData item;
     int requiredAmount;
-    int currentAmount;
+    int currentAmount= -1;
     TMP_Text quest;
-    List<ItemData> dataArray;
     Image questImage;
+
+    public bool isClear = false;
+
     private void Start()
     {
         quest = GetComponentInChildren<TMP_Text>();
-        dataArray = DataManager.instance.itemData;
         questImage  = GetComponent<Image>();
         questImage.enabled = false;
     }
     
     private void Update()
     {
+        if(currentAmount == requiredAmount && !isClear)
+        {
+            isClear = true;
+        }
+    }
+
+    public bool ReceiveItem(ItemData questItem)
+    {
+        if(item == questItem)
+        {
+            currentAmount++; 
+            quest.text = currentAmount + "/" + requiredAmount;
+            return true;
+        }
+        return false;
     }
 
     public void MakeQuest(ItemData questItem)
     {
-        print(gameObject.name);
+        currentAmount = 0;
         requiredAmount = Random.Range(5,10);
         item = questItem;
         if (item == null) print(gameObject.name);
@@ -38,10 +54,11 @@ public class QuestSlot : MonoBehaviour
     public void RemoveQuest()
     {
         item = null;
-        currentAmount = 0;
+        currentAmount = -1;
         requiredAmount = 0;
         questImage.enabled = false;
         quest.text = "";
+        isClear = false;
     }
 
     public void AddCurrentItem()

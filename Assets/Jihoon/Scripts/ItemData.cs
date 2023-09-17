@@ -12,7 +12,7 @@ public class ItemData : ScriptableObject
     public int itemPrice = 10;
     public int itemQuantity = 0;
     public bool isBig = false;
-
+    public bool isGold = false;
     
     int soldQuantity = 0;
 
