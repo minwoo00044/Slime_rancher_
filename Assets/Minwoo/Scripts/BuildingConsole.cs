@@ -11,15 +11,15 @@ public class BuildingConsole : MonoBehaviour
     public GameObject[] structList;
     public GameObject[] UIList;
     public GameObject targetUI;
-
+    public AudioClip buySound;
     private Dictionary<string, GameObject> _nameStructPair = new Dictionary<string, GameObject>();
     private Dictionary<string, GameObject> _nameUIPair = new Dictionary<string, GameObject>();
-    private string[] names = { "Cage", "Farm", "Chicken", "Silo", "Incinerator", "Pond"};
+    private string[] names = { "Cage", "Farm", "Chicken", "Silo", "Incinerator", "Pond" };
     private InteractableObject interactableObject;
     private void Awake()
     {
         interactableObject = GetComponent<InteractableObject>();
-        for(int i = 0; i < names.Length; i++)
+        for (int i = 0; i < names.Length; i++)
         {
             _nameStructPair.Add(names[i], structList[i]);
             _nameUIPair.Add(names[i], UIList[i]);
@@ -31,8 +31,8 @@ public class BuildingConsole : MonoBehaviour
         string[] splitString = BuildingAndMoney.Split('&');
         string structName = splitString[0];
         int cost = int.Parse(splitString[1]);
-        Build(structName);
-        SuccesAction(cost);
+
+        SuccesAction(cost, structName);
     }
     private void Build(string _structName)
     {
@@ -40,13 +40,18 @@ public class BuildingConsole : MonoBehaviour
         interactableObject.targetUI = _nameUIPair[_structName];
     }
 
-    private void SuccesAction(int _money)
+    private void SuccesAction(int _money, string _structName)
     {
-        StatusUIManager.instance.gold -= _money;
-        Player.Instance.isStop = false;
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
-        clickObject.GetComponent<Button>().interactable = false;
         targetUI = clickObject.transform.parent.parent.gameObject;
+        if (StatusUIManager.instance.gold >= _money)
+        {
+            SoundManager.Instance.PlaySound(buySound);
+            StatusUIManager.instance.gold -= _money;
+            clickObject.GetComponent<Button>().interactable = false;
+            Build(_structName);
+        }
+        Player.Instance.isStop = false;
         targetUI.SetActive(false);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class InhanceConsole : MonoBehaviour
 {
     public GameObject targetUI;
-
+    public AudioClip upgradeSound;
     public void EqiupZetPack(int money)
     {
         if(StatusUIManager.instance.gold >= money)
@@ -62,6 +62,7 @@ public class InhanceConsole : MonoBehaviour
 
     private void SuccesAction(int _money)
     {
+        SoundManager.Instance.PlaySound(upgradeSound);
         StatusUIManager.instance.gold -= _money;
         Player.Instance.isStop = false;
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;

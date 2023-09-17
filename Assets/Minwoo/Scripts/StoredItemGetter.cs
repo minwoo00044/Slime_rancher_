@@ -14,10 +14,8 @@ public class StoredItemGetter : MonoBehaviour
     public float pullSpeed;
     public IEnumerator GenerateItem()
     {
-        print("!");
         if (!isGenerating) // 이 조건을 추가하여 이미 생성 중인 경우 다시 생성하지 않도록 합니다.
         {
-            print("!");
             isGenerating = true;
             yield return new WaitForSeconds(delayTime);
 
