@@ -1226,7 +1226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8725637515062990666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2610,7 +2610,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 26e6b45bc1827cb4dae77978486ff1c8, type: 2}
   - {fileID: 11400000, guid: 7a13f501773bba44c94bd20df2c4b886, type: 2}
   - {fileID: 11400000, guid: 972a5ebf74e97954ab01b87b49148b33, type: 2}
-  - {fileID: 11400000, guid: e78c855568c6def4c8967c942939b3de, type: 2}
   - {fileID: 11400000, guid: 7d174d64bd7a05e4e8597480c101f022, type: 2}
   - {fileID: 11400000, guid: 8ff4c636b69cc9a4cb698396d91a6d04, type: 2}
   resourceItems: []
@@ -3715,6 +3714,30 @@ MonoBehaviour:
       - m_Target: {fileID: 3486058109808472464}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: SoundButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: SoundOnOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: SoundOnOff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -72,7 +72,7 @@ public class Inventory : MonoBehaviour
         {
             currentItem.UseItem();
         }
-        if (slotItems[currentIndex] != null)
+        if (slotItems[currentIndex] == null)
         {
             PlayerPrefs.DeleteKey("Slot" + currentIndex);
         }
@@ -232,7 +232,7 @@ public class Inventory : MonoBehaviour
                 {
                     slotItems[slotIndex].SetItem(newItem);
                     PlayerPrefs.SetString("Slot" + slotIndex, newItem.itemName);
-                    print(slotIndex + " : " + PlayerPrefs.GetString("Slot" + slotIndex));
+                    //print(slotIndex + " : " + PlayerPrefs.GetString("Slot" + slotIndex));
                     return;
                 }
                 else
@@ -242,7 +242,7 @@ public class Inventory : MonoBehaviour
                         if (slotItems[i].SetItem(newItem))
                         {
                             PlayerPrefs.SetString("Slot" + i, newItem.itemName);
-                            print(i + "new : " + PlayerPrefs.GetString("Slot" + i));
+                            //print(i + "new : " + PlayerPrefs.GetString("Slot" + i));
                             return;
                         }
                     }

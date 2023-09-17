@@ -85,12 +85,12 @@ public class MenuManager : MonoBehaviour
     {
         if (!isSoundOn)
         {
-            SoundImage.SetActive(true);
+            SoundImage.SetActive(false);
             isSoundOn = true;
         }
         else
         {
-            SoundImage.SetActive(false);
+            SoundImage.SetActive(true) ;
             isSoundOn = false;
         }
     }

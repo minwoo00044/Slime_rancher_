@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager Instance { get { return instance; } }
 
+    public bool isMute;
+
     private void Awake()
     {
         if (instance == null)
@@ -25,7 +27,17 @@ public class SoundManager : MonoBehaviour
     {
         GameObject soundObject = new GameObject("Sound");
         AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.mute = isMute;
         audioSource.clip = clip;
+        audioSource.Play();
+        Destroy(soundObject, clip.length);
+    }
+    public void PlaySound(AudioClip clip, float volume)
+    {
+        GameObject soundObject = new GameObject("Sound");
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.clip = clip;
+        audioSource.volume = volume;
         audioSource.Play();
         Destroy(soundObject, clip.length);
     }
@@ -56,10 +68,11 @@ public class SoundManager : MonoBehaviour
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource audioSource in audioSources)
         {
-            if (audioSource.clip == clip)
-            {
-                audioSource.Stop();
-            }
+            audioSource.Stop();
+            //if (audioSource.clip == clip)
+            //{
+            //    audioSource.Stop();
+            //}
         }
     }
 
@@ -75,5 +88,14 @@ public class SoundManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void SoundOnOff()
+    {
+        if (isMute)
+        {
+            isMute = false;
+        }
+        else isMute = true;
     }
 }

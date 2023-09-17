@@ -18,4 +18,5 @@ MonoBehaviour:
   itemPrice: 10
   itemQuantity: 0
   isBig: 0
+  isGold: 1
   itemType: 2
