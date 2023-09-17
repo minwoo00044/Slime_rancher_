@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1473660853929279555}
-  - component: {fileID: -74783198157258082}
   - component: {fileID: 2624286128898464774}
   - component: {fileID: 5899024943454194254}
   - component: {fileID: 1440247409419078719}
+  - component: {fileID: -74783198157258082}
   m_Layer: 6
   m_Name: Tear
   m_TagString: Water
@@ -36,19 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-74783198157258082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929580943686902279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8cee53c453c1c428b534ccfdcbc839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 26e6b45bc1827cb4dae77978486ff1c8, type: 2}
 --- !u!135 &2624286128898464774
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -110,6 +97,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crashEff: {fileID: 5112403345868107898, guid: 83692bebf7f0e8d419e370ff0af098b9, type: 3}
+--- !u!114 &-74783198157258082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929580943686902279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8cee53c453c1c428b534ccfdcbc839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 7bb07f18b28a77b41bc5e45ba0a29b6f, type: 2}
 --- !u!1 &5080463907260621898
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,18 +29,6 @@ public class QuestManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         InitializeQuest();
-        yield break;
-        while (true)
-        {
-            yield return new WaitForSeconds(2);
-            InitializeQuest();
-            yield return new WaitForSeconds(2);
-            for (int i = 0; i < totalQuests; i++)
-            {
-                quests[i].isClear = true;
-            }
-            QuestClear();
-        }
     }
 
     public void Update()

@@ -16,12 +16,11 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public SlotItem currentItem;
     int currentIndex;
-    public Item[] itemTest = new Item[4];
     private PlayerFire playerFire;
     public Sprite onSlotImg;
     public Sprite offSlotImg;
 
-    SlotItem[] slotItems = new SlotItem[4];
+    SlotItem[] slotItems = new SlotItem[5];
     KeyCode key;
 
     // Start is called before the first frame update
@@ -87,7 +86,7 @@ public class Inventory : MonoBehaviour
 
     void LoadInventory()
     {
-        for (int i =0; i<4; i++)
+        for (int i =0; i<inventorySlots.Length; i++)
         {
             if(PlayerPrefs.HasKey("Slot" + i))
             {
@@ -119,32 +118,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    Image GetCurrentSlot()
-    {
-        int index = (int)key - (int)KeyCode.Alpha1;
-        currentIndex = index;
-        switch (index)
-        {
-            case 0:
-                playerFire.bulletState = PlayerFire.BulletState.Slot0;
-                break;
-            case 1:
-                playerFire.bulletState = PlayerFire.BulletState.Slot01;
-                break;
-            case 2:
-                playerFire.bulletState = PlayerFire.BulletState.Slot02;
-                break;
-            case 3:
-                playerFire.bulletState = PlayerFire.BulletState.Slot03;
-                break;
-        }
-        if (index >= 0 && index < inventorySlots.Length)
-        {
-            currentIndex = index;
-            return inventorySlots[index];
-        }
-        return null;
-    }
+    
 
 
 
@@ -206,6 +180,32 @@ public class Inventory : MonoBehaviour
             ChangeSlotImage();
         }
     }
+    Image GetCurrentSlot()
+    {
+        int index = (int)key - (int)KeyCode.Alpha1;
+        currentIndex = index;
+        switch (index)
+        {
+            case 0:
+                playerFire.bulletState = PlayerFire.BulletState.Slot0;
+                break;
+            case 1:
+                playerFire.bulletState = PlayerFire.BulletState.Slot01;
+                break;
+            case 2:
+                playerFire.bulletState = PlayerFire.BulletState.Slot02;
+                break;
+            case 3:
+                playerFire.bulletState = PlayerFire.BulletState.Slot03;
+                break;
+        }
+        if (index >= 0 && index < inventorySlots.Length)
+        {
+            currentIndex = index;
+            return inventorySlots[index];
+        }
+        return null;
+    }
 
     SlotItem GetCurrentItem()
     {
@@ -223,31 +223,31 @@ public class Inventory : MonoBehaviour
 
     public void AddItemToInventory(ItemData newItem)
     {
-        foreach (ItemData data in DataManager.instance.itemData)
+        if(newItem.itemName == "Water")
         {
-            if (newItem.itemName == data.itemName)
+            if (slotItems[4].enabled)
             {
-                int slotIndex = CheckInventory(newItem);
-                if (slotIndex != -1)
+                slotItems[4].SetItem(newItem);
+            }
+            return;
+        }
+        int slotIndex = CheckInventory(newItem);
+
+        if (slotIndex != -1)
+        {
+            slotItems[slotIndex].SetItem(newItem);
+            PlayerPrefs.SetString("Slot" + slotIndex, newItem.itemName);
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < inventorySlots.Length; i++)
+            {
+                if (slotItems[i].SetItem(newItem))
                 {
-                    slotItems[slotIndex].SetItem(newItem);
-                    PlayerPrefs.SetString("Slot" + slotIndex, newItem.itemName);
-                    //print(slotIndex + " : " + PlayerPrefs.GetString("Slot" + slotIndex));
+                    PlayerPrefs.SetString("Slot" + i, newItem.itemName);
                     return;
                 }
-                else
-                {
-                    for (int i = 0; i < inventorySlots.Length; i++)
-                    {
-                        if (slotItems[i].SetItem(newItem))
-                        {
-                            PlayerPrefs.SetString("Slot" + i, newItem.itemName);
-                            //print(i + "new : " + PlayerPrefs.GetString("Slot" + i));
-                            return;
-                        }
-                    }
-                }
-
             }
         }
     }
@@ -265,18 +265,9 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    IEnumerator InventoryTest()
+    public void CreateWaterTank()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(1.5f);
-            ItemData newItem = itemTest[Random.Range(0, 4)].itemData;
-            AddItemToInventory(newItem);
-        }
+
     }
 
-    private void OnApplicationQuit()
-    {
-        
-    }
 }

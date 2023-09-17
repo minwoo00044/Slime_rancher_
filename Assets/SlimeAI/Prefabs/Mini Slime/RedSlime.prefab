@@ -144,6 +144,7 @@ MonoBehaviour:
   moveSpeed: 0.009
   moveCount: 0
   findRange: 5
+  gemCount: 0
   gemList: {fileID: 2559791417349143405, guid: 0b03b3fcc501ffb40b958e63239cfcd0, type: 3}
   slimeList: {fileID: 7367072970116455182, guid: 14ee887a487b0cb4f8dd5b6fce0d4989, type: 3}
 --- !u!33 &101805567959112136
@@ -256,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8cee53c453c1c428b534ccfdcbc839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: e78c855568c6def4c8967c942939b3de, type: 2}
+  itemData: {fileID: 11400000, guid: 7d174d64bd7a05e4e8597480c101f022, type: 2}
 --- !u!95 &-4131790633547648450
 Animator:
   serializedVersion: 5
