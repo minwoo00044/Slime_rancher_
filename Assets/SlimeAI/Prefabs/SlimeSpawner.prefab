@@ -47,6 +47,6 @@ MonoBehaviour:
   slime: {fileID: 0}
   spawnDelay: 30
   spawnToSpawnTime: 1
-  countRange: 20
+  countRange: 50
   maxSlimeCount: 10
   spawnPower: 2

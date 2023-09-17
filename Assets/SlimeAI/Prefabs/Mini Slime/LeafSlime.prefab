@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4535937352779207117}
   - component: {fileID: 2218761031345809742}
   - component: {fileID: 226902625223640595}
+  - component: {fileID: 6615309017836944614}
   m_Layer: 6
   m_Name: LeafSlime
   m_TagString: Slime
@@ -141,7 +142,7 @@ MonoBehaviour:
   onGround: 1
   maxJumpHigh: 5
   minJumpHigh: 3
-  moveSpeed: 0.005
+  moveSpeed: 0.009
   moveCount: 0
   findRange: 5
   gemList: {fileID: 2559791417349143405, guid: 0b03b3fcc501ffb40b958e63239cfcd0, type: 3}
@@ -257,6 +258,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 5c3f749d17f2f004d849c76850d8f600, type: 2}
+--- !u!95 &6615309017836944614
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435777063803728612}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: eb340672e17c0af4089e561b61cdc548, type: 3}
+  m_Controller: {fileID: 9100000, guid: 49c068e2d9f6b6a46829311544a9aaba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &3925966265170855330
 PrefabInstance:
   m_ObjectHideFlags: 0
