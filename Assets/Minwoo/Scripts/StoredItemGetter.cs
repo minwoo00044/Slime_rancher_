@@ -39,13 +39,14 @@ public class StoredItemGetter : MonoBehaviour
         targetPool[targetPool.Count - 1].SetActive(true);
         targetPool[targetPool.Count - 1].transform.position = new Vector3(exit.position.x, exit.position.y + 1, exit.position.z);
         StartCoroutine(pullToGun(targetPool[targetPool.Count - 1], Player.Instance.gunPos));
+        targetPool[targetPool.Count - 1].transform.parent = null;
         targetPool.Remove(targetPool[targetPool.Count - 1]);
     }
 
     IEnumerator pullToGun(GameObject target, Transform gunPos)
     {
         target.layer = 6;
-        while (Vector3.Distance(target.transform.position, gunPos.position) > 0.1f)
+        while (target.activeInHierarchy)
         {
             target.transform.position = Vector3.MoveTowards(target.transform.position, gunPos.position, pullSpeed * Time.deltaTime);
             yield return null;

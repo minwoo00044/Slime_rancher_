@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -74783198157258082}
   - component: {fileID: 2624286128898464774}
   - component: {fileID: 5899024943454194254}
+  - component: {fileID: 1440247409419078719}
   m_Layer: 6
   m_Name: Tear
   m_TagString: Water
@@ -96,6 +97,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1440247409419078719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929580943686902279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6219a7460238d340844820056872d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashEff: {fileID: 5112403345868107898, guid: 83692bebf7f0e8d419e370ff0af098b9, type: 3}
 --- !u!1 &5080463907260621898
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ public class Pond : MonoBehaviour
             instance.transform.position = transform.position;
             storedItemGetter.itemPool0.Add(instance);
             instance.SetActive(false);
-            print(storedItemGetter.itemPool0.Count);
         }
         Invoke("AutoTearGenerate", 0.5f);
     }

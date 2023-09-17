@@ -59,7 +59,9 @@ public class PlayerFire : MonoBehaviour
     private Animator animator;
 
     private bool isStick = false;
+    private GameObject stickedObject;
     private PlayerMove playerMove;
+    [SerializeField]
     private BulletState _bulletState = BulletState.Slot0;
 
     public enum BulletState
@@ -115,7 +117,7 @@ public class PlayerFire : MonoBehaviour
             {
                 if (gunPos.childCount == 1)
                     return;
-                Fire(gunPos.GetChild(1).gameObject);
+                Fire(stickedObject);
                 return;
             }
             else if (Input.GetMouseButtonDown(1) && isStick)
@@ -350,11 +352,13 @@ public class PlayerFire : MonoBehaviour
             rb.velocity = Vector3.zero;
             targetObject.transform.localEulerAngles = Vector3.zero;
             targetObject.transform.SetParent(gunPos.transform);
+            stickedObject = targetObject;
             isStick = !flag;
         }
         else
         {
             targetObject.transform.SetParent(null);
+            stickedObject = null;
             StartCoroutine(DelayFlag(flag));
         }
     }

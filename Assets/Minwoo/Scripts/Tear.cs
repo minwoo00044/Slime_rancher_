@@ -7,11 +7,12 @@ public class Tear : MonoBehaviour
     public GameObject crashEff;
     private void OnCollisionEnter(Collision other)
     {
-        if(!other.collider.CompareTag("Player"))
+        GameObject target = other.gameObject;
+        if(!other.collider.gameObject.CompareTag("Player") && !other.collider.gameObject.CompareTag("Water"))
         {
-            ParticleSystemManager.Instance.PlayParticleOnce(crashEff, transform);
-            transform.GetChild(0).SetParent(null);
-            Destroy(gameObject);
+            print(other.gameObject.name);
+            ParticleSystemManager.Instance.PlayParticle(crashEff, transform);
+            Destroy(gameObject, crashEff.GetComponent<ParticleSystem>().main.duration);
         }
     }
 }
