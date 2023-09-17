@@ -11,6 +11,7 @@ public class SlotItem : MonoBehaviour
     public Sprite noItemImage; 
     Image itemImage;
     int currentAmount=0;
+    public bool isWater;
     public bool SetItem(ItemData newItem)
     {
         if(item != null)
