@@ -323,6 +323,8 @@ public class PlayerFire : MonoBehaviour
     }
     public void AddPool(List<GameObject> targetPool, GameObject targetObject)
     {
+        if (targetObject == null)
+            return;
         if(targetObject.tag == "Water")
         {
             ParticleSystemManager.Instance.PlayParticle(waterAddEff, gunPos);
