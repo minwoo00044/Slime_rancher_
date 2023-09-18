@@ -116,8 +116,8 @@ public class BigSlimeMove : MonoBehaviour
     {
         if (lookObject != null)
         {
-            if (lookObject.tag == "Tar") Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up); 
-            else lookBir = lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
+            if (lookObject.tag == "Tar") lookBir = Quaternion.LookRotation(-(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z)), Vector3.up);
+            else lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
             moveDaley = 0;
         }
         else

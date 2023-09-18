@@ -135,8 +135,8 @@ public class SlimeMove : MonoBehaviour
     {
         if (lookObject != null)
         {
-            if (lookObject.tag == "Tar") Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
-            else lookBir = lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
+            if (lookObject.tag == "Tar") lookBir = Quaternion.LookRotation(-(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z)), Vector3.up);
+            else lookBir = Quaternion.LookRotation(new Vector3(lookObject.transform.position.x - transform.position.x, 0, lookObject.transform.position.z - transform.position.z), Vector3.up);
             moveDaley = 0;
         }
         else
@@ -223,7 +223,7 @@ public class SlimeMove : MonoBehaviour
                     GameObject bigSlime = Instantiate(thisSlime);
                     bigSlime.transform.position = spawnPos.transform.position;
                     Rigidbody slimeStert = bigSlime.GetComponent<Rigidbody>();
-                    slimeStert.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                    slimeStert.AddForce(Vector3.up * 2, ForceMode.Impulse);
                     Destroy(this.gameObject);
                 }
             }
