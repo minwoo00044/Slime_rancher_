@@ -149,6 +149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tear: {fileID: 1929580943686902279, guid: e021e14523ce0114cb947b6fb881a513, type: 3}
+  waveAmount: 0
+  waveDepth: 0
 --- !u!65 &8834639335962338551
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
